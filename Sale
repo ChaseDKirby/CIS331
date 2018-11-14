@@ -4,6 +4,7 @@ package Group_Project;
 
 public class Sale {
     
+    public static int ID;
     public Item itemSold;
     public int quantity;
     public String date;
@@ -12,8 +13,9 @@ public class Sale {
     
 
 
-public Sale(Item userItem, int userQuantity, String userDate, Customer userCustomer)
+public Sale(int ID, Item userItem, int userQuantity, String userDate, Customer userCustomer)
 {
+    this.ID = ID;
     this.itemSold = userItem;
     this.quantity = userQuantity;
     this.date = userDate;
