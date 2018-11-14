@@ -47,8 +47,9 @@ public boolean setPrice (double newPrice)
 }
 public String toString()
 {
-    String output = this.itemName;
+    String output = "\t" + ID + "\t" + this.itemName;
     return output;
 }
 }
+
 
