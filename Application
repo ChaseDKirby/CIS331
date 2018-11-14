@@ -13,6 +13,7 @@ public class Application {
         int vendorQuantity = 3;
         int itemQuantity = 10;
         int saleQuantity = 5;
+        int ID = 1;
         
         // Global Arrays
         Customer[] customerArray = new Customer[1000];
@@ -23,42 +24,43 @@ public class Application {
         
         // Pre-Populate System
         //Customers
-        customerArray[0] = new Customer("Adam", "Sandler", "3204 Sandy Rd", "3203458909", "ASandler@yahoo.com");
-        customerArray[1] = new Customer("Seth", "Rogan", "89920 Hills St", "1239905273", "SRogan@gmail.com");
-        customerArray[2] = new Customer("Ryan", "Renolds", "2933 Showtime Rd", "847333009", "RRynolds@yahoo.com");
-        customerArray[3] = new Customer("Denzel", "Washington", "2312 Equalizer BLVD", "5567893344", "DWashington@yahoo.com");
+        customerArray[0] = new Customer(ID++, "Adam", "Sandler", "3204 Sandy Rd", "3203458909", "ASandler@yahoo.com");
+        customerArray[1] = new Customer(ID++, "Seth", "Rogan", "89920 Hills St", "1239905273", "SRogan@gmail.com");
+        customerArray[2] = new Customer(ID++, "Ryan", "Renolds", "2933 Showtime Rd", "847333009", "RRynolds@yahoo.com");
+        customerArray[3] = new Customer(ID++, "Denzel", "Washington", "2312 Equalizer BLVD", "5567893344", "DWashington@yahoo.com");
         
         // Items
-        itemArray[0] = new Item("TV", 25.3, "LED Flat Screen TV", 330.0, 290.0);
-        itemArray[1] = new Item("Candle", 5.0, "Scented Candle", 10.0, 9.0);
-        itemArray[2] = new Item("Xbox", 10.0, "Video Game", 220.0, 199.99);
-        itemArray[3] = new Item("Computer", 15.7, "Desktop Computer", 556.35, 510.00);
-        itemArray[4] = new Item("Speakers", 17.2, "Boze Speaker", 65.8, 59.99);
-        itemArray[5] = new Item("Backpack", 6.8, "Backpack to hold books", 42.56, 35.99);
-        itemArray[6] = new Item("Bottle Water", 1.4, "Purified Drinking Water", 3.24, 2.99);
-        itemArray[7] = new Item("Phone", 3.5, "iPhone 7.0", 456.34, 399.99);
-        itemArray[8] = new Item("Couch", 120.3, "Tan L-Shaped Couch", 995.43, 875.99);
-        itemArray[9] = new Item("Phone Charger", 1.0, "6 Foot iPhone Charger", 11.45, 9.99);
+        itemArray[0] = new Item(ID++,"TV", 25.3, "LED Flat Screen TV", 330.0, 290.0);
+        itemArray[1] = new Item(ID++, "Candle", 5.0, "Scented Candle", 10.0, 9.0);
+        itemArray[2] = new Item(ID++, "Xbox", 10.0, "Video Game", 220.0, 199.99);
+        itemArray[3] = new Item(ID++, "Computer", 15.7, "Desktop Computer", 556.35, 510.00);
+        itemArray[4] = new Item(ID++, "Speakers", 17.2, "Boze Speaker", 65.8, 59.99);
+        itemArray[5] = new Item(ID++, "Backpack", 6.8, "Backpack to hold books", 42.56, 35.99);
+        itemArray[6] = new Item(ID++, "Bottle Water", 1.4, "Purified Drinking Water", 3.24, 2.99);
+        itemArray[7] = new Item(ID++, "Phone", 3.5, "iPhone 7.0", 456.34, 399.99);
+        itemArray[8] = new Item(ID++, "Couch", 120.3, "Tan L-Shaped Couch", 995.43, 875.99);
+        itemArray[9] = new Item(ID++, "Phone Charger", 1.0, "6 Foot iPhone Charger", 11.45, 9.99);
         
         // Vendors
-        vendorArray[0] = new Vendor("Apple Inc", "1000 Apple Rd", "4563329000");
-        vendorArray[1] = new Vendor("Samsung", "9087 Runaway Drive", "6783322141");
-        vendorArray[2] = new Vendor("Microsoft", "2342 South St", "3234518768");
+        vendorArray[0] = new Vendor(ID++, "Apple Inc", "1000 Apple Rd", "4563329000");
+        vendorArray[1] = new Vendor(ID++, "Samsung", "9087 Runaway Drive", "6783322141");
+        vendorArray[2] = new Vendor(ID++, "Microsoft", "2342 South St", "3234518768");
         
         // Sales
-        saleArray[0] = new Sale(itemArray[0], 5, "04/29/2010", customerArray[2]);
-        saleArray[1] = new Sale(itemArray[6], 24, "11/13/2018", customerArray[1]);
-        saleArray[2] = new Sale(itemArray[9], 1, "09/05/2009", customerArray[0]);
-        saleArray[3] = new Sale(itemArray[3], 1, "04/12/2000", customerArray[3]);
-        saleArray[4] = new Sale(itemArray[2], 5, "11/01/2015", customerArray[2]);
+        saleArray[0] = new Sale(ID++, itemArray[0], 5, "04/29/2010", customerArray[2]);
+        saleArray[1] = new Sale(ID++, itemArray[6], 24, "11/13/2018", customerArray[1]);
+        saleArray[2] = new Sale(ID++,itemArray[9], 1, "09/05/2009", customerArray[0]);
+        saleArray[3] = new Sale(ID++,itemArray[3], 1, "04/12/2000", customerArray[3]);
+        saleArray[4] = new Sale(ID++, itemArray[2], 5, "11/01/2015", customerArray[2]);
+        
                 
                 
         
         //Calls Menu
-        Menu(customerArray, customerQuantity, contractorArray, contractorQuantity, vendorArray, vendorQuantity, itemArray, itemQuantity, saleArray, saleQuantity);
+        Menu(customerArray, customerQuantity, contractorArray, contractorQuantity, vendorArray, vendorQuantity, itemArray, itemQuantity, saleArray, saleQuantity, ID);
     }
 // Menu System to be called everytime until exited
-public static void Menu(Customer[] customerArray, int customerQuantity, Contractor[] contractorArray, int contractorQuantity, Vendor[] vendorArray, int vendorQuantity, Item[] itemArray, int itemQuantity, Sale[] saleArray, int saleQuantity)
+public static void Menu(Customer[] customerArray, int customerQuantity, Contractor[] contractorArray, int contractorQuantity, Vendor[] vendorArray, int vendorQuantity, Item[] itemArray, int itemQuantity, Sale[] saleArray, int saleQuantity, int ID)
 {
     System.out.println("\nPlease select a menu Option (1-14)\n");
     Scanner in = new Scanner(System.in);
@@ -70,71 +72,71 @@ public static void Menu(Customer[] customerArray, int customerQuantity, Contract
     
     switch (selection){
         case 1:
-        CreateCustomer(customerArray, customerQuantity);
+        CreateCustomer(customerArray, customerQuantity, ID);
         customerQuantity++;
-        Menu(customerArray, customerQuantity, contractorArray, contractorQuantity, vendorArray, vendorQuantity, itemArray, itemQuantity, saleArray, saleQuantity);
+        Menu(customerArray, customerQuantity, contractorArray, contractorQuantity, vendorArray, vendorQuantity, itemArray, itemQuantity, saleArray, saleQuantity, ID);
         break;
         case 2:
-        EditCustomer(customerArray, customerQuantity);
-        Menu(customerArray, customerQuantity, contractorArray, contractorQuantity, vendorArray, vendorQuantity, itemArray, itemQuantity, saleArray, saleQuantity);
+        EditCustomer(customerArray, customerQuantity, ID);
+        Menu(customerArray, customerQuantity, contractorArray, contractorQuantity, vendorArray, vendorQuantity, itemArray, itemQuantity, saleArray, saleQuantity, ID);
         break;
         case 3:
-        CreateContractor(contractorArray, contractorQuantity);
+        CreateContractor(contractorArray, contractorQuantity, ID);
         contractorQuantity++;
-        Menu(customerArray, customerQuantity, contractorArray, contractorQuantity, vendorArray, vendorQuantity, itemArray, itemQuantity, saleArray, saleQuantity);
+        Menu(customerArray, customerQuantity, contractorArray, contractorQuantity, vendorArray, vendorQuantity, itemArray, itemQuantity, saleArray, saleQuantity, ID);
         break;
         case 4:
-        EditContractor(contractorArray, contractorQuantity);
-        Menu(customerArray, customerQuantity, contractorArray, contractorQuantity, vendorArray, vendorQuantity, itemArray, itemQuantity, saleArray, saleQuantity);
+        EditContractor(contractorArray, contractorQuantity, ID);
+        Menu(customerArray, customerQuantity, contractorArray, contractorQuantity, vendorArray, vendorQuantity, itemArray, itemQuantity, saleArray, saleQuantity, ID);
         break;
         case 5:
-        CreateInventoryItem(itemArray, itemQuantity);
+        CreateInventoryItem(itemArray, itemQuantity, ID);
         itemQuantity++;
-        Menu(customerArray, customerQuantity, contractorArray, contractorQuantity, vendorArray, vendorQuantity, itemArray, itemQuantity, saleArray, saleQuantity);
+        Menu(customerArray, customerQuantity, contractorArray, contractorQuantity, vendorArray, vendorQuantity, itemArray, itemQuantity, saleArray, saleQuantity, ID);
         break;    
         case 6:
-        EditInventoryItem(itemArray, itemQuantity);
-        Menu(customerArray, customerQuantity, contractorArray, contractorQuantity, vendorArray, vendorQuantity, itemArray, itemQuantity, saleArray, saleQuantity);
+        EditInventoryItem(itemArray, itemQuantity, ID);
+        Menu(customerArray, customerQuantity, contractorArray, contractorQuantity, vendorArray, vendorQuantity, itemArray, itemQuantity, saleArray, saleQuantity, ID);
         break;
         case 7:
-        CreateVendor(vendorArray, vendorQuantity);
+        CreateVendor(vendorArray, vendorQuantity, ID);
         vendorQuantity++;
-        Menu(customerArray, customerQuantity, contractorArray, contractorQuantity, vendorArray, vendorQuantity, itemArray, itemQuantity, saleArray, saleQuantity);
+        Menu(customerArray, customerQuantity, contractorArray, contractorQuantity, vendorArray, vendorQuantity, itemArray, itemQuantity, saleArray, saleQuantity, ID);
         break;
         case 8:
-        EditVendor(vendorArray, vendorQuantity);
-        Menu(customerArray, customerQuantity, contractorArray, contractorQuantity, vendorArray, vendorQuantity, itemArray, itemQuantity, saleArray, saleQuantity);
+        EditVendor(vendorArray, vendorQuantity, ID);
+        Menu(customerArray, customerQuantity, contractorArray, contractorQuantity, vendorArray, vendorQuantity, itemArray, itemQuantity, saleArray, saleQuantity, ID);
         break;
         case 9:
-        CreateSale(customerArray, itemArray, customerQuantity, itemQuantity, saleArray, saleQuantity);
-        Menu(customerArray, customerQuantity, contractorArray, contractorQuantity, vendorArray, vendorQuantity, itemArray, itemQuantity, saleArray, saleQuantity);
+        CreateSale(customerArray, itemArray, customerQuantity, itemQuantity, saleArray, saleQuantity, ID);
+        Menu(customerArray, customerQuantity, contractorArray, contractorQuantity, vendorArray, vendorQuantity, itemArray, itemQuantity, saleArray, saleQuantity, ID);
         break;
         case 10:
         PrintReceiptForSale();
-        Menu(customerArray, customerQuantity, contractorArray, contractorQuantity, vendorArray, vendorQuantity, itemArray, itemQuantity, saleArray, saleQuantity);
+        Menu(customerArray, customerQuantity, contractorArray, contractorQuantity, vendorArray, vendorQuantity, itemArray, itemQuantity, saleArray, saleQuantity, ID);
         break;
         case 11:
         PrintPurchaseHistoryCustomer();
-        Menu(customerArray, customerQuantity, contractorArray, contractorQuantity, vendorArray, vendorQuantity, itemArray, itemQuantity, saleArray, saleQuantity);
+        Menu(customerArray, customerQuantity, contractorArray, contractorQuantity, vendorArray, vendorQuantity, itemArray, itemQuantity, saleArray, saleQuantity, ID);
         break;
         case 12:
         PrintPurchaseHistoryItem();
-        Menu(customerArray, customerQuantity, contractorArray, contractorQuantity, vendorArray, vendorQuantity, itemArray, itemQuantity, saleArray, saleQuantity);
+        Menu(customerArray, customerQuantity, contractorArray, contractorQuantity, vendorArray, vendorQuantity, itemArray, itemQuantity, saleArray, saleQuantity, ID);
         break;
         case 13:
         PrintInventoryLevels();
-        Menu(customerArray, customerQuantity, contractorArray, contractorQuantity, vendorArray, vendorQuantity, itemArray, itemQuantity, saleArray, saleQuantity);
+        Menu(customerArray, customerQuantity, contractorArray, contractorQuantity, vendorArray, vendorQuantity, itemArray, itemQuantity, saleArray, saleQuantity, ID);
         break;
         case 14:
         System.exit(0);    
         default: System.out.println("Please enter a valid option\n");
-        Menu(customerArray, customerQuantity, contractorArray, contractorQuantity, vendorArray, vendorQuantity, itemArray, itemQuantity, saleArray, saleQuantity);
+        Menu(customerArray, customerQuantity, contractorArray, contractorQuantity, vendorArray, vendorQuantity, itemArray, itemQuantity, saleArray, saleQuantity, ID);
         break;
     }
 
 }
 // Creates a customer when selected
-public static Customer[] CreateCustomer(Customer[] customerArray, int customerQuantity)
+public static Customer[] CreateCustomer(Customer[] customerArray, int customerQuantity, int ID)
 {
     
     Scanner in = new Scanner(System.in);
@@ -149,12 +151,12 @@ public static Customer[] CreateCustomer(Customer[] customerArray, int customerQu
     System.out.print("Enter Customer Email: ");
     String email = in.next();
     
-    customerArray[customerQuantity] = new Customer(firstName, lastName, address, phoneNumber, email);
+    customerArray[customerQuantity] = new Customer(ID++, firstName, lastName, address, phoneNumber, email);
     
     return customerArray;
 }
 // Edits a Specific Customer
-public static void EditCustomer(Customer[] customerArray, int customerQuantity)
+public static void EditCustomer(Customer[] customerArray, int customerQuantity, int ID)
 {
    System.out.println("Select Customer to Edit.");
    for (int i = 0; i < customerQuantity; i++)
@@ -205,11 +207,11 @@ public static void EditCustomer(Customer[] customerArray, int customerQuantity)
   
 }
 // Create a Contractor
-public static Contractor[] CreateContractor(Contractor[] contractorArray, int contractorQuantity)
+public static Contractor[] CreateContractor(Contractor[] contractorArray, int contractorQuantity, int ID)
 {
     Scanner in = new Scanner(System.in);
     Scanner input = new Scanner(System.in);
-    System.out.print("Enter Contractor Address: ");
+    System.out.print("Enter Contracto Address: ");
     String address = in.nextLine();
     System.out.print("Enter Contractor First Name: ");
     String firstName = in.next();
@@ -224,11 +226,11 @@ public static Contractor[] CreateContractor(Contractor[] contractorArray, int co
     System.out.print("Enter name of Business");
     String businessName = input.nextLine();
             
-    contractorArray[contractorQuantity] = new Contractor(firstName, lastName, address, phoneNumber, email, contractorNumber, businessName);
+    contractorArray[contractorQuantity] = new Contractor(ID++, firstName, lastName, address, phoneNumber, email, contractorNumber, businessName);
     return contractorArray;
 }
 // Edit a Contractor that has been created already
-public static void EditContractor(Contractor[] contractorArray, int contractorQuantity)
+public static void EditContractor(Contractor[] contractorArray, int contractorQuantity, int ID)
 {
     System.out.println("Select Contractor to Edit.");
    for (int i = 0; i < contractorQuantity; i++)
@@ -284,7 +286,7 @@ public static void EditContractor(Contractor[] contractorArray, int contractorQu
        } while (editing == 1);
    }
 }
-public static Item[] CreateInventoryItem(Item[] itemArray, int itemQuantity)
+public static Item[] CreateInventoryItem(Item[] itemArray, int itemQuantity, int ID)
 {
     Scanner in = new Scanner(System.in);
     System.out.print("Enter Item Name: ");
@@ -298,10 +300,10 @@ public static Item[] CreateInventoryItem(Item[] itemArray, int itemQuantity)
     System.out.print("Enter Item's for Sale Price: ");
     Double forSalePrice = in.nextDouble();
     
-    itemArray[itemQuantity] = new Item(itemName, weight, description, pricePaid, forSalePrice);
+    itemArray[itemQuantity] = new Item(ID++, itemName, weight, description, pricePaid, forSalePrice);
     return itemArray;
 }
-public static void EditInventoryItem(Item[] itemArray, int itemQuantity)
+public static void EditInventoryItem(Item[] itemArray, int itemQuantity, int ID)
 {
     System.out.println("Select Item to Edit.");
    for (int i = 0; i < itemQuantity; i++)
@@ -351,7 +353,7 @@ public static void EditInventoryItem(Item[] itemArray, int itemQuantity)
    }
 }
 // Creates a new Vendor
-public static Vendor[] CreateVendor(Vendor[] vendorArray, int vendorQuantity)
+public static Vendor[] CreateVendor(Vendor[] vendorArray, int vendorQuantity, int ID)
 {
     Scanner in = new Scanner(System.in);
     System.out.print("Enter Business Address: ");
@@ -361,11 +363,11 @@ public static Vendor[] CreateVendor(Vendor[] vendorArray, int vendorQuantity)
     System.out.print("Enter Customer Phone Number: ");
     String businessPhoneNumber = in.next();
    
-    vendorArray[vendorQuantity] = new Vendor(businessName, businessAddress, businessPhoneNumber);
+    vendorArray[vendorQuantity] = new Vendor(ID++, businessName, businessAddress, businessPhoneNumber);
     return vendorArray;
 }
 // Edits an exisiting Vendor
-public static void EditVendor(Vendor[] vendorArray, int vendorQuantity)
+public static void EditVendor(Vendor[] vendorArray, int vendorQuantity, int ID)
 {
      System.out.println("Select Vendor to Edit.");
    for (int i = 0; i < vendorQuantity; i++)
@@ -407,7 +409,7 @@ public static void EditVendor(Vendor[] vendorArray, int vendorQuantity)
        } while (editing == 1);
    }
 }
-public static void CreateSale(Customer[] customerArray, Item[] itemArray, int itemQuantity, int customerQuantity, Sale[] saleArray, int saleQuantity)
+public static void CreateSale(Customer[] customerArray, Item[] itemArray, int itemQuantity, int customerQuantity, Sale[] saleArray, int saleQuantity, int ID)
 {
    System.out.println("Select an Item for a Sale.");
    for (int i = 0; i < itemQuantity; i++)
@@ -439,7 +441,7 @@ public static void CreateSale(Customer[] customerArray, Item[] itemArray, int it
         }
         else
         {
-            saleArray[saleQuantity] = new Sale(itemArray[chosenID], quantity, date, customerArray[customerChosenID]);
+            saleArray[saleQuantity] = new Sale(ID++, itemArray[chosenID], quantity, date, customerArray[customerChosenID]);
         }
    }
 }
@@ -465,4 +467,3 @@ public static void PrintInventoryLevels()
 // KNOWN PROBLEMS
 // On EditCustomer() when customers are displayed to choose which one to edit the ID shows the total number of customers and not each customers ID
 // Unknown if Sale, Item, Customer, and Contractor all reference each other correctly
-// Test Changes
