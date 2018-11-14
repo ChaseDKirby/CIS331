@@ -158,10 +158,12 @@ public static Customer[] CreateCustomer(Customer[] customerArray, int customerQu
 // Edits a Specific Customer
 public static void EditCustomer(Customer[] customerArray, int customerQuantity, int ID)
 {
+   
    System.out.println("Select Customer to Edit.");
+   System.out.println("Ref\tID\t   Full Name");
    for (int i = 0; i < customerQuantity; i++)
    {
-       System.out.println(customerArray[i].toString());
+       System.out.println(i+1 + customerArray[i].toString());
    }
    
    Scanner in = new Scanner(System.in);
@@ -239,9 +241,10 @@ public static void EditContractor(Contractor[] contractorArray, int contractorQu
    else
    {
    System.out.println("Select Contractor to Edit.");
+   System.out.println("Ref   ID   First Name  Last Name");
    for (int i = 0; i < contractorQuantity; i++)
    {
-       System.out.println(contractorArray[i].toString());
+       System.out.println(i+1 + contractorArray[i].toString());
    }
    
    Scanner in = new Scanner(System.in);
@@ -312,10 +315,11 @@ public static Item[] CreateInventoryItem(Item[] itemArray, int itemQuantity, int
 }
 public static void EditInventoryItem(Item[] itemArray, int itemQuantity, int ID)
 {
-    System.out.println("Select Item to Edit.");
+   System.out.println("Select Item to Edit.");
+   System.out.println("Ref\tID\tItem Name");
    for (int i = 0; i < itemQuantity; i++)
    {
-       System.out.println(itemArray[i].toString());
+       System.out.println(i+1 + itemArray[i].toString());
    }
    
    Scanner in = new Scanner(System.in);
@@ -376,10 +380,11 @@ public static Vendor[] CreateVendor(Vendor[] vendorArray, int vendorQuantity, in
 // Edits an exisiting Vendor
 public static void EditVendor(Vendor[] vendorArray, int vendorQuantity, int ID)
 {
-     System.out.println("Select Vendor to Edit.");
+    System.out.println("Select Vendor to Edit.");
+    System.out.println("Ref\tID\tItem Name");
    for (int i = 0; i < vendorQuantity; i++)
    {
-       System.out.println(vendorArray[i].toString());
+       System.out.println(i+1 + vendorArray[i].toString());
    }
    
    Scanner in = new Scanner(System.in);
@@ -473,4 +478,4 @@ public static void PrintInventoryLevels()
 
 // KNOWN PROBLEMS
 // On EditCustomer() when customers are displayed to choose which one to edit the ID shows the total number of customers and not each customers ID
-// Unknown if Sale, Item, Customer, and Contractor all reference each other correctly
+// Unknown if Sale, Item, Customer, and Contractor all refer
