@@ -12,7 +12,7 @@ public class Application {
         int contractorQuantity = 0;
         int vendorQuantity = 3;
         int itemQuantity = 10;
-        int saleQuantity = 0;
+        int saleQuantity = 5;
         
         // Global Arrays
         Customer[] customerArray = new Customer[1000];
