@@ -4,7 +4,7 @@ package Group_Project;
 
 public class Sale {
     
-    public static int ID;
+    public int ID;
     public Item itemSold;
     public int quantity;
     public String date;
