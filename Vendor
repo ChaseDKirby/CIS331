@@ -28,7 +28,7 @@ public Vendor(int ID, String name, String address, String phone)
 }
 public String toString()
 {
-    String output = this.vendorBusinessAddress;
+    String output = "\t" + ID + "\t" + this.vendorBusinessName;
     return output;
 }
 
