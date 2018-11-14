@@ -4,7 +4,7 @@ package Group_Project;
 // Data Fields
 public class Customer {
     
-   public int ID = 0; 
+   public static int ID; 
    public String firstName;
    public String lastName;
    public String address;
@@ -14,17 +14,17 @@ public class Customer {
 // Default Constructor
 public Customer()
 {
+    this.ID = 0;
     this.firstName = "noName";
     this.lastName = "lastName";
     this.address = "noAddress";
     this.phoneNumber = "noNumber";
     this.email = "noEmail";
-    ID++;
 }
 // Full parameter constructor 
-public Customer(String firstName1, String lastName1, String address1, String phoneNumber1, String email1)
-{
-    
+public Customer(int ID, String firstName1, String lastName1, String address1, String phoneNumber1, String email1)
+{   
+    this.ID = ID;
     this.firstName = firstName1;
     this.lastName = lastName1;
     this.address = address1;
@@ -58,6 +58,5 @@ public String getFullName()
 {
     String output = this.firstName + " " + this.lastName;
     return output;
-}
-        
+}      
 }
