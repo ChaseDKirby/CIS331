@@ -4,7 +4,7 @@ package Group_Project;
 // Data Fields
 public class Customer {
     
-   public static int ID; 
+   public int ID; 
    public String firstName;
    public String lastName;
    public String address;
@@ -30,7 +30,6 @@ public Customer(int ID, String firstName1, String lastName1, String address1, St
     this.address = address1;
     this.phoneNumber = phoneNumber1;
     this.email = email1;
-    ID++;
 }
 // Gets the email to display for printing
 public String getEmail()
@@ -40,7 +39,7 @@ public String getEmail()
 // Displays Information for Editing a Customer
 public String toString()
 {
-    String output = "\t" + this.getID() + "\t" + this.firstName + "\t" + this.lastName; //+ " " + this.address + " " + this.phoneNumber + " " + getEmail();
+    String output = "\t" + ID + "\t" + this.firstName + "\t" + this.lastName; //+ " " + this.address + " " + this.phoneNumber + " " + getEmail();
     return output;
 }
 // Sets a new email when editing the Customer
@@ -58,9 +57,5 @@ public String getFullName()
 {
     String output = this.firstName + " " + this.lastName;
     return output;
-}
-public static int getID()
-{
-        return ID;
 }
 }
