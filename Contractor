@@ -1,0 +1,36 @@
+
+package Group_Project;
+
+
+public class Contractor extends Customer{
+    
+    public String firstName;
+    public String lastName;
+    public String address;
+    public String phoneNumber;
+    private String email;
+    public int contractorNumber;
+    public String businessName;
+    
+    
+public Contractor()
+{
+        super();
+        this.contractorNumber = 0;
+        this.businessName = "noName";
+       
+                
+}
+public Contractor(String firstName, String lastName, String address, String phoneNumber, String email, int contractorNumber, String businessName)
+{
+    super(firstName, lastName, address, phoneNumber, email);
+    this.contractorNumber = contractorNumber;
+    this.businessName = businessName;
+    
+}
+public String toString()
+{
+    String output = this.firstName + " " + this.lastName;
+    return output;
+}
+}
