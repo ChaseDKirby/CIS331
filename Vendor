@@ -1,0 +1,32 @@
+
+package Group_Project;
+
+
+public class Vendor {
+    
+    public String vendorBusinessName;
+    public String vendorBusinessAddress;
+    public String vendorPhoneNumber;
+    
+
+
+public Vendor()
+{
+    this.vendorBusinessName = "noBussinessName";
+    this.vendorBusinessAddress = "noAddress";
+    this.vendorPhoneNumber = "noNumber";
+}
+
+public Vendor(String name, String address, String phone)
+{
+        this.vendorBusinessName = name;
+        this.vendorBusinessAddress = address;
+        this.vendorPhoneNumber = phone;
+}
+public String toString()
+{
+    String output = this.vendorBusinessAddress;
+    return output;
+}
+
+}
