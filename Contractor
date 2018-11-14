@@ -31,7 +31,7 @@ public Contractor(int ID, String firstName, String lastName, String address, Str
 }
 public String toString()
 {
-    String output = this.firstName + " " + this.lastName;
+    String output = this.ID + "    " + this.firstName + "\t" + this.lastName;;
     return output;
 }
 }
