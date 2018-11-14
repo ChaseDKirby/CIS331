@@ -1,0 +1,29 @@
+
+package Group_Project;
+
+
+public class Sale {
+    
+    public Item itemSold;
+    public int quantity;
+    public String date;
+    public Customer customer;
+    
+    
+
+
+public Sale(Item userItem, int userQuantity, String userDate, Customer userCustomer)
+{
+    this.itemSold = userItem;
+    this.quantity = userQuantity;
+    this.date = userDate;
+    this.customer = userCustomer;
+
+}
+public String describeSale()
+{
+    String output;
+    output = "Item Sold: " + itemSold.itemName + ", Price: $" + itemSold.getPrice() + ", Quantity: " + quantity + ", Sale Total: " + (quantity * itemSold.getPrice());
+    return output;
+}
+}
