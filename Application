@@ -478,4 +478,5 @@ public static void PrintInventoryLevels()
 
 // KNOWN PROBLEMS
 // On EditCustomer() when customers are displayed to choose which one to edit the ID shows the total number of customers and not each customers ID
-// Unknown if Sale, Item, Customer, and Contractor all refer
+// Unknown if Sale, Item, Customer, and Contractor all reference each other correctly
+
