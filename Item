@@ -3,7 +3,7 @@ package Group_Project;
 
 public class Item {
     
-    public int ID;
+    public static int ID;
     public String itemName;
     public double weight;
     public String description;
@@ -20,9 +20,9 @@ public Item()
     this.forSalePrice = 0.0;
 }
 
-public Item(String userItemName, double userWeight, String userDescription, double userPrice, double userForSalePrice)
+public Item(int ID, String userItemName, double userWeight, String userDescription, double userPrice, double userForSalePrice)
 {
-    
+    this.ID = ID;
     this.itemName = userItemName;
     this.weight = userWeight;
     this.description = userDescription;
@@ -51,3 +51,4 @@ public String toString()
     return output;
 }
 }
+
