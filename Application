@@ -232,7 +232,13 @@ public static Contractor[] CreateContractor(Contractor[] contractorArray, int co
 // Edit a Contractor that has been created already
 public static void EditContractor(Contractor[] contractorArray, int contractorQuantity, int ID)
 {
-    System.out.println("Select Contractor to Edit.");
+   if (contractorQuantity == 0)
+   {
+       System.out.println("No Contractor Created.");
+   }
+   else
+   {
+   System.out.println("Select Contractor to Edit.");
    for (int i = 0; i < contractorQuantity; i++)
    {
        System.out.println(contractorArray[i].toString());
@@ -284,6 +290,7 @@ public static void EditContractor(Contractor[] contractorArray, int contractorQu
         System.out.println("Continue Editing? \n1. Yes \n2. No");
         editing = in.nextInt();
        } while (editing == 1);
+   }
    }
 }
 public static Item[] CreateInventoryItem(Item[] itemArray, int itemQuantity, int ID)
