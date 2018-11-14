@@ -1,0 +1,53 @@
+
+package Group_Project;
+
+public class Item {
+    
+    public int ID;
+    public String itemName;
+    public double weight;
+    public String description;
+    private double pricePaid;
+    public double forSalePrice;
+    public Vendor vendorName;
+    
+public Item()
+{
+    this.itemName = "noName";
+    this.weight = 0.0;
+    this.description = "noDescription";
+    this.pricePaid = 0.0;
+    this.forSalePrice = 0.0;
+}
+
+public Item(String userItemName, double userWeight, String userDescription, double userPrice, double userForSalePrice)
+{
+    
+    this.itemName = userItemName;
+    this.weight = userWeight;
+    this.description = userDescription;
+    this.pricePaid = userPrice;
+    this.forSalePrice = userForSalePrice;
+}
+
+public double getPrice()
+{
+    return pricePaid;
+}
+
+public boolean setPrice (double newPrice)
+{
+    if (newPrice > 0)
+    {
+        pricePaid = newPrice;
+        return true;
+    }
+    else 
+        return false;
+}
+public String toString()
+{
+    String output = this.itemName;
+    return output;
+}
+}
