@@ -5,7 +5,7 @@ package Group_Project;
 public class Vendor {
     
     
-    public static int ID;
+    public int ID;
     public String vendorBusinessName;
     public String vendorBusinessAddress;
     public String vendorPhoneNumber;
@@ -31,5 +31,4 @@ public String toString()
     String output = "\t" + ID + "\t" + this.vendorBusinessName;
     return output;
 }
-
 }
