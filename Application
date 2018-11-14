@@ -209,17 +209,17 @@ public static Contractor[] CreateContractor(Contractor[] contractorArray, int co
 {
     Scanner in = new Scanner(System.in);
     Scanner input = new Scanner(System.in);
-    System.out.print("Enter Customer Address: ");
+    System.out.print("Enter Contractor Address: ");
     String address = in.nextLine();
-    System.out.print("Enter Customer First Name: ");
+    System.out.print("Enter Contractor First Name: ");
     String firstName = in.next();
-    System.out.print("Enter Customer Last Name: ");
+    System.out.print("Enter Contractor Last Name: ");
     String lastName = in.next();
-    System.out.print("Enter Customer Phone Number: ");
+    System.out.print("Enter Contractor Phone Number: ");
     String phoneNumber = in.next();
-    System.out.print("Enter Customer Email: ");
+    System.out.print("Enter Contractor Email: ");
     String email = in.next();
-    System.out.print("Enter Contract Number");
+    System.out.print("Enter Contractor Number");
     int contractorNumber = in.nextInt();
     System.out.print("Enter name of Business");
     String businessName = input.nextLine();
