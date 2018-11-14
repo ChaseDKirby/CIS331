@@ -4,6 +4,8 @@ package Group_Project;
 
 public class Vendor {
     
+    
+    public static int ID;
     public String vendorBusinessName;
     public String vendorBusinessAddress;
     public String vendorPhoneNumber;
@@ -17,8 +19,9 @@ public Vendor()
     this.vendorPhoneNumber = "noNumber";
 }
 
-public Vendor(String name, String address, String phone)
+public Vendor(int ID, String name, String address, String phone)
 {
+        this.ID = ID;
         this.vendorBusinessName = name;
         this.vendorBusinessAddress = address;
         this.vendorPhoneNumber = phone;
