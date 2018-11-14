@@ -46,7 +46,11 @@ public class Application {
         vendorArray[2] = new Vendor("Microsoft", "2342 South St", "3234518768");
         
         // Sales
-            
+        saleArray[0] = new Sale(itemArray[0], 5, "04/29/2010", customerArray[2]);
+        saleArray[1] = new Sale(itemArray[6], 24, "11/13/2018", customerArray[1]);
+        saleArray[2] = new Sale(itemArray[9], 1, "09/05/2009", customerArray[0]);
+        saleArray[3] = new Sale(itemArray[3], 1, "04/12/2000", customerArray[3]);
+        saleArray[4] = new Sale(itemArray[2], 5, "11/01/2015", customerArray[2]);
                 
                 
         
