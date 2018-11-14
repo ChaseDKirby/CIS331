@@ -108,7 +108,7 @@ public static void Menu(Customer[] customerArray, int customerQuantity, Contract
         Menu(customerArray, customerQuantity, contractorArray, contractorQuantity, vendorArray, vendorQuantity, itemArray, itemQuantity, saleArray, saleQuantity, ID);
         break;
         case 9:
-        CreateSale(customerArray, itemArray, customerQuantity, itemQuantity, saleArray, saleQuantity, ID);
+        CreateSale(customerArray, itemArray, itemQuantity, customerQuantity, saleArray, saleQuantity, ID);
         Menu(customerArray, customerQuantity, contractorArray, contractorQuantity, vendorArray, vendorQuantity, itemArray, itemQuantity, saleArray, saleQuantity, ID);
         break;
         case 10:
@@ -168,7 +168,7 @@ public static void EditCustomer(Customer[] customerArray, int customerQuantity, 
    
    Scanner in = new Scanner(System.in);
    int chosenID = in.nextInt()- 1;
-   if (chosenID > customerQuantity)
+   if (chosenID >= customerQuantity)
    {
        System.out.println("Please Enter a Valid Customer");
    }
@@ -200,6 +200,9 @@ public static void EditCustomer(Customer[] customerArray, int customerQuantity, 
             case 5:
                 System.out.println("Please enter a Email.");
                 customerArray[chosenID].setEmail(in.next());
+                break;
+            default:
+                System.out.println("Please enter a valid option\n");
                 break;
    }
         System.out.println("Continue Editing? \n1. Yes \n2. No");
@@ -249,7 +252,7 @@ public static void EditContractor(Contractor[] contractorArray, int contractorQu
    
    Scanner in = new Scanner(System.in);
    int chosenID = in.nextInt()- 1;
-   if (chosenID > contractorQuantity)
+   if (chosenID >= contractorQuantity)
    {
        System.out.println("Please Enter a Valid Contractor");
    }
@@ -289,6 +292,9 @@ public static void EditContractor(Contractor[] contractorArray, int contractorQu
                 Scanner space = new Scanner(System.in);
                 System.out.println("Enter Contractor's Business Name");
                 contractorArray[chosenID].businessName = space.nextLine();
+            default:
+                System.out.println("Please enter a valid option\n");
+                break;    
    }
         System.out.println("Continue Editing? \n1. Yes \n2. No");
         editing = in.nextInt();
@@ -324,7 +330,7 @@ public static void EditInventoryItem(Item[] itemArray, int itemQuantity, int ID)
    
    Scanner in = new Scanner(System.in);
    int chosenID = in.nextInt()- 1;
-   if (chosenID > itemQuantity)
+   if (chosenID >= itemQuantity)
    {
        System.out.println("Please Enter a Valid Item");
    }
@@ -357,6 +363,9 @@ public static void EditInventoryItem(Item[] itemArray, int itemQuantity, int ID)
                 System.out.println("Please enter Item's for Sale Price.");
                 itemArray[chosenID].forSalePrice = in.nextDouble();
                 break;
+            default:
+                System.out.println("Please enter a valid option\n");
+                break;    
    }
         System.out.println("Continue Editing? \n1. Yes \n2. No");
         editing = in.nextInt();
@@ -389,7 +398,7 @@ public static void EditVendor(Vendor[] vendorArray, int vendorQuantity, int ID)
    
    Scanner in = new Scanner(System.in);
    int chosenID = in.nextInt()- 1;
-   if (chosenID > vendorQuantity)
+   if (chosenID >= vendorQuantity)
    {
        System.out.println("Please Enter a Valid Vendor");
    }
@@ -414,6 +423,9 @@ public static void EditVendor(Vendor[] vendorArray, int vendorQuantity, int ID)
                 System.out.println("Please enter a Business Address.");
                 vendorArray[chosenID].vendorBusinessAddress = input.nextLine();
                 break;
+            default:
+                System.out.println("Please enter a valid option\n");
+                break;    
             
    }
         System.out.println("Continue Editing? \n1. Yes \n2. No");
@@ -424,13 +436,14 @@ public static void EditVendor(Vendor[] vendorArray, int vendorQuantity, int ID)
 public static void CreateSale(Customer[] customerArray, Item[] itemArray, int itemQuantity, int customerQuantity, Sale[] saleArray, int saleQuantity, int ID)
 {
    System.out.println("Select an Item for a Sale.");
+   System.out.println("Ref\tID\tItem Name");
    for (int i = 0; i < itemQuantity; i++)
    {
-       System.out.println(itemArray[i].toString());
+       System.out.println(i+1 + itemArray[i].toString());
    }
    Scanner in = new Scanner(System.in);
    int chosenID = in.nextInt()- 1;
-   if (chosenID > itemQuantity)
+   if (chosenID >= itemQuantity)
    {
        System.out.println("Please Enter a Valid Item");
    }
@@ -442,14 +455,15 @@ public static void CreateSale(Customer[] customerArray, Item[] itemArray, int it
        String date = in.next();
        
        System.out.println("Select a Customer who purchased Item.");
+       System.out.println("Ref\tID\t   Full Name");
        for (int i = 0; i < customerQuantity; i++)
         {
-            System.out.println(customerArray[i].toString());
+            System.out.println(i+1 + customerArray[i].toString());
         }
         int customerChosenID = in.nextInt()- 1;
-        if (chosenID > itemQuantity)
+        if (customerChosenID >= customerQuantity)
         {
-            System.out.println("Please Enter a Valid Item");
+            System.out.println("Please Enter a Valid Customer");
         }
         else
         {
