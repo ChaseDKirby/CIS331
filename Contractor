@@ -4,6 +4,7 @@ package Group_Project;
 
 public class Contractor extends Customer{
     
+    public static int ID;
     public String firstName;
     public String lastName;
     public String address;
@@ -21,9 +22,9 @@ public Contractor()
        
                 
 }
-public Contractor(String firstName, String lastName, String address, String phoneNumber, String email, int contractorNumber, String businessName)
+public Contractor(int ID, String firstName, String lastName, String address, String phoneNumber, String email, int contractorNumber, String businessName)
 {
-    super(firstName, lastName, address, phoneNumber, email);
+    super(ID, firstName, lastName, address, phoneNumber, email);
     this.contractorNumber = contractorNumber;
     this.businessName = businessName;
     
@@ -34,3 +35,4 @@ public String toString()
     return output;
 }
 }
+
