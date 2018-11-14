@@ -3,7 +3,7 @@ package Group_Project;
 
 public class Item {
     
-    public static int ID;
+    public int ID;
     public String itemName;
     public double weight;
     public String description;
@@ -51,5 +51,4 @@ public String toString()
     return output;
 }
 }
-
 
