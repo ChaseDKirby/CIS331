@@ -40,7 +40,7 @@ public String getEmail()
 // Displays Information for Editing a Customer
 public String toString()
 {
-    String output = this.ID + " " + this.firstName + " " + this.lastName; //+ " " + this.address + " " + this.phoneNumber + " " + getEmail();
+    String output = "\t" + this.getID() + "\t" + this.firstName + "\t" + this.lastName; //+ " " + this.address + " " + this.phoneNumber + " " + getEmail();
     return output;
 }
 // Sets a new email when editing the Customer
@@ -58,5 +58,9 @@ public String getFullName()
 {
     String output = this.firstName + " " + this.lastName;
     return output;
-}      
+}
+public static int getID()
+{
+        return ID;
+}
 }
