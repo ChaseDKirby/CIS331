@@ -120,7 +120,7 @@ public static void Menu(Customer[] customerArray, int customerQuantity, Contract
         Menu(customerArray, customerQuantity, contractorArray, contractorQuantity, vendorArray, vendorQuantity, itemArray, itemQuantity, saleArray, saleQuantity, ID);
         break;
         case 12:
-        PrintPurchaseHistoryItem();
+        PrintPurchaseHistoryItem(itemArray, itemQuantity, saleQuantity, saleArray);
         Menu(customerArray, customerQuantity, contractorArray, contractorQuantity, vendorArray, vendorQuantity, itemArray, itemQuantity, saleArray, saleQuantity, ID);
         break;
         case 13:
@@ -519,7 +519,22 @@ public static void PrintPurchaseHistoryCustomer(Customer[] customerArray, int cu
 }
 public static void PrintPurchaseHistoryItem()
 {
-    System.out.print("Print Purchase History Item");
+    System.out.print("Which Item would you like to see the purchase history for? \n");
+    for (int i = 0; i < itemQuantity; i++)
+   {
+       System.out.println((i+1) + ". " + itemArray[i].toString());
+   }
+   
+   Scanner in = new Scanner(System.in);
+   int chosenID = in.nextInt()- 1;
+   System.out.print("Purchase History for " + itemArray[chosenID].toString() + ": \n"
+           + "------------------------------------------------\n");
+   for(int i = 0; i < saleQuantity; i++) {
+       if (saleArray[i].itemSold.itemName == itemArray[chosenID].itemName){
+           System.out.println(saleArray[chosenID].printPurchaseHistoryItem());
+       }
+   }
+   
 }
 public static void PrintInventoryLevels()
 {
