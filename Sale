@@ -28,4 +28,10 @@ public String describeSale()
     output = "Item Sold: " + itemSold.itemName + ", Price: $" + itemSold.getPrice() + ", Quantity: " + quantity + ", Sale Total: " + (quantity * itemSold.getPrice());
     return output;
 }
+public String printPurchaseHistoryItem(){
+    String output;
+    output = "Name: " + customer.firstName + " " + customer.lastName + " Date: "
+            + date + " Quantity: " + quantity;
+    return output;
+}
 }
