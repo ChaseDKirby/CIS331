@@ -478,13 +478,44 @@ public static void CreateSale(Customer[] customerArray, Item[] itemArray, int it
         }
    }
 }
-public static void PrintReceiptForSale()
+public static void PrintReceiptForSale(Sale[] saleArray, int saleQuantity)
 {
-    System.out.print("Print Receipt for Sale");
+   System.out.println("Select a Sale to Print a Receipt.");
+   System.out.println("Ref\tID\tItem Name\tName");
+   for (int i = 0; i < saleQuantity; i++)
+   {
+       System.out.println(i+1 + saleArray[i].toString());
+   }
+   Scanner in = new Scanner(System.in);
+   int chosenID = in.nextInt()- 1;
+   System.out.print(saleArray[chosenID].describeSale());
 }
-public static void PrintPurchaseHistoryCustomer()
+public static void PrintPurchaseHistoryCustomer(Customer[] customerArray, int customerQuantity, Sale[] saleArray, int saleQuantity, Item[] itemArray, int itemQuantity)
 {
-    System.out.print("Print Purchase History Customer");
+    System.out.println("Select Customer to Edit.");
+   System.out.println("Ref\tID\t   Full Name");
+   for (int i = 0; i < customerQuantity; i++)
+   {
+       System.out.println(i+1 + customerArray[i].toString());
+   }
+   
+   Scanner in = new Scanner(System.in);
+   int chosenID = in.nextInt()- 1;
+   if (chosenID >= customerQuantity)
+   {
+       System.out.println("Please Enter a Valid Customer");
+   }
+   else
+   {
+       System.out.println(customerArray[chosenID].firstName + " " + customerArray[chosenID].lastName);
+       System.out.println("-----------------------------------------------------------------------");
+       System.out.println("Item Name\tQuantity\tPurchase Cost\tDate");
+       for (int i = 0; i < saleQuantity; i++)
+        {
+            if (saleArray[i].customer == customerArray[chosenID])
+                    System.out.println(saleArray[i].CustomerPurchaseHistory(customerArray[chosenID]));
+        }            
+   }
 }
 public static void PrintPurchaseHistoryItem()
 {
