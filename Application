@@ -109,6 +109,7 @@ public static void Menu(Customer[] customerArray, int customerQuantity, Contract
         break;
         case 9:
         CreateSale(customerArray, itemArray, itemQuantity, customerQuantity, saleArray, saleQuantity, ID);
+        saleQuantity++;
         Menu(customerArray, customerQuantity, contractorArray, contractorQuantity, vendorArray, vendorQuantity, itemArray, itemQuantity, saleArray, saleQuantity, ID);
         break;
         case 10:
@@ -490,8 +491,8 @@ public static void PrintReceiptForSale(Sale[] saleArray, int saleQuantity)
    int chosenID = in.nextInt()- 1;
    System.out.print(saleArray[chosenID].describeSale());
 }
-public static void PrintPurchaseHistoryCustomer(Customer[] customerArray, int customerQuantity, Sale[] saleArray, int saleQuantity, Item[] itemArray, int itemQuantity)
-{
+public static void PrintPurchaseHistoryCustomer(Customer[] customerArray, int customerQuantity, Sale[] saleArray, int saleQuantity, Item[] itemArray, int itemQuantity)  
+{ 
     System.out.println("Select Customer to Edit.");
    System.out.println("Ref\tID\t   Full Name");
    for (int i = 0; i < customerQuantity; i++)
@@ -509,7 +510,6 @@ public static void PrintPurchaseHistoryCustomer(Customer[] customerArray, int cu
    {
        System.out.println(customerArray[chosenID].firstName + " " + customerArray[chosenID].lastName);
        System.out.println("-----------------------------------------------------------------------");
-       System.out.println("Item Name\tQuantity\tPurchase Cost\tDate");
        for (int i = 0; i < saleQuantity; i++)
         {
             if (saleArray[i].customer == customerArray[chosenID])
