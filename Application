@@ -9,7 +9,7 @@ public class Application {
         
         //Global Variables
         int customerQuantity = 4;
-        int contractorQuantity = 0;
+        int contractorQuantity = 1;
         int vendorQuantity = 3;
         int itemQuantity = 10;
         int saleQuantity = 5;
@@ -53,6 +53,7 @@ public class Application {
         saleArray[3] = new Sale(ID++,itemArray[3], 1, "04/12/2000", customerArray[3]);
         saleArray[4] = new Sale(ID++, itemArray[2], 5, "11/01/2015", customerArray[2]);
         
+        contractorArray[0] = new Contractor(ID++, "Chase", "Kirby", "9420 Williamsville Rd", "8043975566", "Kirby@yahoo.com", 5345, "Apple Inc");
                 
                 
         
@@ -136,28 +137,29 @@ public static void Menu(Customer[] customerArray, int customerQuantity, Contract
     }
 
 }
-
 // Creates a customer when selected
 public static Customer[] CreateCustomer(Customer[] customerArray, int customerQuantity, int ID)
 {
-    
+    customerArray[customerQuantity] = new Customer();
     Scanner in = new Scanner(System.in);
     System.out.print("Enter Customer Address: ");
-    String address = in.nextLine();
+    customerArray[customerQuantity].address = in.nextLine();
     System.out.print("Enter Customer First Name: ");
-    String firstName = in.next();
+    customerArray[customerQuantity].setFirstName(in.next());
     System.out.print("Enter Customer Last Name: ");
-    String lastName = in.next();
+    customerArray[customerQuantity].setLastName(in.next());
     System.out.print("Enter Customer Phone Number: ");
     String phoneNumber = in.next();
+    customerArray[customerQuantity].setPhoneNumber(phoneNumber);
     System.out.print("Enter Customer Email: ");
-    String email = in.next();
+    customerArray[customerQuantity].setEmail(in.next());
+    customerArray[customerQuantity].ID = ID;
+    ID++;
     
-    customerArray[customerQuantity] = new Customer(ID++, firstName, lastName, address, phoneNumber, email);
+    
     
     return customerArray;
 }
-
 // Edits a Specific Customer
 public static void EditCustomer(Customer[] customerArray, int customerQuantity, int ID)
 {
@@ -185,11 +187,11 @@ public static void EditCustomer(Customer[] customerArray, int customerQuantity, 
         switch(selection){
             case 1:
                 System.out.println("Please enter a First Name.");
-                customerArray[chosenID].firstName = in.next();
+                customerArray[chosenID].setFirstName(in.next());
                 break;
             case 2:
                 System.out.println("Please enter a Last Name.");
-                customerArray[chosenID].lastName = in.next();
+                customerArray[chosenID].setLastName(in.next());
                 break;
             case 3:
                 Scanner input = new Scanner(System.in);
@@ -198,7 +200,7 @@ public static void EditCustomer(Customer[] customerArray, int customerQuantity, 
                 break;
             case 4:
                 System.out.println("Please enter a Phone Number.");
-                customerArray[chosenID].phoneNumber = in.next();
+                customerArray[chosenID].setPhoneNumber(in.next());
                 break;
             case 5:
                 System.out.println("Please enter a Email.");
@@ -214,13 +216,12 @@ public static void EditCustomer(Customer[] customerArray, int customerQuantity, 
    }
   
 }
-
 // Create a Contractor
 public static Contractor[] CreateContractor(Contractor[] contractorArray, int contractorQuantity, int ID)
 {
     Scanner in = new Scanner(System.in);
     Scanner input = new Scanner(System.in);
-    System.out.print("Enter Contracto Address: ");
+    System.out.print("Enter Contractor Address: ");
     String address = in.nextLine();
     System.out.print("Enter Contractor First Name: ");
     String firstName = in.next();
@@ -230,9 +231,9 @@ public static Contractor[] CreateContractor(Contractor[] contractorArray, int co
     String phoneNumber = in.next();
     System.out.print("Enter Contractor Email: ");
     String email = in.next();
-    System.out.print("Enter Contractor Number");
+    System.out.print("Enter Contractor Number: ");
     int contractorNumber = in.nextInt();
-    System.out.print("Enter name of Business");
+    System.out.print("Enter name of Business: ");
     String businessName = input.nextLine();
             
     contractorArray[contractorQuantity] = new Contractor(ID++, firstName, lastName, address, phoneNumber, email, contractorNumber, businessName);
@@ -248,7 +249,7 @@ public static void EditContractor(Contractor[] contractorArray, int contractorQu
    else
    {
    System.out.println("Select Contractor to Edit.");
-   System.out.println("Ref   ID   First Name  Last Name");
+   System.out.println("Ref\tID\t  Full Name");
    for (int i = 0; i < contractorQuantity; i++)
    {
        System.out.println(i+1 + contractorArray[i].toString());
@@ -306,7 +307,6 @@ public static void EditContractor(Contractor[] contractorArray, int contractorQu
    }
    }
 }
-// Create a New Inventory Item 
 public static Item[] CreateInventoryItem(Item[] itemArray, int itemQuantity, int ID)
 {
     Scanner in = new Scanner(System.in);
@@ -314,8 +314,9 @@ public static Item[] CreateInventoryItem(Item[] itemArray, int itemQuantity, int
     String itemName = in.nextLine();
     System.out.print("Enter Item's Weight: ");
     Double weight = in.nextDouble();
+    Scanner input = new Scanner(System.in);
     System.out.print("Enter Item's Description: ");
-    String description = in.next();
+    String description = input.nextLine();
     System.out.print("Enter Price Paid for Item: ");
     Double pricePaid = in.nextDouble();
     System.out.print("Enter Item's for Sale Price: ");
@@ -324,7 +325,6 @@ public static Item[] CreateInventoryItem(Item[] itemArray, int itemQuantity, int
     itemArray[itemQuantity] = new Item(ID++, itemName, weight, description, pricePaid, forSalePrice);
     return itemArray;
 }
-// Edit an existing Inventory Item 
 public static void EditInventoryItem(Item[] itemArray, int itemQuantity, int ID)
 {
    System.out.println("Select Item to Edit.");
@@ -418,7 +418,8 @@ public static void EditVendor(Vendor[] vendorArray, int vendorQuantity, int ID)
         switch(selection){
             case 1:
                 System.out.println("Please enter a Business Name.");
-                vendorArray[chosenID].vendorBusinessName = in.nextLine();
+                Scanner input1 = new Scanner(System.in);
+                vendorArray[chosenID].vendorBusinessName = input1.nextLine();
                 break;
             case 2:
                 System.out.println("Please enter a Business Phone Number");
@@ -439,8 +440,6 @@ public static void EditVendor(Vendor[] vendorArray, int vendorQuantity, int ID)
        } while (editing == 1);
    }
 }
-
-// Creates a new Sale 
 public static void CreateSale(Customer[] customerArray, Item[] itemArray, int itemQuantity, int customerQuantity, Sale[] saleArray, int saleQuantity, int ID)
 {
    System.out.println("Select an Item for a Sale.");
@@ -538,12 +537,11 @@ public static void PrintPurchaseHistoryItem(Item[] itemArray, int itemQuantity, 
 }
 public static void PrintInventoryLevels()
 {
-    System.out.print("Print Inventory Levels");
+    
 }
 }
 
 
 // KNOWN PROBLEMS
-// On EditCustomer() when customers are displayed to choose which one to edit the ID shows the total number of customers and not each customers ID
 // Unknown if Sale, Item, Customer, and Contractor all reference each other correctly
-
+// 10.4 in book for validatiing email
