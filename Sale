@@ -34,4 +34,10 @@ public String printPurchaseHistoryItem(){
             + date + " Quantity: " + quantity;
     return output;
 }
+public String CustomerPurchaseHistory(Customer customer)
+{
+    String output;
+    output = itemSold.itemName + "\t" + quantity + "\t\t$" + (quantity * itemSold.getPrice()) + "\t" + date;
+    return output;
+}
 }
