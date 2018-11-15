@@ -120,7 +120,7 @@ public static void Menu(Customer[] customerArray, int customerQuantity, Contract
         Menu(customerArray, customerQuantity, contractorArray, contractorQuantity, vendorArray, vendorQuantity, itemArray, itemQuantity, saleArray, saleQuantity, ID);
         break;
         case 12:
-        PrintPurchaseHistoryItem(itemArray, itemQuantity, saleQuantity, saleArray);
+        PrintPurchaseHistoryItem(itemArray, itemQuantity, saleArray, saleQuantity);
         Menu(customerArray, customerQuantity, contractorArray, contractorQuantity, vendorArray, vendorQuantity, itemArray, itemQuantity, saleArray, saleQuantity, ID);
         break;
         case 13:
