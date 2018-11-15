@@ -433,6 +433,8 @@ public static void EditVendor(Vendor[] vendorArray, int vendorQuantity, int ID)
        } while (editing == 1);
    }
 }
+
+// Creates a new Sale 
 public static void CreateSale(Customer[] customerArray, Item[] itemArray, int itemQuantity, int customerQuantity, Sale[] saleArray, int saleQuantity, int ID)
 {
    System.out.println("Select an Item for a Sale.");
@@ -481,7 +483,7 @@ public static void PrintPurchaseHistoryCustomer()
 }
 public static void PrintPurchaseHistoryItem()
 {
-    System.out.print("Print Purchase History It9em");
+    System.out.print("Print Purchase History Item");
 }
 public static void PrintInventoryLevels()
 {
