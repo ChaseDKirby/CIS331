@@ -34,4 +34,24 @@ public String toString()
     String output = "\t" + super.ID + "\t" + super.firstName + " " + super.lastName;;
     return output;
 }
+public String setFName(String newfirstName)
+{
+    super.firstName = newfirstName;
+    return super.firstName;
+}
+public String setLName(String newLastName)
+{
+    super.lastName = newLastName;
+    return super.lastName;
+}
+public String setAddress(String newAddress)
+{
+    super.address = newAddress;
+    return super.address;
+}
+public String setPNumber(String newPhoneNumber)
+{
+    super.phoneNumber = newPhoneNumber;
+    return super.phoneNumber;
+}
 }
