@@ -34,10 +34,10 @@ public String toString()
     output = "\t" + ID + "\t" + itemSold.itemName + " \t" + customer.firstName + " " + customer.lastName;
     return output;
 }
-public String printPurchaseHistoryItem(){
+public String printPurchaseHistoryItem(Item itemSold){
     String output;
-    output = "Name: " + customer.firstName + " " + customer.lastName + " Date: "
-            + date + " Quantity: " + quantity;
+    output = "Name: " + customer.firstName + " " + customer.lastName + "\tDate: "
+            + date + "\tQuantity: " + quantity;
     return output;
 }
 public String CustomerPurchaseHistory(Customer customer)
