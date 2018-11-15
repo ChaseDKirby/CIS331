@@ -530,8 +530,8 @@ public static void PrintPurchaseHistoryItem(Item[] itemArray, int itemQuantity, 
    System.out.print("Purchase History for " + itemArray[chosenID].toString() + ": \n"
            + "------------------------------------------------\n");
    for(int i = 0; i < saleQuantity; i++) {
-       if (saleArray[i].itemSold.itemName == itemArray[chosenID].itemName){
-           System.out.println(saleArray[chosenID].printPurchaseHistoryItem());
+       if (saleArray[i].itemSold == itemArray[chosenID]){
+           System.out.println(saleArray[i].printPurchaseHistoryItem(itemArray[chosenID]));
        }
    }
    
