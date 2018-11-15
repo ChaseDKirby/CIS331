@@ -28,6 +28,12 @@ public String describeSale()
     output = "Item Sold: " + itemSold.itemName + ", Price: $" + itemSold.getPrice() + ", Quantity: " + quantity + ", Sale Total: " + (quantity * itemSold.getPrice());
     return output;
 }
+public String toString()
+{
+    String output;
+    output = "\t" + ID + "\t" + itemSold.itemName + " \t" + customer.firstName + " " + customer.lastName;
+    return output;
+}
 public String printPurchaseHistoryItem(){
     String output;
     output = "Name: " + customer.firstName + " " + customer.lastName + " Date: "
