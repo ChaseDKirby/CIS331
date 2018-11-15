@@ -271,20 +271,20 @@ public static void EditContractor(Contractor[] contractorArray, int contractorQu
         switch(selection){
             case 1:
                 System.out.println("Please enter a First Name.");
-                contractorArray[chosenID].firstName = in.next();
+                contractorArray[chosenID].setFName(in.next());
                 break;
             case 2:
                 System.out.println("Please enter a Last Name.");
-                contractorArray[chosenID].lastName = in.next();
+                contractorArray[chosenID].setLName(in.next());
                 break;
             case 3:
                 Scanner input = new Scanner(System.in);
                 System.out.println("Please enter a Address.");
-                contractorArray[chosenID].address = input.nextLine();
+                contractorArray[chosenID].setAddress(input.nextLine());
                 break;
             case 4:
                 System.out.println("Please enter a Phone Number.");
-                contractorArray[chosenID].phoneNumber = in.next();
+                contractorArray[chosenID].setPNumber(in.next());
                 break;
             case 5:
                 System.out.println("Please enter a Email.");
