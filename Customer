@@ -53,9 +53,35 @@ public boolean setEmail(String newEmail)
     else 
         return false;
 }
-public String getFullName()
+public boolean setFirstName(String newFirstName)
 {
-    String output = this.firstName + " " + this.lastName;
-    return output;
+    if (newFirstName.length() > 0)
+    {
+        firstName = newFirstName;
+        return true;
+    }
+    else
+        return false;
 }
+public boolean setLastName(String newLastName)
+{
+    if (newLastName.length() > 0)
+    {
+        lastName = newLastName;
+        return true;
+    }
+    else
+        return false;
+}
+public boolean setPhoneNumber(String newPhoneNumber)
+{
+    if (newPhoneNumber.length() == 10)
+    {
+        phoneNumber = newPhoneNumber;
+        return true;
+    }
+    else
+        return false;
+}
+
 }
