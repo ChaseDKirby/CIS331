@@ -135,6 +135,7 @@ public static void Menu(Customer[] customerArray, int customerQuantity, Contract
     }
 
 }
+
 // Creates a customer when selected
 public static Customer[] CreateCustomer(Customer[] customerArray, int customerQuantity, int ID)
 {
@@ -155,6 +156,7 @@ public static Customer[] CreateCustomer(Customer[] customerArray, int customerQu
     
     return customerArray;
 }
+
 // Edits a Specific Customer
 public static void EditCustomer(Customer[] customerArray, int customerQuantity, int ID)
 {
@@ -211,6 +213,7 @@ public static void EditCustomer(Customer[] customerArray, int customerQuantity, 
    }
   
 }
+
 // Create a Contractor
 public static Contractor[] CreateContractor(Contractor[] contractorArray, int contractorQuantity, int ID)
 {
@@ -302,6 +305,7 @@ public static void EditContractor(Contractor[] contractorArray, int contractorQu
    }
    }
 }
+// Create a New Inventory Item 
 public static Item[] CreateInventoryItem(Item[] itemArray, int itemQuantity, int ID)
 {
     Scanner in = new Scanner(System.in);
@@ -319,6 +323,7 @@ public static Item[] CreateInventoryItem(Item[] itemArray, int itemQuantity, int
     itemArray[itemQuantity] = new Item(ID++, itemName, weight, description, pricePaid, forSalePrice);
     return itemArray;
 }
+// Edit an existing Inventory Item 
 public static void EditInventoryItem(Item[] itemArray, int itemQuantity, int ID)
 {
    System.out.println("Select Item to Edit.");
