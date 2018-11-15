@@ -4,7 +4,7 @@ package Group_Project;
 
 public class Contractor extends Customer{
     
-    public static int ID;
+    public int ID;
     public String firstName;
     public String lastName;
     public String address;
@@ -31,8 +31,7 @@ public Contractor(int ID, String firstName, String lastName, String address, Str
 }
 public String toString()
 {
-    String output = this.ID + "    " + this.firstName + "\t" + this.lastName;;
+    String output = "\t" + super.ID + "\t" + super.firstName + " " + super.lastName;;
     return output;
 }
 }
-
