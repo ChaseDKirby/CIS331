@@ -642,7 +642,10 @@ public static void PrintInventoryLevels(int itemQuantity, Item[] itemArray, int 
             if (saleArray[j].itemSold == itemArray[i])
             {
                 System.out.println(itemArray[i].toString() + "\tSold Out");
-                break;
+            }
+            else
+            {
+                System.out.println(itemArray[i].toString() + "\tSold Out");
             }
         }
     }
