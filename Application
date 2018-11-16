@@ -645,7 +645,7 @@ public static void PrintInventoryLevels(int itemQuantity, Item[] itemArray, int 
             }
             else
             {
-                System.out.println(itemArray[i].toString() + "\tSold Out");
+                System.out.println(itemArray[i].toString() + "\t1");
             }
         }
     }
