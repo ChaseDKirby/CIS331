@@ -139,53 +139,32 @@ public static void Menu(Customer[] customerArray, int customerQuantity, Contract
 }
 // Creates a customer when selected
 public static Customer[] CreateCustomer(Customer[] customerArray, int customerQuantity, int ID)
-{
-    customerArray[customerQuantity] = new Customer();
+{customerArray[customerQuantity] = new Customer();
     Scanner in = new Scanner(System.in);
-    String firstName;
-    String lastName;
-    String phoneNumber;
-    String email;
     System.out.print("Enter Customer Address: ");
+    
     customerArray[customerQuantity].address = in.nextLine();
-    // Validating for First Name
-    do{
-        System.out.print("Enter Customer First Name: ");
-        firstName = in.next();
-        if (firstName.length() <= 0)
-            System.out.println("Please Enter a First Name");
-    } while (firstName.length() <= 0);    
-    customerArray[customerQuantity].setFirstName(firstName);
+    System.out.print("Enter Customer First Name: ");
+
+  
+    customerArray[customerQuantity].setFirstName(in.next());
+    System.out.print("Enter Customer Last Name: ");
     
-    // Validating for Last Name
-    do{
-        System.out.print("Enter Customer Last Name: ");
-        lastName = in.next();
-        if (lastName.length() <= 0)
-            System.out.println("Please Enter a Last Name");
-    } while (lastName.length() <= 0);    
     
-    customerArray[customerQuantity].setLastName(lastName);
-    
-    //Validating for Phone Number
-    do{
-        System.out.print("Enter Customer Phone Number: ");
-        phoneNumber = in.next();
-        if (phoneNumber.length() != 10)
-            System.out.println("Please Enter a 10 Digit Phone Number");
-    } while (phoneNumber.length() != 10);
+    customerArray[customerQuantity].setLastName(in.next());
+   
+    System.out.print("Enter Customer Phone Number: ");
+    String phoneNumber = in.next();
+     while (phoneNumber.length() < 10 || phoneNumber.length() > 10)
+               {
+                    System.out.println("Please enter 10 digits");
+                    phoneNumber = in.next();
+               }
+            
     customerArray[customerQuantity].setPhoneNumber(phoneNumber);
     
-    // Validation for Email
-    do{
-        System.out.print("Enter Customer Email: ");
-        email = in.next();
-        if (email.length() <= 0)
-            System.out.println("Please Enter a Valid Email");
-    } while (email.length() <= 0);    
-    customerArray[customerQuantity].setEmail(email);
- 
-   
+    System.out.print("Enter Customer Email: ");
+    customerArray[customerQuantity].setEmail(in.next());                 
     customerArray[customerQuantity].ID = ID;
     ID++;
     
@@ -219,24 +198,13 @@ public static void EditCustomer(Customer[] customerArray, int customerQuantity, 
         int selection = in.nextInt();
         switch(selection){
             case 1:
-                    String firstName;
-                    do{
-                        System.out.print("Enter Customer First Name: ");
-                        firstName = in.next();
-                        if (firstName.length() <= 0)
-                            System.out.println("Please Enter a First Name");
-                        } while (firstName.length() <= 0);    
-                        customerArray[chosenID].setFirstName(firstName);
+                System.out.println("Please enter a First Name.");
+            
+                customerArray[chosenID].setFirstName(in.next());
                 break;
             case 2:
-                    String lastName;
-                    do{
-                        System.out.print("Enter Customer Last Name: ");
-                        lastName = in.next();
-                        if (lastName.length() <= 0)
-                            System.out.println("Please Enter a Last Name");
-                    } while (lastName.length() <= 0);    
-                    customerArray[chosenID].setLastName(lastName);
+                System.out.println("Please enter a Last Name.");
+                customerArray[chosenID].setLastName(in.next());
                 break;
             case 3:
                 Scanner input = new Scanner(System.in);
@@ -244,14 +212,26 @@ public static void EditCustomer(Customer[] customerArray, int customerQuantity, 
                 customerArray[chosenID].address = input.nextLine();
                 break;
             case 4:
-                    String phoneNumber;
-                    do{
-                        System.out.print("Enter Customer Phone Number: ");
-                        phoneNumber = in.next();
-                        if (phoneNumber.length() != 10)
-                            System.out.println("Please Enter a 10 Digit Phone Number");
-                    } while (phoneNumber.length() != 10);
-                    customerArray[chosenID].setPhoneNumber(phoneNumber);
+                boolean isValid = false;
+                String phoneNumber = "";
+                while (isValid == false) {
+    if (in.hasNextLine()) {
+        phoneNumber = in.nextLine();
+        if (phoneNumber.length() !=  10) {
+            System.out.print("Please enter in 10 didgits ");
+        }
+        else {
+            isValid = true;
+                }
+        }
+    else {
+        System.out.print("Error: You must enter a number! Try again: ");
+        in.next();
+    }
+}
+                
+                customerArray[chosenID].setPhoneNumber(phoneNumber);
+                
                 break;
             case 5:
                 System.out.println("Please enter a Email.");
@@ -278,19 +258,40 @@ public static Contractor[] CreateContractor(Contractor[] contractorArray, int co
     String firstName = in.next();
     System.out.print("Enter Contractor Last Name: ");
     String lastName = in.next();
-    String phoneNumber;
-    do{
-        System.out.print("Enter Customer Phone Number: ");
+    System.out.print("Enter Contractor Phone Number: ");
+    String phoneNumber = in.next();
+    while (phoneNumber.length() < 10 || phoneNumber.length() > 10)
+    {
+        System.out.println("Please enter 10 digits");
         phoneNumber = in.next();
-        if (phoneNumber.length() != 10)
-            System.out.println("Please Enter a 10 Digit Phone Number");
-    } while (phoneNumber.length() != 10);
+    }
+    
     System.out.print("Enter Contractor Email: ");
     String email = in.next();
-    System.out.print("Enter Contractor Number: ");
-    int contractorNumber = in.nextInt();
-    System.out.print("Enter name of Business: ");
-    String businessName = input.nextLine();
+    System.out.print("Enter Contractor Number: ");                
+    int contractorNumber = 0;
+     boolean isValid = false;
+
+   boolean isTrue = false;
+
+while (isValid == false) {
+    if (in.hasNextDouble()) {
+        contractorNumber = in.nextInt();
+        if (contractorNumber < 0) {
+            System.out.print("Please enter a positive number");
+        }
+        else {
+            isValid = true;
+                }
+        }
+    else {
+        System.out.print("Error: You must enter a number! Try again: ");
+        in.next();
+    }
+}
+    
+    System.out.print("Enter name of Business: ");                                     
+    String businessName = in.nextLine();
             
     contractorArray[contractorQuantity] = new Contractor(ID++, firstName, lastName, address, phoneNumber, email, contractorNumber, businessName);
     return contractorArray;
@@ -324,6 +325,7 @@ public static void EditContractor(Contractor[] contractorArray, int contractorQu
        do{
         System.out.println("\n1. First Name \n2. Last Name \n3. Address \n4. Phone Number \n5. Email \n6. Contract Number \n7. Business Name ");
         int selection = in.nextInt();
+        String phoneNumber = String.valueOf(selection);
         switch(selection){
             case 1:
                 System.out.println("Please enter a First Name.");
@@ -339,14 +341,25 @@ public static void EditContractor(Contractor[] contractorArray, int contractorQu
                 contractorArray[chosenID].setAddress(input.nextLine());
                 break;
             case 4:
-                String phoneNumber;
-                do{
-                    System.out.print("Enter Customer Phone Number: ");
-                    phoneNumber = in.next();
-                    if (phoneNumber.length() != 10)
-                        System.out.println("Please Enter a 10 Digit Phone Number");
-                     } while (phoneNumber.length() != 10);
-                     contractorArray[chosenID].setPNumber(phoneNumber);
+                System.out.println("Please enter a Phone Number.");
+                    boolean isValid = false;
+                String phoneNumberr = "";
+                while (isValid == false) {
+    if (in.hasNextLine()) {
+        phoneNumberr = in.nextLine();
+        if (phoneNumberr.length() !=  10) {
+            System.out.print("Please enter in 10 didgits ");
+        }
+        else {
+            isValid = true;
+                }
+        }
+    else {
+        System.out.print("Error: You must enter a number! Try again: ");
+        in.next();
+    }
+}
+                contractorArray[chosenID].setPNumber(phoneNumberr);
                 break;
             case 5:
                 System.out.println("Please enter a Email.");
@@ -354,6 +367,26 @@ public static void EditContractor(Contractor[] contractorArray, int contractorQu
                 break;
             case 6:
                 System.out.println("Please enter a Contractor Number");
+                int contractorNumber = 0;
+                boolean isWorks = false;
+
+   
+
+while (isWorks == false) {
+    if (in.hasNextDouble()) {
+        contractorNumber = in.nextInt();
+        if (contractorNumber < 0) {
+            System.out.print("Please enter a positive number");
+        }
+        else {
+            isValid = true;
+                }
+        }
+    else {
+        System.out.print("Error: You must enter a number! Try again: ");
+        in.next();
+    }
+}                                                             
                 contractorArray[chosenID].contractorNumber = in.nextInt();
             case 7:
                 Scanner space = new Scanner(System.in);
@@ -374,24 +407,79 @@ public static Item[] CreateInventoryItem(Item[] itemArray, int itemQuantity, int
     Scanner in = new Scanner(System.in);
     System.out.print("Enter Item Name: ");
     String itemName = in.nextLine();
-    // Validation for Weight
-    double weight;
-    do{
-        System.out.print("Enter Weight for Item: ");
-        weight = in.nextDouble();
-        if (weight <= 0)
-            System.out.println("Please Enter a Weight above 0");
-    } while (weight <= 0);    
-    Scanner input = new Scanner(System.in);
     System.out.print("Enter Item's Description: ");
-    String description = input.nextLine();
-    System.out.print("Enter Price Paid for Item: ");
-    Double pricePaid = in.nextDouble();
-    System.out.print("Enter Item's for Sale Price: ");
-    Double forSalePrice = in.nextDouble();
+    String description = in.nextLine();
+    System.out.print("Enter Item's Weight: ");
+    Double weight = 0.0;
+    
+    
+    boolean isValid = false;
+
+while (isValid == false) {
+    if (in.hasNextDouble()) {
+        weight = in.nextDouble();
+        if (weight < 0) {
+            System.out.print("Please enter a positive weight");
+        }
+        else {
+            isValid = true;
+                }
+        }
+    else {
+        System.out.print("Error: You must enter a number! Try again: ");
+        in.next();
+    }
+}
+
+  System.out.print("Enter Sale Price: ");
+    Double pricePaid = 0.0;
+    
+    
+    boolean isValidd = false;
+
+while (isValidd == false) {
+    if (in.hasNextDouble()) {
+        pricePaid = in.nextDouble();
+        if (pricePaid < 0) {
+            System.out.print("Please enter a positive price");
+        }
+        else {
+            isValidd = true;
+                }
+        }
+    else {
+        System.out.print("Error: You must enter a number! Try again: ");
+        in.next();
+    }
+}
+
+  System.out.print("Enter Sale Price: ");
+    Double forSalePrice = 0.0;
+    
+    
+    boolean isValiddd = false;
+
+while (isValiddd == false) {
+    if (in.hasNextDouble()) {
+        forSalePrice = in.nextDouble();
+        if (forSalePrice < 0) {
+            System.out.print("Please enter a positive price");
+        }
+        else {
+            isValiddd = true;
+                }
+        }
+    else {
+        System.out.print("Error: You must enter a number! Try again: ");
+        in.next();
+    }
+}
+     
+   
     
     itemArray[itemQuantity] = new Item(ID++, itemName, weight, description, pricePaid, forSalePrice);
     return itemArray;
+    
 }
 public static void EditInventoryItem(Item[] itemArray, int itemQuantity, int ID)
 {
@@ -421,15 +509,29 @@ public static void EditInventoryItem(Item[] itemArray, int itemQuantity, int ID)
                 itemArray[chosenID].itemName = in.next();
                 break;
             case 2:
-                // Validation for Weight
-                double weight;
-                do{
-                    System.out.print("Enter Weight for Item: ");
-                    weight = in.nextDouble();
-                    if (weight <= 0)
-                        System.out.println("Please Enter a Weight above 0");
-                } while (weight <= 0);   
-                itemArray[chosenID].weight = weight;    
+                System.out.println("Please enter Weight for Item.");
+                  Double weight = 0.0;
+    
+    
+    boolean isValid = false;
+
+while (isValid == false) {
+    if (in.hasNextDouble()) {
+        weight = in.nextDouble();
+        if (weight < 0) {
+            System.out.print("Please enter a positive weight");
+        }
+        else {
+            isValid = true;
+                }
+        }
+    else {
+        System.out.print("Error: You must enter a number! Try again: ");
+        in.next();
+    }
+}
+
+                itemArray[chosenID].weight = weight;
                 break;
             case 3:
                 Scanner input = new Scanner(System.in);
@@ -438,11 +540,54 @@ public static void EditInventoryItem(Item[] itemArray, int itemQuantity, int ID)
                 break;
             case 4:
                 System.out.println("Please enter Price Paid for Item.");
-                itemArray[chosenID].setPrice(in.nextDouble());
+                Double pricePaid = 0.0;
+    
+    
+    boolean isValidd = false;
+
+while (isValidd == false) {
+    if (in.hasNextDouble()) {
+        pricePaid = in.nextDouble();
+        if (pricePaid < 0) {
+            System.out.print("Please enter a positive price");
+        }
+        else {
+            isValidd = true;
+                }
+        }
+    else {
+        System.out.print("Error: You must enter a number! Try again: ");
+        in.next();
+    }
+}
+
+
+                itemArray[chosenID].setPrice(pricePaid);
                 break;
             case 5:
                 System.out.println("Please enter Item's for Sale Price.");
-                itemArray[chosenID].forSalePrice = in.nextDouble();
+                 Double forSalePrice = 0.0;
+    
+    
+    boolean isValiddd = false;
+
+while (isValiddd == false) {
+    if (in.hasNextDouble()) {
+        forSalePrice = in.nextDouble();
+        if (forSalePrice < 0) {
+            System.out.print("Please enter a positive price");
+        }
+        else {
+            isValiddd = true;
+                }
+        }
+    else {
+        System.out.print("Error: You must enter a number! Try again: ");
+        in.next();
+    }
+}
+                
+                itemArray[chosenID].forSalePrice = forSalePrice;
                 break;
             default:
                 System.out.println("Please enter a valid option\n");
@@ -461,15 +606,16 @@ public static Vendor[] CreateVendor(Vendor[] vendorArray, int vendorQuantity, in
     String businessAddress = in.nextLine();
     System.out.print("Enter Business Name: ");
     String businessName = in.next();
-    // Validation for Business Phone Number
-    String businessPhoneNumber;
-    do{
-        System.out.print("Enter Business Phone Number: ");
+    
+    System.out.print("Enter Customer Phone Number: ");
+    String businessPhoneNumber = in.next();
+  while (businessPhoneNumber.length() < 10 || businessPhoneNumber.length() > 10)
+    {
+        System.out.println("Please enter 10 digits");
         businessPhoneNumber = in.next();
-        if (businessPhoneNumber.length() != 10)
-            System.out.println("Please Enter a 10 Digit Phone Number");
-    } while (businessPhoneNumber.length() != 10);
-   
+    }
+    
+    
     vendorArray[vendorQuantity] = new Vendor(ID++, businessName, businessAddress, businessPhoneNumber);
     return vendorArray;
 }
@@ -500,23 +646,37 @@ public static void EditVendor(Vendor[] vendorArray, int vendorQuantity, int ID)
             case 1:
                 System.out.println("Please enter a Business Name.");
                 Scanner input1 = new Scanner(System.in);
-                vendorArray[chosenID].vendorBusinessName = input1.nextLine();
+                String vendorBusinessName = in.next();
+                vendorArray[chosenID].vendorBusinessName = vendorBusinessName;
                 break;
             case 2:
-                    // Validation for Business Phone Number
-                    String businessPhoneNumber;
-                    do{
-                        System.out.print("Enter Business Phone Number: ");
-                        businessPhoneNumber = in.next();
-                        if (businessPhoneNumber.length() != 10)
-                            System.out.println("Please Enter a 10 Digit Phone Number");
-                    } while (businessPhoneNumber.length() != 10);
-                    vendorArray[chosenID].vendorPhoneNumber = businessPhoneNumber;
+                System.out.println("Please enter a Business Phone Number");
+                boolean isValid = false;
+                String vendorPhoneNumber = "";
+                while (isValid == false) {
+    if (in.hasNextLine()) {
+        vendorPhoneNumber = in.nextLine();
+        if (vendorPhoneNumber.length() !=  10) {
+            System.out.print("Please enter in 10 didgits ");
+        }
+        else {
+            isValid = true;
+                }
+        }
+    else {
+        System.out.print("Error: You must enter a number! Try again: ");
+        in.next();
+    }
+}
+                
+                
+                vendorArray[chosenID].vendorPhoneNumber = vendorPhoneNumber;
                 break;
             case 3:
                 Scanner input = new Scanner(System.in);
                 System.out.println("Please enter a Business Address.");
-                vendorArray[chosenID].vendorBusinessAddress = input.nextLine();
+                String vendorBusinessAddress = in.next();
+                vendorArray[chosenID].vendorBusinessAddress = vendorBusinessAddress;
                 break;
             default:
                 System.out.println("Please enter a valid option\n");
@@ -544,14 +704,26 @@ public static void CreateSale(Customer[] customerArray, Item[] itemArray, int it
    }
    else
    {
-       // Validation for Quantity
-        int quantity;
-        do{
-           System.out.print("Enter Quantity for Item Bought: ");
-           quantity = in.nextInt();
-            if (quantity <= 0)
-                 System.out.println("Please Enter a Quantity above 0");
-        } while (quantity <= 0);    
+       System.out.print("Enter Quantity of Item Bought: ");                    //***
+       int quantity = 0;
+                
+         boolean isValid = false;
+
+while (isValid == false) {
+    if (in.hasNextInt()) {
+        quantity = in.nextInt();
+        if (quantity < 0) {
+            System.out.print("Please enter a positive weight");
+        }
+        else {
+            isValid = true;
+                }
+        }
+    else {
+        System.out.print("Error: You must enter a number! Try again: ");
+        in.next();
+    }
+}
        System.out.print("Enter Date Purchase (XX/XX/XXX): ");
        String date = in.next();
        
