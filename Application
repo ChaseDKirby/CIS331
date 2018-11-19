@@ -1,4 +1,3 @@
-
 package Group_Project;
 
 import java.util.*;
@@ -75,6 +74,7 @@ public static void Menu(Customer[] customerArray, int customerQuantity, Contract
         case 1:
         CreateCustomer(customerArray, customerQuantity, ID);
         customerQuantity++;
+        ID++;
         Menu(customerArray, customerQuantity, contractorArray, contractorQuantity, vendorArray, vendorQuantity, itemArray, itemQuantity, saleArray, saleQuantity, ID);
         break;
         case 2:
@@ -84,6 +84,7 @@ public static void Menu(Customer[] customerArray, int customerQuantity, Contract
         case 3:
         CreateContractor(contractorArray, contractorQuantity, ID);
         contractorQuantity++;
+        ID++;
         Menu(customerArray, customerQuantity, contractorArray, contractorQuantity, vendorArray, vendorQuantity, itemArray, itemQuantity, saleArray, saleQuantity, ID);
         break;
         case 4:
@@ -93,6 +94,7 @@ public static void Menu(Customer[] customerArray, int customerQuantity, Contract
         case 5:
         CreateInventoryItem(itemArray, itemQuantity, ID);
         itemQuantity++;
+        ID++;
         Menu(customerArray, customerQuantity, contractorArray, contractorQuantity, vendorArray, vendorQuantity, itemArray, itemQuantity, saleArray, saleQuantity, ID);
         break;    
         case 6:
@@ -102,6 +104,7 @@ public static void Menu(Customer[] customerArray, int customerQuantity, Contract
         case 7:
         CreateVendor(vendorArray, vendorQuantity, ID);
         vendorQuantity++;
+        ID++;
         Menu(customerArray, customerQuantity, contractorArray, contractorQuantity, vendorArray, vendorQuantity, itemArray, itemQuantity, saleArray, saleQuantity, ID);
         break;
         case 8:
@@ -111,6 +114,7 @@ public static void Menu(Customer[] customerArray, int customerQuantity, Contract
         case 9:
         CreateSale(customerArray, itemArray, itemQuantity, customerQuantity, saleArray, saleQuantity, ID);
         saleQuantity++;
+        ID++;
         Menu(customerArray, customerQuantity, contractorArray, contractorQuantity, vendorArray, vendorQuantity, itemArray, itemQuantity, saleArray, saleQuantity, ID);
         break;
         case 10:
@@ -291,7 +295,7 @@ while (isValid == false) {
 }
     
     System.out.print("Enter name of Business: ");                                     
-    String businessName = in.nextLine();
+    String businessName = input.nextLine();
             
     contractorArray[contractorQuantity] = new Contractor(ID++, firstName, lastName, address, phoneNumber, email, contractorNumber, businessName);
     return contractorArray;
@@ -411,6 +415,10 @@ public static Item[] CreateInventoryItem(Item[] itemArray, int itemQuantity, int
     String description = in.nextLine();
     System.out.print("Enter Item's Weight: ");
     Double weight = 0.0;
+    System.out.print("Enter Price Paid for Item: ");
+    Double pricePaid = in.nextDouble();
+    System.out.print("Enter Item's for Sale Price: ");
+    Double forSalePrice = in.nextDouble();
     
     
     boolean isValid = false;
@@ -429,11 +437,7 @@ while (isValid == false) {
         System.out.print("Error: You must enter a number! Try again: ");
         in.next();
     }
-}
-
-  System.out.print("Enter Sale Price: ");
-    Double pricePaid = 0.0;
-    
+}   
     
     boolean isValidd = false;
 
@@ -451,12 +455,7 @@ while (isValidd == false) {
         System.out.print("Error: You must enter a number! Try again: ");
         in.next();
     }
-}
-
-  System.out.print("Enter Sale Price: ");
-    Double forSalePrice = 0.0;
-    
-    
+}  
     boolean isValiddd = false;
 
 while (isValiddd == false) {
@@ -505,7 +504,7 @@ public static void EditInventoryItem(Item[] itemArray, int itemQuantity, int ID)
         int selection = in.nextInt();
         switch(selection){
             case 1:
-                System.out.println("Please enter a First Name.");
+                System.out.println("Please enter a Item Name.");
                 itemArray[chosenID].itemName = in.next();
                 break;
             case 2:
@@ -566,7 +565,7 @@ while (isValidd == false) {
                 break;
             case 5:
                 System.out.println("Please enter Item's for Sale Price.");
-                 Double forSalePrice = 0.0;
+                Double forSalePrice = 0.0;
     
     
     boolean isValiddd = false;
@@ -646,7 +645,7 @@ public static void EditVendor(Vendor[] vendorArray, int vendorQuantity, int ID)
             case 1:
                 System.out.println("Please enter a Business Name.");
                 Scanner input1 = new Scanner(System.in);
-                String vendorBusinessName = in.next();
+                String vendorBusinessName = input1.nextLine();
                 vendorArray[chosenID].vendorBusinessName = vendorBusinessName;
                 break;
             case 2:
@@ -655,7 +654,7 @@ public static void EditVendor(Vendor[] vendorArray, int vendorQuantity, int ID)
                 String vendorPhoneNumber = "";
                 while (isValid == false) {
     if (in.hasNextLine()) {
-        vendorPhoneNumber = in.nextLine();
+        vendorPhoneNumber = in.next();
         if (vendorPhoneNumber.length() !=  10) {
             System.out.print("Please enter in 10 didgits ");
         }
@@ -668,14 +667,13 @@ public static void EditVendor(Vendor[] vendorArray, int vendorQuantity, int ID)
         in.next();
     }
 }
-                
-                
+                             
                 vendorArray[chosenID].vendorPhoneNumber = vendorPhoneNumber;
                 break;
             case 3:
                 Scanner input = new Scanner(System.in);
                 System.out.println("Please enter a Business Address.");
-                String vendorBusinessAddress = in.next();
+                String vendorBusinessAddress = input.nextLine();
                 vendorArray[chosenID].vendorBusinessAddress = vendorBusinessAddress;
                 break;
             default:
@@ -704,7 +702,7 @@ public static void CreateSale(Customer[] customerArray, Item[] itemArray, int it
    }
    else
    {
-       System.out.print("Enter Quantity of Item Bought: ");                    //***
+       System.out.print("Enter Quantity of Item Bought: ");                    
        int quantity = 0;
                 
          boolean isValid = false;
@@ -815,14 +813,8 @@ public static void PrintInventoryLevels(int itemQuantity, Item[] itemArray, int 
             {
                 System.out.println(itemArray[i].toString() + "\tSold Out");
             }
-            else
-            {
-                System.out.println(itemArray[i].toString() + "\t1");
-            }
+            
         }
     }
 }
 }
-
-
-// KNOWN PROBLEMS
