@@ -1,33 +1,44 @@
-
+/*
+Authors: Chase Kirby, Alexander Antezana, Elnathan Daniel, Shivali Marwaha
+Date: 11/18/2018
+Assignment: Group Project Part 1
+Purpose: Use classes and methods to create a program that will create/edit different types of users, print reports and enter sales
+*/
 package Group_Project;
 
 public class Item {
     
     public int ID;
     public String itemName;
+    public int quantity;
     public double weight;
     public String description;
     private double pricePaid;
     public double forSalePrice;
     public Vendor vendorName;
+    public static int itemQuantity = 0;
     
 public Item()
 {
     this.itemName = "noName";
+    this.quantity = 0;
     this.weight = 0.0;
     this.description = "noDescription";
     this.pricePaid = 0.0;
     this.forSalePrice = 0.0;
+    itemQuantity++;
 }
 
-public Item(int ID, String userItemName, double userWeight, String userDescription, double userPrice, double userForSalePrice)
+public Item(int ID, String userItemName, int itemInventory, double userWeight, String userDescription, double userPrice, double userForSalePrice)
 {
     this.ID = ID;
     this.itemName = userItemName;
+    this.quantity = itemInventory;
     this.weight = userWeight;
     this.description = userDescription;
     this.pricePaid = userPrice;
     this.forSalePrice = userForSalePrice;
+    itemQuantity++;
 }
 
 public double getPrice()
@@ -50,6 +61,15 @@ public String toString()
     String output = "\t" + ID + "\t" + this.itemName;
     return output;
 }
+public String inventoryLevels()
+{
+    String output = "\t" + ID + "\t" + this.itemName + "\t" + this.quantity;
+    return output;
 }
-
+public String soldOut()
+{
+    String output = "\t" + ID + "\t" + this.itemName + "\t" + "Sold Out";
+    return output;
+}
+}
 
