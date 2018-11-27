@@ -1,4 +1,9 @@
-
+/*
+Authors: Chase Kirby, Alexander Antezana, Elnathan Daniel, Shivali Marwaha
+Date: 11/18/2018
+Assignment: Group Project Part 1
+Purpose: Use classes and methods to create a program that will create/edit different types of users, print reports and enter sales
+*/
 package Group_Project;
 
 
@@ -12,13 +17,14 @@ public class Contractor extends Customer{
     private String email;
     public int contractorNumber;
     public String businessName;
-    
+    public static int contractorQuantity = 0;
     
 public Contractor()
 {
         super();
         this.contractorNumber = 0;
         this.businessName = "noName";
+        contractorQuantity++;
        
                 
 }
@@ -27,6 +33,7 @@ public Contractor(int ID, String firstName, String lastName, String address, Str
     super(ID, firstName, lastName, address, phoneNumber, email);
     this.contractorNumber = contractorNumber;
     this.businessName = businessName;
+    contractorQuantity++;
     
 }
 public String toString()
@@ -55,3 +62,4 @@ public String setPNumber(String newPhoneNumber)
     return super.phoneNumber;
 }
 }
+
