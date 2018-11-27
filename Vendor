@@ -1,4 +1,9 @@
-
+/*
+Authors: Chase Kirby, Alexander Antezana, Elnathan Daniel, Shivali Marwaha
+Date: 11/18/2018
+Assignment: Group Project Part 1
+Purpose: Use classes and methods to create a program that will create/edit different types of users, print reports and enter sales
+*/
 package Group_Project;
 
 
@@ -9,14 +14,14 @@ public class Vendor {
     public String vendorBusinessName;
     public String vendorBusinessAddress;
     public String vendorPhoneNumber;
-    
-
-
+    public static int vendorQuantity = 0;
+   
 public Vendor()
 {
     this.vendorBusinessName = "noBussinessName";
     this.vendorBusinessAddress = "noAddress";
     this.vendorPhoneNumber = "noNumber";
+    vendorQuantity++;
 }
 
 public Vendor(int ID, String name, String address, String phone)
@@ -25,6 +30,7 @@ public Vendor(int ID, String name, String address, String phone)
         this.vendorBusinessName = name;
         this.vendorBusinessAddress = address;
         this.vendorPhoneNumber = phone;
+        vendorQuantity++;
 }
 public String toString()
 {
