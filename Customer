@@ -1,4 +1,9 @@
-
+/*
+Authors: Chase Kirby, Alexander Antezana, Elnathan Daniel, Shivali Marwaha
+Date: 11/18/2018
+Assignment: Group Project Part 1
+Purpose: Use classes and methods to create a program that will create/edit different types of users, print reports and enter sales
+*/
 package Group_Project;
 
 // Data Fields
@@ -10,6 +15,7 @@ public class Customer {
    public String address;
    public String phoneNumber;
    private String email;
+   public static int customerQuantity = 0;
    
 // Default Constructor
 public Customer()
@@ -20,6 +26,7 @@ public Customer()
     this.address = "noAddress";
     this.phoneNumber = "noNumber";
     this.email = "noEmail";
+    customerQuantity++;
 }
 // Full parameter constructor 
 public Customer(int ID, String firstName1, String lastName1, String address1, String phoneNumber1, String email1)
@@ -30,6 +37,7 @@ public Customer(int ID, String firstName1, String lastName1, String address1, St
     this.address = address1;
     this.phoneNumber = phoneNumber1;
     this.email = email1;
+    customerQuantity++;
 }
 // Gets the email to display for printing
 public String getEmail()
@@ -37,6 +45,54 @@ public String getEmail()
     return email;
 }
 // Displays Information for Editing a Customer
+public String toString()
+{
+    String output = "\t" + ID + "\t" + this.firstName + "\t" + this.lastName; //+ " " + this.address + " " + this.phoneNumber + " " + getEmail();
+    return output;
+}
+// Sets a new email when editing the Customer
+public String setEmail(String newEmail)
+{
+    if (newEmail.length() > 0)
+    {
+        email = newEmail;
+        return email;
+    }
+    else 
+        return "Please enter a valid email";
+}
+public boolean setFirstName(String newFirstName)
+{
+    if (newFirstName.length() > 0)
+    {
+        firstName = newFirstName;
+        return true;
+    }
+    else
+        return false;
+}
+public boolean setLastName(String newLastName)
+{
+    if (newLastName.length() > 0)
+    {
+        lastName = newLastName;
+        return true;
+    }
+    else
+        return false;
+}
+public String setPhoneNumber(String newPhoneNumber)
+{
+    if (newPhoneNumber.length() == 10)
+    {
+        phoneNumber = newPhoneNumber;
+        return phoneNumber;
+    }
+    else
+        return "Please Enter a Valid Phone Number";
+        
+}
+}
 public String toString()
 {
     String output = "\t" + ID + "\t" + this.firstName + "\t" + this.lastName; //+ " " + this.address + " " + this.phoneNumber + " " + getEmail();
