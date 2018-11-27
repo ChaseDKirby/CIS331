@@ -1,4 +1,9 @@
-
+/*
+Authors: Chase Kirby, Alexander Antezana, Elnathan Daniel, Shivali Marwaha
+Date: 11/18/2018
+Assignment: Group Project Part 1
+Purpose: Use classes and methods to create a program that will create/edit different types of users, print reports and enter sales
+*/
 package Group_Project;
 
 
@@ -6,9 +11,11 @@ public class Sale {
     
     public int ID;
     public Item itemSold;
-    public int quantity;
+    public int purchaseQuantity;
+    public Item quantity;
     public String date;
     public Customer customer;
+    public static int saleQuantity = 0;
     
     
 
@@ -17,15 +24,16 @@ public Sale(int ID, Item userItem, int userQuantity, String userDate, Customer u
 {
     this.ID = ID;
     this.itemSold = userItem;
-    this.quantity = userQuantity;
+    this.purchaseQuantity = userQuantity;
     this.date = userDate;
     this.customer = userCustomer;
+    saleQuantity++;
 
 }
 public String describeSale()
 {
     String output;
-    output = "Item Sold: " + itemSold.itemName + ", Price: $" + itemSold.getPrice() + ", Quantity: " + quantity + ", Sale Total: " + (quantity * itemSold.getPrice());
+    output = "Item Sold: " + itemSold.itemName + ", Price: $" + itemSold.getPrice() + ", Quantity: " + purchaseQuantity + ", Sale Total: $" + (purchaseQuantity * itemSold.getPrice());
     return output;
 }
 public String toString()
@@ -37,13 +45,13 @@ public String toString()
 public String printPurchaseHistoryItem(Item itemSold){
     String output;
     output = "Name: " + customer.firstName + " " + customer.lastName + "\tDate: "
-            + date + "\tQuantity: " + quantity;
+            + date + "\tQuantity: " + purchaseQuantity;
     return output;
 }
 public String CustomerPurchaseHistory(Customer customer)
 {
     String output;
-    output = "Name: " + itemSold.itemName + "\tQuantity: " + quantity + "\t\tPurchase Cost: $" + (quantity * itemSold.getPrice()) + "\tDate: " + date;
+    output = "Name: " + itemSold.itemName + "\tQuantity: " + purchaseQuantity + "\t\tPurchase Cost: $" + (purchaseQuantity * itemSold.getPrice()) + "\tDate: " + date;
     return output;
 }
 }
