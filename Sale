@@ -9,20 +9,22 @@ package Group_Project;
 
 public class Sale {
     
-    public int ID;
+    public String ID;
     public Item itemSold;
     public int purchaseQuantity;
     public Item quantity;
     public String date;
     public Customer customer;
     public static int saleQuantity = 0;
+    public static int number;
     
     
 
 
-public Sale(int ID, Item userItem, int userQuantity, String userDate, Customer userCustomer)
+public Sale(Item userItem, int userQuantity, String userDate, Customer userCustomer)
 {
-    this.ID = ID;
+    number++;
+    this.ID = "Sale_" + this.number; 
     this.itemSold = userItem;
     this.purchaseQuantity = userQuantity;
     this.date = userDate;
@@ -39,7 +41,7 @@ public String describeSale()
 public String toString()
 {
     String output;
-    output = "\t" + ID + "\t" + itemSold.itemName + " \t" + customer.firstName + " " + customer.lastName;
+    output = ID + "\t" + itemSold.itemName + " \t" + customer.firstName + " " + customer.lastName;
     return output;
 }
 public String printPurchaseHistoryItem(Item itemSold){
