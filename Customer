@@ -9,35 +9,39 @@ package Group_Project;
 // Data Fields
 public class Customer {
     
-   public int ID; 
+   public String ID; 
    public String firstName;
    public String lastName;
    public String address;
    public String phoneNumber;
    private String email;
    public static int customerQuantity = 0;
+   public static int number;
    
 // Default Constructor
 public Customer()
 {
-    this.ID = 0;
+    this.ID = "Customer_" + this.number;
     this.firstName = "noName";
     this.lastName = "lastName";
     this.address = "noAddress";
     this.phoneNumber = "noNumber";
     this.email = "noEmail";
     customerQuantity++;
+    this.number++;
 }
 // Full parameter constructor 
-public Customer(int ID, String firstName1, String lastName1, String address1, String phoneNumber1, String email1)
+public Customer(String firstName1, String lastName1, String address1, String phoneNumber1, String email1)
 {   
-    this.ID = ID;
+    this.number++;
+    this.ID = "Customer_" + this.number;
     this.firstName = firstName1;
     this.lastName = lastName1;
     this.address = address1;
     this.phoneNumber = phoneNumber1;
     this.email = email1;
     customerQuantity++;
+    
 }
 // Gets the email to display for printing
 public String getEmail()
@@ -47,7 +51,7 @@ public String getEmail()
 // Displays Information for Editing a Customer
 public String toString()
 {
-    String output = "\t" + ID + "\t" + this.firstName + "\t" + this.lastName; //+ " " + this.address + " " + this.phoneNumber + " " + getEmail();
+    String output = ID + "\t" + this.firstName + "\t" + this.lastName; //+ " " + this.address + " " + this.phoneNumber + " " + getEmail();
     return output;
 }
 // Sets a new email when editing the Customer
@@ -92,52 +96,4 @@ public String setPhoneNumber(String newPhoneNumber)
         return "Please Enter a Valid Phone Number";
         
 }
-}
-public String toString()
-{
-    String output = "\t" + ID + "\t" + this.firstName + "\t" + this.lastName; //+ " " + this.address + " " + this.phoneNumber + " " + getEmail();
-    return output;
-}
-// Sets a new email when editing the Customer
-public boolean setEmail(String newEmail)
-{
-    if (newEmail.length() > 0)
-    {
-        email = newEmail;
-        return true;
-    }
-    else 
-        return false;
-}
-public boolean setFirstName(String newFirstName)
-{
-    if (newFirstName.length() > 0)
-    {
-        firstName = newFirstName;
-        return true;
-    }
-    else
-        return false;
-}
-public boolean setLastName(String newLastName)
-{
-    if (newLastName.length() > 0)
-    {
-        lastName = newLastName;
-        return true;
-    }
-    else
-        return false;
-}
-public boolean setPhoneNumber(String newPhoneNumber)
-{
-    if (newPhoneNumber.length() == 10)
-    {
-        phoneNumber = newPhoneNumber;
-        return true;
-    }
-    else
-        return false;
-}
-
 }
