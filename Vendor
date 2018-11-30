@@ -10,23 +10,27 @@ package Group_Project;
 public class Vendor {
     
     
-    public int ID;
+    public String ID;
     public String vendorBusinessName;
     public String vendorBusinessAddress;
     public String vendorPhoneNumber;
     public static int vendorQuantity = 0;
+    public static int number;
    
 public Vendor()
 {
+    this.number++;
+    this.ID = "Vendor_" + this.number; 
     this.vendorBusinessName = "noBussinessName";
     this.vendorBusinessAddress = "noAddress";
     this.vendorPhoneNumber = "noNumber";
     vendorQuantity++;
 }
 
-public Vendor(int ID, String name, String address, String phone)
+public Vendor(String name, String address, String phone)
 {
-        this.ID = ID;
+        this.number++;
+        this.ID = "Vendor_" + this.number;
         this.vendorBusinessName = name;
         this.vendorBusinessAddress = address;
         this.vendorPhoneNumber = phone;
@@ -34,7 +38,7 @@ public Vendor(int ID, String name, String address, String phone)
 }
 public String toString()
 {
-    String output = "\t" + ID + "\t" + this.vendorBusinessName;
+    String output = ID + "\t" + this.vendorBusinessName;
     return output;
 }
 }
