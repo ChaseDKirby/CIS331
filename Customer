@@ -21,6 +21,7 @@ public class Customer {
 // Default Constructor
 public Customer()
 {
+    this.number++;
     this.ID = "Customer_" + this.number;
     this.firstName = "noName";
     this.lastName = "lastName";
@@ -94,6 +95,15 @@ public String setPhoneNumber(String newPhoneNumber)
     }
     else
         return "Please Enter a Valid Phone Number";
-        
+}
+public String setAddress(String newAddress)
+{
+    this.address = newAddress;
+    return address;
+}
+
+public String getID()
+{
+    return ID;
 }
 }
