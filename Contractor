@@ -9,7 +9,7 @@ package Group_Project;
 
 public class Contractor extends Customer{
     
-    public int ID;
+    public String ID;
     public String firstName;
     public String lastName;
     public String address;
@@ -18,27 +18,33 @@ public class Contractor extends Customer{
     public int contractorNumber;
     public String businessName;
     public static int contractorQuantity = 0;
+    public static int number;
     
 public Contractor()
 {
         super();
+        number++;
+        this.ID = "Contractor_" + this.number;
         this.contractorNumber = 0;
         this.businessName = "noName";
         contractorQuantity++;
        
                 
 }
-public Contractor(int ID, String firstName, String lastName, String address, String phoneNumber, String email, int contractorNumber, String businessName)
+public Contractor(String firstName, String lastName, String address, String phoneNumber, String email, int contractorNumber, String businessName)
 {
-    super(ID, firstName, lastName, address, phoneNumber, email);
+    super(firstName, lastName, address, phoneNumber, email);
+    number++;
+    this.ID = "Contractor_" + this.number;
     this.contractorNumber = contractorNumber;
     this.businessName = businessName;
     contractorQuantity++;
     
+    
 }
 public String toString()
 {
-    String output = "\t" + super.ID + "\t" + super.firstName + " " + super.lastName;;
+    String output = ID + "\t" + super.firstName + " " + super.lastName;;
     return output;
 }
 public String setFName(String newfirstName)
