@@ -1,0 +1,240 @@
+
+package Group_Project;
+
+import javafx.application.Application;
+import javafx.event.*;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.layout.*;
+import javafx.stage.Stage;
+import java.util.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.geometry.Pos;
+
+/**
+ *
+ * @author chase
+ */
+public class MenuFX extends Application {
+    //Buttons and Labels for Menu Window
+    Label lblPrompt = new Label ("Please Select a Menu Option");
+    Button btnCustomer = new Button("Customer");
+    Button btnContractor = new Button("Contractor");
+    Button btnInventoryItem = new Button("Inventory Item");
+    Button btnVendor = new Button("Vendor");
+    Button btnEnterSale = new Button("Enter a Sale");
+    Button btnPrintReport = new Button("Print a Report");
+    Button btnExit = new Button("Exit");
+    
+    
+    // Global Arrays
+    ArrayList<Customer> customerArray = new ArrayList<>();
+    ArrayList<Contractor> contractorArray = new ArrayList<>();
+    ArrayList<Vendor> vendorArray = new ArrayList<>();
+    ArrayList<Item> itemArray = new ArrayList<>();
+    ArrayList<Sale> saleArray = new ArrayList<>();
+    
+    //Create List View
+    ObservableList customersCreated = FXCollections.observableArrayList();
+    ListView lstData = new ListView(customersCreated);
+    
+    // Create ComboBox for Selecting Customer
+    ObservableList editCustomerList = FXCollections.observableArrayList();
+    ComboBox cmboCustomerOptions = new ComboBox(editCustomerList);
+    
+    //Creates the Scenes
+    Stage window;
+    Scene customer, createCustomer, editCustomer, editingCustomer;
+    
+    
+    @Override
+    public void start(Stage primaryStage) {
+        GridPane menuPane = new GridPane();
+        
+        menuPane.setAlignment(Pos.CENTER);
+        menuPane.setHgap(5);
+        menuPane.setVgap(10);
+        
+        menuPane.add(lblPrompt, 0, 0);
+        menuPane.add(btnCustomer, 0, 1);
+        menuPane.add(btnContractor, 0, 2);
+        menuPane.add(btnInventoryItem, 0, 3);
+        menuPane.add(btnVendor, 0, 4);
+        menuPane.add(btnEnterSale, 0, 5);
+        menuPane.add(btnPrintReport, 0, 6);
+        menuPane.add(btnExit, 0, 7);
+        
+        Scene menuScene = new Scene(menuPane, 500, 400);
+        
+        primaryStage.setScene(menuScene);
+        primaryStage.setTitle("Main Menu");
+        primaryStage.show();
+        
+        // Action for when Customer is Selected
+        btnCustomer.setOnAction(e -> primaryStage.setScene(customer));
+            
+            
+            // Scene for when Customer is selected at Menu
+            Label customerPrompt = new Label("Select Create or Edit Customer");
+            Button btnCreateCustomer = new Button("Create Customer");
+            Button btnEditCustomer = new Button("Edit Customer");
+            VBox customerLayout = new VBox(20);
+            customerLayout.getChildren().addAll(customerPrompt, btnCreateCustomer, btnEditCustomer);
+            customer = new Scene(customerLayout, 300, 250);
+            
+            // Create Customer Selected Sets Buttons, Labels and Text Boxes
+            btnCreateCustomer.setOnAction(e -> primaryStage.setScene(createCustomer));
+                Label createCustomerPrompt = new Label("Enter all Customer Information");
+                Label customerFirstName = new Label("First Name");
+                TextField txtCustomerFirstName = new TextField();
+                Label customerLastName = new Label("Last Name");
+                TextField txtCustomerLastName = new TextField();
+                Label customerAddress = new Label("Address");
+                TextField txtAddress = new TextField();
+                Label customerPhoneNumber = new Label("Phone Number");
+                TextField txtCustomerPhoneNumber = new TextField();
+                Label customerEmail = new Label("Email");
+                TextField txtCustomerEmail = new TextField();
+                Button btnSaveCustomer = new Button("Save Customer");
+                VBox createCustomerLayout = new VBox(10);
+                createCustomerLayout.getChildren().addAll(createCustomerPrompt, customerFirstName, txtCustomerFirstName, customerLastName,
+                        txtCustomerLastName, customerAddress, txtAddress, customerPhoneNumber, txtCustomerPhoneNumber, customerEmail, txtCustomerEmail, btnSaveCustomer);
+                createCustomer = new Scene(createCustomerLayout, 500, 500);
+                
+                // When User wants to save Customer, stores and returns to main menu
+                btnSaveCustomer.setOnAction(e -> {                              
+                    
+                    String firstName = txtCustomerFirstName.getText();                    
+                    txtCustomerFirstName.clear();
+                    
+                    String lastName = txtCustomerLastName.getText();
+                    txtCustomerLastName.clear();
+                    
+                    String address = txtAddress.getText();                    
+                    txtAddress.clear();
+                    
+                    String phoneNumber = txtCustomerPhoneNumber.getText();
+                    txtCustomerPhoneNumber.clear();
+                    
+                    String email = txtCustomerEmail.getText();                    
+                    txtCustomerEmail.clear();
+                    
+                    customerArray.add(new Customer(firstName, lastName, address, phoneNumber, email));
+                                       
+                    MainMenu(primaryStage, menuScene);
+                });
+                
+            // Edit Customer Scene    
+            btnEditCustomer.setOnAction(e -> primaryStage.setScene(editCustomer));
+                      
+                Label EditCustomer = new Label("Select a Customer to Edit");
+                Button btnShowCustomers = new Button("Show Customers");
+                
+                Button btnChooseCustomer = new Button("Edit Customer");
+                Button btnHome = new Button("Main Menu");
+                VBox editCustomerLayout = new VBox(10);
+                editCustomerLayout.getChildren().addAll(btnShowCustomers, lstData, EditCustomer, cmboCustomerOptions, btnChooseCustomer, btnHome);
+                editCustomer = new Scene(editCustomerLayout, 500, 500);
+                
+                
+            // Show all Customers Created
+            btnHome.setOnAction(e -> {
+                MainMenu(primaryStage, menuScene);
+            });
+            btnShowCustomers.setOnAction(e -> {
+                 if (customerArray.isEmpty())
+                    {
+                        customersCreated.add("Please Add a Customer First");
+                    }
+                else
+                {
+                    for (Customer cust: customerArray)
+                    {
+                            customersCreated.add("        ID\t\t\tFull Name");
+                            customersCreated.add(cust.toString());
+                            editCustomerList.add(cust.toString());  
+                    }
+                }
+                
+            });
+            // Edit Customer Screen
+            btnChooseCustomer.setOnAction(e -> primaryStage.setScene(editingCustomer));
+                
+                
+                
+                Label editCustomerPrompt = new Label("Enter all Customer Information");
+                Label editCustomerFirstName = new Label("First Name");
+                TextField txtEditCustomerFirstName = new TextField();
+                Label editCustomerLastName = new Label("Last Name");
+                TextField txtEditCustomerLastName = new TextField();
+                Label editCustomerAddress = new Label("Address");
+                TextField txtEditAddress = new TextField();
+                Label editCustomerPhoneNumber = new Label("Phone Number");
+                TextField txtEditCustomerPhoneNumber = new TextField();
+                Label editCustomerEmail = new Label("Email");
+                TextField txtEditCustomerEmail = new TextField();
+                Button btnEditSaveCustomer = new Button("Save Customer");
+                VBox editingCustomerLayout = new VBox(10);
+                editingCustomerLayout.getChildren().addAll(editCustomerPrompt, editCustomerFirstName, txtEditCustomerFirstName, editCustomerLastName, txtEditCustomerLastName, editCustomerAddress,
+                        txtEditAddress, editCustomerPhoneNumber, txtEditCustomerPhoneNumber, editCustomerEmail, txtEditCustomerEmail, btnEditSaveCustomer);
+                editingCustomer = new Scene(editingCustomerLayout, 500, 500);
+                
+            btnEditSaveCustomer.setOnAction(e -> {
+                cmboCustomerOptions.setValue(null);
+                lstData.getItems().clear();
+                for (int j = 0; j < customerArray.size(); j++)
+                {
+                    if(cmboCustomerOptions.getSelectionModel().getSelectedIndex() == j)
+                    {
+                        String firstName = txtCustomerFirstName.getText();                   
+                        txtCustomerFirstName.clear();
+
+                        String lastName = txtCustomerLastName.getText();
+                        txtCustomerLastName.clear();
+
+                        String address = txtAddress.getText();   
+                        txtAddress.clear();
+
+                        String phoneNumber = txtCustomerPhoneNumber.getText();
+                        txtCustomerPhoneNumber.clear();
+
+                        String email = txtCustomerEmail.getText();
+                        txtCustomerEmail.clear();
+                        
+                        Customer editedCustomer = new Customer(firstName, lastName, address, phoneNumber, email);
+                        customerArray.set(j-1, editedCustomer);
+                        System.out.println("Code Ran");
+                    }    
+                    
+                }
+                for (int i = 0; i <Customer.customerQuantity; i++)
+                {
+                    System.out.println(i +" "+ customerArray.toString());
+                }
+                MainMenu(primaryStage, menuScene);
+                    
+            });
+        
+            
+
+            
+        
+        // Action for when Exit is Selected
+        btnExit.setOnAction(e -> {
+            System.exit(0);
+        });
+        
+    }
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        launch(args);
+    }
+    public static void MainMenu(Stage primaryStage, Scene menuScene)
+    {
+        primaryStage.setScene(menuScene);
+    }          
+}
