@@ -6,6 +6,9 @@ Purpose: Use classes and methods to create a program that will create/edit diffe
 */
 package Group_Project;
 
+import java.util.*;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextField;
 // Data Fields
 public class Customer {
     
@@ -52,7 +55,7 @@ public String getEmail()
 // Displays Information for Editing a Customer
 public String toString()
 {
-    String output = ID + "\t" + this.firstName + "\t" + this.lastName; //+ " " + this.address + " " + this.phoneNumber + " " + getEmail();
+    String output = this.ID + "\t" + this.firstName + "\t" + this.lastName; //+ " " + this.address + " " + this.phoneNumber + " " + getEmail();
     return output;
 }
 // Sets a new email when editing the Customer
@@ -106,4 +109,33 @@ public String getID()
 {
     return ID;
 }
+public static void EditCustomer(TextField txtEditCustomerFirstName,TextField txtEditCustomerLastName, TextField txtEditAddress,
+            TextField txtEditCustomerPhoneNumber,TextField txtEditCustomerEmail, ArrayList<Customer> customerArray, ComboBox cmboCustomerOptions)
+    {
+        for (int i = 0; i < customerArray.size(); i++)
+        {
+            if (cmboCustomerOptions.getSelectionModel().getSelectedIndex() == i);
+            {
+                String firstName = txtEditCustomerFirstName.getText(); 
+                customerArray.get(i).firstName = firstName;
+                txtEditCustomerFirstName.clear();
+                
+                String lastName = txtEditCustomerLastName.getText();
+                customerArray.get(i).lastName = lastName;
+                txtEditCustomerLastName.getText();
+                
+                String address = txtEditAddress.getText();
+                customerArray.get(i).address = address;
+                txtEditAddress.clear();
+                
+                String phoneNumber = txtEditCustomerPhoneNumber.getText();
+                customerArray.get(i).phoneNumber = phoneNumber;
+                txtEditCustomerPhoneNumber.clear();
+                
+                String email = txtEditCustomerEmail.getText();
+                customerArray.get(i).email = email;
+                txtEditCustomerEmail.clear();
+            }
+        }
+    }
 }
