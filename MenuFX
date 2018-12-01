@@ -26,14 +26,15 @@ public class MenuFX extends Application {
     Button btnEnterSale = new Button("Enter a Sale");
     Button btnPrintReport = new Button("Print a Report");
     Button btnExit = new Button("Exit");
+    Button btnHome = new Button("Main Menu");
     
     
     // Global Arrays
-    ArrayList<Customer> customerArray = new ArrayList<>();
-    ArrayList<Contractor> contractorArray = new ArrayList<>();
-    ArrayList<Vendor> vendorArray = new ArrayList<>();
-    ArrayList<Item> itemArray = new ArrayList<>();
-    ArrayList<Sale> saleArray = new ArrayList<>();
+    ArrayList<Customer> customerArray = new ArrayList<Customer>();
+    ArrayList<Contractor> contractorArray = new ArrayList<Contractor>();
+    ArrayList<Vendor> vendorArray = new ArrayList<Vendor>();
+    ArrayList<Item> itemArray = new ArrayList<Item>();
+    ArrayList<Sale> saleArray = new ArrayList<Sale>();
     
     //Create List View
     ObservableList customersCreated = FXCollections.observableArrayList();
@@ -103,25 +104,8 @@ public class MenuFX extends Application {
                 createCustomer = new Scene(createCustomerLayout, 500, 500);
                 
                 // When User wants to save Customer, stores and returns to main menu
-                btnSaveCustomer.setOnAction(e -> {                              
-                    
-                    String firstName = txtCustomerFirstName.getText();                    
-                    txtCustomerFirstName.clear();
-                    
-                    String lastName = txtCustomerLastName.getText();
-                    txtCustomerLastName.clear();
-                    
-                    String address = txtAddress.getText();                    
-                    txtAddress.clear();
-                    
-                    String phoneNumber = txtCustomerPhoneNumber.getText();
-                    txtCustomerPhoneNumber.clear();
-                    
-                    String email = txtCustomerEmail.getText();                    
-                    txtCustomerEmail.clear();
-                    
-                    customerArray.add(new Customer(firstName, lastName, address, phoneNumber, email));
-                                       
+                btnSaveCustomer.setOnAction(e -> {                                
+                    CreateCustomer(txtCustomerFirstName, txtCustomerLastName, txtAddress, txtCustomerPhoneNumber, txtCustomerEmail, customerArray);                
                     MainMenu(primaryStage, menuScene);
                 });
                 
@@ -132,7 +116,6 @@ public class MenuFX extends Application {
                 Button btnShowCustomers = new Button("Show Customers");
                 
                 Button btnChooseCustomer = new Button("Edit Customer");
-                Button btnHome = new Button("Main Menu");
                 VBox editCustomerLayout = new VBox(10);
                 editCustomerLayout.getChildren().addAll(btnShowCustomers, lstData, EditCustomer, cmboCustomerOptions, btnChooseCustomer, btnHome);
                 editCustomer = new Scene(editCustomerLayout, 500, 500);
@@ -181,33 +164,11 @@ public class MenuFX extends Application {
                 editingCustomer = new Scene(editingCustomerLayout, 500, 500);
                 
             btnEditSaveCustomer.setOnAction(e -> {
+                Customer.EditCustomer(txtEditCustomerFirstName, txtEditCustomerLastName, txtEditAddress, txtEditCustomerPhoneNumber, txtEditCustomerEmail, customerArray, cmboCustomerOptions);
+                  
                 cmboCustomerOptions.setValue(null);
                 lstData.getItems().clear();
-                for (int j = 0; j < customerArray.size(); j++)
-                {
-                    if(cmboCustomerOptions.getSelectionModel().getSelectedIndex() == j)
-                    {
-                        String firstName = txtCustomerFirstName.getText();                   
-                        txtCustomerFirstName.clear();
 
-                        String lastName = txtCustomerLastName.getText();
-                        txtCustomerLastName.clear();
-
-                        String address = txtAddress.getText();   
-                        txtAddress.clear();
-
-                        String phoneNumber = txtCustomerPhoneNumber.getText();
-                        txtCustomerPhoneNumber.clear();
-
-                        String email = txtCustomerEmail.getText();
-                        txtCustomerEmail.clear();
-                        
-                        Customer editedCustomer = new Customer(firstName, lastName, address, phoneNumber, email);
-                        customerArray.set(j-1, editedCustomer);
-                        System.out.println("Code Ran");
-                    }    
-                    
-                }
                 for (int i = 0; i <Customer.customerQuantity; i++)
                 {
                     System.out.println(i +" "+ customerArray.toString());
@@ -236,5 +197,31 @@ public class MenuFX extends Application {
     public static void MainMenu(Stage primaryStage, Scene menuScene)
     {
         primaryStage.setScene(menuScene);
-    }          
+    }
+    public static void CreateCustomer(TextField txtCustomerFirstName, TextField txtCustomerLastName, TextField txtAddress, 
+            TextField txtCustomerPhoneNumber, TextField txtCustomerEmail, ArrayList<Customer> customerArray)
+    {
+        Customer customer = new Customer();
+        String firstName = txtCustomerFirstName.getText(); 
+        customer.setFirstName(firstName);
+        txtCustomerFirstName.clear();
+                    
+        String lastName = txtCustomerLastName.getText();
+        customer.setLastName(lastName);
+        txtCustomerLastName.clear();
+                    
+        String address = txtAddress.getText();   
+        customer.setAddress(address);
+        txtAddress.clear();
+                    
+        String phoneNumber = txtCustomerPhoneNumber.getText();
+        customer.setPhoneNumber(phoneNumber);
+        txtCustomerPhoneNumber.clear();
+                    
+        String email = txtCustomerEmail.getText(); 
+        customer.setEmail(email);
+        txtCustomerEmail.clear();
+        
+        customerArray.add(customer);       
+    }
 }
