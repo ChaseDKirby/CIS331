@@ -56,7 +56,7 @@ public class MenuFX extends Application {
         menuPane.setAlignment(Pos.CENTER);
         menuPane.setHgap(5);
         menuPane.setVgap(10);
-        
+        // Adds all Menu Buttons to the Pane
         menuPane.add(lblPrompt, 0, 0);
         menuPane.add(btnCustomer, 0, 1);
         menuPane.add(btnContractor, 0, 2);
@@ -68,6 +68,7 @@ public class MenuFX extends Application {
         
         Scene menuScene = new Scene(menuPane, 500, 400);
         
+        //Set the primary Scene 
         primaryStage.setScene(menuScene);
         primaryStage.setTitle("Main Menu");
         primaryStage.show();
@@ -129,6 +130,7 @@ public class MenuFX extends Application {
                 lstData.getItems().clear();
                 MainMenu(primaryStage, menuScene);
             });
+            // Button to display all the customers that have been created
             btnShowCustomers.setOnAction(e -> {
                  if (customerArray.isEmpty())
                     {
@@ -189,7 +191,7 @@ public class MenuFX extends Application {
         primaryStage.setScene(menuScene);
     }
     public static void CreateCustomer(TextField txtCustomerFirstName, TextField txtCustomerLastName, TextField txtAddress, 
-            TextField txtCustomerPhoneNumber, TextField txtCustomerEmail, ArrayList<Customer> customerArray)
+                          TextField txtCustomerPhoneNumber, TextField txtCustomerEmail, ArrayList<Customer> customerArray)
     {       
         String firstName = txtCustomerFirstName.getText(); 
         txtCustomerFirstName.clear();
@@ -209,4 +211,3 @@ public class MenuFX extends Application {
         customerArray.add(new Customer(firstName, lastName, address, phoneNumber, email));       
     }
 }
-
