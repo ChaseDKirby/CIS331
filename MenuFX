@@ -105,7 +105,12 @@ public class MenuFX extends Application {
                 
                 // When User wants to save Customer, stores and returns to main menu
                 btnSaveCustomer.setOnAction(e -> {                                
-                    CreateCustomer(txtCustomerFirstName, txtCustomerLastName, txtAddress, txtCustomerPhoneNumber, txtCustomerEmail, customerArray);                
+                    CreateCustomer(txtCustomerFirstName, txtCustomerLastName, txtAddress, txtCustomerPhoneNumber, txtCustomerEmail, customerArray);
+                                    for (int i = 0; i <Customer.customerQuantity; i++)
+                {
+                    System.out.println(i + " " + customerArray.toString());
+                }
+                    System.out.println("");
                     MainMenu(primaryStage, menuScene);
                 });
                 
@@ -124,6 +129,8 @@ public class MenuFX extends Application {
                 
             // Show all Customers Created
             btnHome.setOnAction(e -> {
+                cmboCustomerOptions.getItems().clear();
+                lstData.getItems().clear();
                 MainMenu(primaryStage, menuScene);
             });
             btnShowCustomers.setOnAction(e -> {
@@ -160,26 +167,14 @@ public class MenuFX extends Application {
                 editingCustomerLayout.getChildren().addAll(editCustomerPrompt, editCustomerFirstName, txtEditCustomerFirstName, editCustomerLastName, txtEditCustomerLastName, editCustomerAddress,
                         txtEditAddress, editCustomerPhoneNumber, txtEditCustomerPhoneNumber, editCustomerEmail, txtEditCustomerEmail, btnEditSaveCustomer);
                 editingCustomer = new Scene(editingCustomerLayout, 500, 500);
-                
+            
+            // Uses the EditCustomer() method in the Customer class to change a certain customer
             btnEditSaveCustomer.setOnAction(e -> {
                 Customer.EditCustomer(txtEditCustomerFirstName, txtEditCustomerLastName, txtEditAddress, txtEditCustomerPhoneNumber, txtEditCustomerEmail, customerArray, cmboCustomerOptions);
                 cmboCustomerOptions.getItems().clear();
-                lstData.getItems().clear();
- 
-
-
-                for (int i = 0; i <Customer.customerQuantity; i++)
-                {
-                    System.out.println(i + " " + customerArray.toString());
-                }
-                MainMenu(primaryStage, menuScene);
-                    
+                lstData.getItems().clear();                    
             });
-        
-            
 
-            
-        
         // Action for when Exit is Selected
         btnExit.setOnAction(e -> {
             System.exit(0);
@@ -199,26 +194,20 @@ public class MenuFX extends Application {
     }
     public static void CreateCustomer(TextField txtCustomerFirstName, TextField txtCustomerLastName, TextField txtAddress, 
             TextField txtCustomerPhoneNumber, TextField txtCustomerEmail, ArrayList<Customer> customerArray)
-    {
-        
+    {       
         String firstName = txtCustomerFirstName.getText(); 
-//        customer.setFirstName(firstName);
         txtCustomerFirstName.clear();
                     
         String lastName = txtCustomerLastName.getText();
-//        customer.setLastName(lastName);
         txtCustomerLastName.clear();
                     
         String address = txtAddress.getText();   
-//        customer.setAddress(address);
         txtAddress.clear();
                     
         String phoneNumber = txtCustomerPhoneNumber.getText();
-//        customer.setPhoneNumber(phoneNumber);
         txtCustomerPhoneNumber.clear();
                     
         String email = txtCustomerEmail.getText(); 
-//        customer.setEmail(email);
         txtCustomerEmail.clear();
         
         customerArray.add(new Customer(firstName, lastName, address, phoneNumber, email));       
