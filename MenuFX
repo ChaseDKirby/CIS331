@@ -111,6 +111,7 @@ public class MenuFX extends Application {
                 
             // Edit Customer Scene    
             btnEditCustomer.setOnAction(e -> primaryStage.setScene(editCustomer));
+
                       
                 Label EditCustomer = new Label("Select a Customer to Edit");
                 Button btnShowCustomers = new Button("Show Customers");
@@ -142,10 +143,7 @@ public class MenuFX extends Application {
                 
             });
             // Edit Customer Screen
-            btnChooseCustomer.setOnAction(e -> primaryStage.setScene(editingCustomer));
-                
-                
-                
+            btnChooseCustomer.setOnAction(e -> primaryStage.setScene(editingCustomer));                
                 Label editCustomerPrompt = new Label("Enter all Customer Information");
                 Label editCustomerFirstName = new Label("First Name");
                 TextField txtEditCustomerFirstName = new TextField();
@@ -156,7 +154,7 @@ public class MenuFX extends Application {
                 Label editCustomerPhoneNumber = new Label("Phone Number");
                 TextField txtEditCustomerPhoneNumber = new TextField();
                 Label editCustomerEmail = new Label("Email");
-                TextField txtEditCustomerEmail = new TextField();
+                TextField txtEditCustomerEmail = new TextField();               
                 Button btnEditSaveCustomer = new Button("Save Customer");
                 VBox editingCustomerLayout = new VBox(10);
                 editingCustomerLayout.getChildren().addAll(editCustomerPrompt, editCustomerFirstName, txtEditCustomerFirstName, editCustomerLastName, txtEditCustomerLastName, editCustomerAddress,
@@ -165,13 +163,14 @@ public class MenuFX extends Application {
                 
             btnEditSaveCustomer.setOnAction(e -> {
                 Customer.EditCustomer(txtEditCustomerFirstName, txtEditCustomerLastName, txtEditAddress, txtEditCustomerPhoneNumber, txtEditCustomerEmail, customerArray, cmboCustomerOptions);
-                  
-                cmboCustomerOptions.setValue(null);
+                cmboCustomerOptions.getItems().clear();
                 lstData.getItems().clear();
+ 
+
 
                 for (int i = 0; i <Customer.customerQuantity; i++)
                 {
-                    System.out.println(i +" "+ customerArray.toString());
+                    System.out.println(i + " " + customerArray.toString());
                 }
                 MainMenu(primaryStage, menuScene);
                     
@@ -201,27 +200,27 @@ public class MenuFX extends Application {
     public static void CreateCustomer(TextField txtCustomerFirstName, TextField txtCustomerLastName, TextField txtAddress, 
             TextField txtCustomerPhoneNumber, TextField txtCustomerEmail, ArrayList<Customer> customerArray)
     {
-        Customer customer = new Customer();
+        
         String firstName = txtCustomerFirstName.getText(); 
-        customer.setFirstName(firstName);
+//        customer.setFirstName(firstName);
         txtCustomerFirstName.clear();
                     
         String lastName = txtCustomerLastName.getText();
-        customer.setLastName(lastName);
+//        customer.setLastName(lastName);
         txtCustomerLastName.clear();
                     
         String address = txtAddress.getText();   
-        customer.setAddress(address);
+//        customer.setAddress(address);
         txtAddress.clear();
                     
         String phoneNumber = txtCustomerPhoneNumber.getText();
-        customer.setPhoneNumber(phoneNumber);
+//        customer.setPhoneNumber(phoneNumber);
         txtCustomerPhoneNumber.clear();
                     
         String email = txtCustomerEmail.getText(); 
-        customer.setEmail(email);
+//        customer.setEmail(email);
         txtCustomerEmail.clear();
         
-        customerArray.add(customer);       
+        customerArray.add(new Customer(firstName, lastName, address, phoneNumber, email));       
     }
 }
