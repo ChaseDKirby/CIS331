@@ -106,10 +106,6 @@ public class MenuFX extends Application {
                 // When User wants to save Customer, stores and returns to main menu
                 btnSaveCustomer.setOnAction(e -> {                                
                     CreateCustomer(txtCustomerFirstName, txtCustomerLastName, txtAddress, txtCustomerPhoneNumber, txtCustomerEmail, customerArray);
-                                    for (int i = 0; i <Customer.customerQuantity; i++)
-                {
-                    System.out.println(i + " " + customerArray.toString());
-                }
                     System.out.println("");
                     MainMenu(primaryStage, menuScene);
                 });
@@ -213,3 +209,4 @@ public class MenuFX extends Application {
         customerArray.add(new Customer(firstName, lastName, address, phoneNumber, email));       
     }
 }
+
