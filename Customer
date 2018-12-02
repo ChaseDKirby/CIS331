@@ -111,31 +111,26 @@ public String getID()
 }
 public static void EditCustomer(TextField txtEditCustomerFirstName,TextField txtEditCustomerLastName, TextField txtEditAddress,
             TextField txtEditCustomerPhoneNumber,TextField txtEditCustomerEmail, ArrayList<Customer> customerArray, ComboBox cmboCustomerOptions)
-    {
-        for (int i = 0; i < customerArray.size(); i++)
-        {
-            if (cmboCustomerOptions.getSelectionModel().getSelectedIndex() == i);
-            {
-                String firstName = txtEditCustomerFirstName.getText(); 
-                customerArray.get(i).firstName = firstName;
+    {    
+                int i = cmboCustomerOptions.getSelectionModel().getSelectedIndex();           
+                String firstName1 = txtEditCustomerFirstName.getText(); 
+                customerArray.get(i).firstName = firstName1;
                 txtEditCustomerFirstName.clear();
                 
-                String lastName = txtEditCustomerLastName.getText();
-                customerArray.get(i).lastName = lastName;
+                String lastName1 = txtEditCustomerLastName.getText();
+                customerArray.get(i).lastName = lastName1;
                 txtEditCustomerLastName.getText();
                 
-                String address = txtEditAddress.getText();
-                customerArray.get(i).address = address;
+                String address1 = txtEditAddress.getText();
+                customerArray.get(i).address = address1;
                 txtEditAddress.clear();
                 
-                String phoneNumber = txtEditCustomerPhoneNumber.getText();
-                customerArray.get(i).phoneNumber = phoneNumber;
+                String phoneNumber1 = txtEditCustomerPhoneNumber.getText();
+                customerArray.get(i).phoneNumber = phoneNumber1;
                 txtEditCustomerPhoneNumber.clear();
                 
-                String email = txtEditCustomerEmail.getText();
-                customerArray.get(i).email = email;
+                String email1 = txtEditCustomerEmail.getText();
+                customerArray.get(i).email = email1;
                 txtEditCustomerEmail.clear();
-            }
-        }
     }
 }
