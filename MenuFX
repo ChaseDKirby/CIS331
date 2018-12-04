@@ -181,7 +181,7 @@ public class MenuFX extends Application {
                 MainMenu(primaryStage, menuScene);
             });
         
-        
+        // Labels and Text fields for Enter Sale
         Label lblEnterSale = new Label("Enter a Sale");
         Label lblSelectItem = new Label("Select a Item");
         Label lblEnterQuantity = new Label("Enter Quantity of Item Bought");
@@ -194,7 +194,7 @@ public class MenuFX extends Application {
         enterCustomerLayout.getChildren().addAll(lblEnterSale, lblSelectItem, cmboSelectItem, lblEnterQuantity,
                 txtEnterQuantity, lblEnterDate, txtEnterDate, lblSelectCustomer, cmboSelectCustomer, btnCreateSale, btnHome);
         enterSale = new Scene(enterCustomerLayout, 500, 500);
-        
+        // Action button for Enter Sale
         btnEnterSale.setOnAction(e -> {
             primaryStage.setScene(enterSale);
             
@@ -207,6 +207,7 @@ public class MenuFX extends Application {
                 selectCustomerList.add(cust.toString());  
             }
         });    
+            // Calls method to create a sale and clears combobox
             btnCreateSale.setOnAction(e -> {
                 CreateSale(txtEnterQuantity, txtEnterDate, cmboSelectItem, cmboSelectCustomer, saleArray, itemArray, customerArray);
                 cmboSelectCustomer.getItems().clear();
@@ -262,11 +263,14 @@ public class MenuFX extends Application {
         Item item1 = itemArray.get(item);
         
         int quantity = Integer.valueOf(txtEnterQuantity.getText());
+        txtEnterQuantity.clear();
         
         String date = txtEnterDate.getText();
+        txtEnterDate.clear();
         int customer = cmboSelectCustomer.getSelectionModel().getSelectedIndex();
         Customer customer1 = customerArray.get(customer);
         
         saleArray.add(new Sale(item1, quantity, date, customer1));
     }
 }
+
