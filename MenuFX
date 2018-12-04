@@ -11,6 +11,8 @@ import java.util.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextField;
 
 /**
  *
@@ -44,9 +46,15 @@ public class MenuFX extends Application {
     ObservableList editCustomerList = FXCollections.observableArrayList();
     ComboBox cmboCustomerOptions = new ComboBox(editCustomerList);
     
+    ObservableList selectItemList = FXCollections.observableArrayList();
+    ComboBox cmboSelectItem = new ComboBox(selectItemList);
+    
+    ObservableList selectCustomerList = FXCollections.observableArrayList();
+    ComboBox cmboSelectCustomer = new ComboBox(selectCustomerList);
+    
     //Creates the Scenes
     Stage window;
-    Scene customer, createCustomer, editCustomer, editingCustomer;
+    Scene customer, createCustomer, editCustomer, editingCustomer, enterSale;
     
     
     @Override
@@ -110,32 +118,18 @@ public class MenuFX extends Application {
                     System.out.println("");
                     MainMenu(primaryStage, menuScene);
                 });
-                
-            // Edit Customer Scene    
-            btnEditCustomer.setOnAction(e -> primaryStage.setScene(editCustomer));
-
-                      
-                Label EditCustomer = new Label("Select a Customer to Edit");
-                Button btnShowCustomers = new Button("Show Customers");
-                
+                Label EditCustomer = new Label("Select a Customer to Edit");                
                 Button btnChooseCustomer = new Button("Edit Customer");
                 VBox editCustomerLayout = new VBox(10);
-                editCustomerLayout.getChildren().addAll(btnShowCustomers, lstData, EditCustomer, cmboCustomerOptions, btnChooseCustomer, btnHome);
+                editCustomerLayout.getChildren().addAll(lstData , cmboCustomerOptions, btnChooseCustomer, btnHome);
                 editCustomer = new Scene(editCustomerLayout, 500, 500);
-                
-                
-            // Show all Customers Created
-            btnHome.setOnAction(e -> {
-                cmboCustomerOptions.getItems().clear();
-                lstData.getItems().clear();
-                MainMenu(primaryStage, menuScene);
-            });
-            // Button to display all the customers that have been created
-            btnShowCustomers.setOnAction(e -> {
-                 if (customerArray.isEmpty())
-                    {
-                        customersCreated.add("Please Add a Customer First");
-                    }
+            // Edit Customer Scene    
+            btnEditCustomer.setOnAction(e -> {
+                primaryStage.setScene(editCustomer);
+                if (customerArray.isEmpty())
+                {
+                    customersCreated.add("Please Add a Customer First");
+                }
                 else
                 {
                     for (Customer cust: customerArray)
@@ -145,10 +139,23 @@ public class MenuFX extends Application {
                             editCustomerList.add(cust.toString());  
                     }
                 }
+                    
+            });        
+
+                      
+
                 
+                
+            // Show all Customers Created
+            btnHome.setOnAction(e -> {
+                cmboCustomerOptions.getItems().clear();
+                lstData.getItems().clear();
+                MainMenu(primaryStage, menuScene);
             });
+            // Button to display all the customers that have been created
+
             // Edit Customer Screen
-            btnChooseCustomer.setOnAction(e -> primaryStage.setScene(editingCustomer));                
+            btnChooseCustomer.setOnAction(e -> primaryStage.setScene(editingCustomer));              
                 Label editCustomerPrompt = new Label("Enter all Customer Information");
                 Label editCustomerFirstName = new Label("First Name");
                 TextField txtEditCustomerFirstName = new TextField();
@@ -170,9 +177,46 @@ public class MenuFX extends Application {
             btnEditSaveCustomer.setOnAction(e -> {
                 Customer.EditCustomer(txtEditCustomerFirstName, txtEditCustomerLastName, txtEditAddress, txtEditCustomerPhoneNumber, txtEditCustomerEmail, customerArray, cmboCustomerOptions);
                 cmboCustomerOptions.getItems().clear();
-                lstData.getItems().clear();                    
+                lstData.getItems().clear();
+                MainMenu(primaryStage, menuScene);
             });
-
+        
+        
+        Label lblEnterSale = new Label("Enter a Sale");
+        Label lblSelectItem = new Label("Select a Item");
+        Label lblEnterQuantity = new Label("Enter Quantity of Item Bought");
+        TextField txtEnterQuantity = new TextField();
+        Label lblEnterDate = new Label("Enter Date Purchase (XX/XX/XXX)");
+        TextField txtEnterDate = new TextField();
+        Label lblSelectCustomer = new Label("Select a Customer");
+        Button btnCreateSale = new Button("Enter Sale");
+        VBox enterCustomerLayout = new VBox(10);
+        enterCustomerLayout.getChildren().addAll(lblEnterSale, lblSelectItem, cmboSelectItem, lblEnterQuantity,
+                txtEnterQuantity, lblEnterDate, txtEnterDate, lblSelectCustomer, cmboSelectCustomer, btnCreateSale, btnHome);
+        enterSale = new Scene(enterCustomerLayout, 500, 500);
+        
+        btnEnterSale.setOnAction(e -> {
+            primaryStage.setScene(enterSale);
+            
+            for (Item item: itemArray)
+            {
+                selectItemList.add(item.toString());
+            }
+            for (Customer cust: customerArray)
+            {
+                selectCustomerList.add(cust.toString());  
+            }
+        });    
+            btnCreateSale.setOnAction(e -> {
+                CreateSale(txtEnterQuantity, txtEnterDate, cmboSelectItem, cmboSelectCustomer, saleArray, itemArray, customerArray);
+                cmboSelectCustomer.getItems().clear();
+                cmboSelectItem.getItems().clear();
+                MainMenu(primaryStage, menuScene);
+            });
+        
+                
+            
+        
         // Action for when Exit is Selected
         btnExit.setOnAction(e -> {
             System.exit(0);
@@ -186,6 +230,7 @@ public class MenuFX extends Application {
     public static void main(String[] args) {
         launch(args);
     }
+
     public static void MainMenu(Stage primaryStage, Scene menuScene)
     {
         primaryStage.setScene(menuScene);
@@ -209,5 +254,19 @@ public class MenuFX extends Application {
         txtCustomerEmail.clear();
         
         customerArray.add(new Customer(firstName, lastName, address, phoneNumber, email));       
+    }
+    public static void CreateSale(TextField txtEnterQuantity, TextField txtEnterDate, 
+            ComboBox cmboSelectItem, ComboBox cmboSelectCustomer, ArrayList<Sale> saleArray, ArrayList<Item> itemArray, ArrayList<Customer> customerArray)
+    {
+        int item = cmboSelectItem.getSelectionModel().getSelectedIndex();
+        Item item1 = itemArray.get(item);
+        
+        int quantity = Integer.valueOf(txtEnterQuantity.getText());
+        
+        String date = txtEnterDate.getText();
+        int customer = cmboSelectCustomer.getSelectionModel().getSelectedIndex();
+        Customer customer1 = customerArray.get(customer);
+        
+        saleArray.add(new Sale(item1, quantity, date, customer1));
     }
 }
