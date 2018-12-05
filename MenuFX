@@ -266,7 +266,7 @@ public class MenuFX extends Application {
             Button btnShowItem = new Button("Show Items");
             Button btnChooseItems = new Button("Edit Items");
             VBox editItemLayout = new VBox(10);
-            editItemLayout.getChildren().addAll(btnShowItem, itemData, editItems, cmboItemOptions, btnChooseItems, btnHome);
+            editItemLayout.getChildren().addAll(itemData,cmboItemOptions, btnChooseItems, btnHome);
             editItem = new Scene(editItemLayout, 500, 500);
            
             //Edit Item Scene
@@ -314,7 +314,7 @@ public class MenuFX extends Application {
             Button btnEditItemSave = new Button("Save item");
             VBox editingItemLayout = new VBox(10);
             editingItemLayout.getChildren().addAll(editItemPrompt, editItemName, edittxtItemName,edititemQuantity,edittxtItemQuantity,
-            edittxtItemQuantity,edittxtItemQuantity,editItemWeight,edittxtItemWeight,editItemDescription, edittxtItemDescription,
+            editItemWeight,edittxtItemWeight,editItemDescription, edittxtItemDescription,
             editItemPricePaid, edittxtItemPricePaid,editItemForSalePrice ,edittxtItemSalePrice, btnEditItemSave);
             editingItem = new Scene(editingItemLayout, 500, 500);
             
