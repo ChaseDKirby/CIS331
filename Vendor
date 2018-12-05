@@ -6,10 +6,11 @@ Purpose: Use classes and methods to create a program that will create/edit diffe
 */
 package Group_Project;
 
+import java.util.*;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextField;
 
 public class Vendor {
-    
-    
     public String ID;
     public String vendorBusinessName;
     public String vendorBusinessAddress;
@@ -41,4 +42,65 @@ public String toString()
     String output = ID + "\t" + this.vendorBusinessName;
     return output;
 }
+
+public boolean setVendorBusinessName(String newVendorBusinessName)
+{
+    if (newVendorBusinessName.length() > 0)
+    {
+        vendorBusinessName = newVendorBusinessName;
+        return true;
+    }
+    else
+        return false;
+}
+
+public String setVendorBusinessAddress(String newVendorBusinessAddress)
+{
+    this.vendorBusinessAddress = newVendorBusinessAddress;
+    return vendorBusinessAddress;
+}
+
+public String setVendorPhoneNumber(String newVendorPhoneNumber)
+{
+    if (newVendorPhoneNumber.length() == 10)
+    {
+        vendorPhoneNumber = newVendorPhoneNumber;
+        return vendorPhoneNumber;
+    }
+    else
+        return "Please Enter a Valid Phone Number";
+}
+
+public String getID()
+{
+    return ID;
+}
+
+public static void EditVendor(TextField txtEditVendorBusinessName,TextField txtEditVendorBusinessAddress, TextField txtEditVendorPhoneNumber,
+            ArrayList<Vendor> vendorArray, ComboBox cmboVendorOptions)
+
+    {    
+                int i = cmboVendorOptions.getSelectionModel().getSelectedIndex();           
+
+                String vendorBusinessName1 = txtEditVendorBusinessName.getText(); 
+
+                vendorArray.get(i).vendorBusinessName = vendorBusinessName1;
+
+                txtEditVendorBusinessName.clear();
+
+                
+                String vendorBusinessAddress1 = txtEditVendorBusinessAddress.getText();
+
+                vendorArray.get(i).vendorBusinessAddress = vendorBusinessAddress1;
+
+                txtEditVendorBusinessAddress.clear();
+                
+                
+                String vendorPhoneNumber1 = txtEditVendorPhoneNumber.getText();
+
+                vendorArray.get(i).vendorPhoneNumber = vendorPhoneNumber1;
+
+                txtEditVendorPhoneNumber.clear();
+
+    }
 }
