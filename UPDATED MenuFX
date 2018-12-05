@@ -38,13 +38,35 @@ public class MenuFX extends Application {
     ArrayList<Item> itemArray = new ArrayList<Item>();
     ArrayList<Sale> saleArray = new ArrayList<Sale>();
     
-    //CUSTOMER COMBO BOXES
+    //CUSTOMER LISTS & COMBO BOXES
     ObservableList customersCreated = FXCollections.observableArrayList(); // List view when you hit edit customer
     ListView lstData = new ListView(customersCreated);
     ObservableList editCustomerList = FXCollections.observableArrayList(); // Combo Box when selecting a customer to edit
     ComboBox cmboCustomerOptions = new ComboBox(editCustomerList);
     
-    // ITEM COMBO BOXES
+    //VENDOR LISTS & COMBOBOXES
+    ObservableList vendorCreated = FXCollections.observableArrayList();
+    ListView vendorData = new ListView(vendorCreated);
+    
+    ObservableList selectVendorList = FXCollections.observableArrayList();
+    ComboBox cmboSelectVendor = new ComboBox(selectVendorList);
+    
+    ObservableList editVendorList = FXCollections.observableArrayList();
+    ComboBox cmboVendorOptions = new ComboBox(editVendorList);
+    
+    
+    
+    //CONTRACTOR LISTS & COMBO BOXES
+    ObservableList contractorCreated = FXCollections.observableArrayList();
+    ListView contractorData = new ListView(contractorCreated);
+    
+    ObservableList selectContractorList = FXCollections.observableArrayList();
+    ComboBox cmboSelectContractor = new ComboBox(selectContractorList);
+    
+    ObservableList editContractorList = FXCollections.observableArrayList();
+    ComboBox cmboContractorOptions = new ComboBox(editContractorList);
+    
+    // ITEM LISTS & COMBO BOXES
     ObservableList itemsCreated = FXCollections.observableArrayList(); // List view when you hit edit Item
     ListView itemData = new ListView(itemsCreated);
     ObservableList editItemList = FXCollections.observableArrayList(); // Combo Box when selecting a Item to edit
@@ -56,21 +78,28 @@ public class MenuFX extends Application {
     ObservableList selectItemList = FXCollections.observableArrayList(); // Selecting a Item for entering a sale
     ComboBox cmboSelectItem = new ComboBox(selectItemList);
     
-    //PRINT REPORT FOR SALE COMBO BOXES
+    //PRINT REPORT FOR SALE LISTS & COMBO BOXES
     ObservableList reportSaleReceiptList = FXCollections.observableArrayList();
     ListView lstReportReceipt = new ListView(reportSaleReceiptList);
     ObservableList reportSaleReceipt = FXCollections.observableArrayList();
     ComboBox cmboReportSale = new ComboBox(reportSaleReceipt);
+    
   
     
     //Creates the Scenes
     Stage window;
-    Scene customer, createCustomer, editCustomer, editingCustomer, enterSale, 
-            scenePrintReport, item, createItem, editItem, editingItem, scenePrintReceipt;
-    
+    Scene customer, createCustomer, editCustomer, editingCustomer; 
+    Scene enterSale, scenePrintReport, scenePrintReceipt;
+    Scene item, createItem, editItem, editingItem;
+    Scene vendor, createVendor, editVendor, editingVendor;
+    Scene contractor, createContractor, editContractor, editingConteactor;
     
     @Override
     public void start(Stage primaryStage) {
+        // PRE POPULATE ARRAYS
+        PrePopulate(customerArray, contractorArray, itemArray, vendorArray, saleArray);
+        
+        // Begin Scene
         GridPane menuPane = new GridPane();
         
         menuPane.setAlignment(Pos.CENTER);
@@ -119,15 +148,17 @@ public class MenuFX extends Application {
                 TextField txtCustomerPhoneNumber = new TextField();
                 Label customerEmail = new Label("Email");
                 TextField txtCustomerEmail = new TextField();
+                Label customerNotes = new Label("Notes");
+                TextArea txtCustomerNotes = new TextArea();
                 Button btnSaveCustomer = new Button("Save Customer");
                 VBox createCustomerLayout = new VBox(10);
                 createCustomerLayout.getChildren().addAll(createCustomerPrompt, customerFirstName, txtCustomerFirstName, customerLastName,
-                        txtCustomerLastName, customerAddress, txtAddress, customerPhoneNumber, txtCustomerPhoneNumber, customerEmail, txtCustomerEmail, btnSaveCustomer);
-                createCustomer = new Scene(createCustomerLayout, 500, 500);
+                        txtCustomerLastName, customerAddress, txtAddress, customerPhoneNumber, txtCustomerPhoneNumber, customerEmail, txtCustomerEmail, customerNotes, txtCustomerNotes, btnSaveCustomer);
+                createCustomer = new Scene(createCustomerLayout, 500, 600);
                 
                 // When User wants to save Customer, stores and returns to main menu
                 btnSaveCustomer.setOnAction(e -> {                                
-                    CreateCustomer(txtCustomerFirstName, txtCustomerLastName, txtAddress, txtCustomerPhoneNumber, txtCustomerEmail, customerArray);
+                    CreateCustomer(txtCustomerFirstName, txtCustomerLastName, txtAddress, txtCustomerPhoneNumber, txtCustomerEmail, txtCustomerNotes, customerArray);
                     System.out.println("");
                     MainMenu(primaryStage, menuScene, cmboSelectCustomer, cmboSelectItem);
                 });
@@ -136,8 +167,9 @@ public class MenuFX extends Application {
                 });
                 Label EditCustomer = new Label("Select a Customer to Edit");                
                 Button btnChooseCustomer = new Button("Edit Customer");
+                Button btnMainMenu3 = new Button("Main Menu");
                 VBox editCustomerLayout = new VBox(10);
-                editCustomerLayout.getChildren().addAll(EditCustomer, lstData , cmboCustomerOptions, btnChooseCustomer, btnHome);
+                editCustomerLayout.getChildren().addAll(EditCustomer, lstData , cmboCustomerOptions, btnChooseCustomer, btnMainMenu3);
                 editCustomer = new Scene(editCustomerLayout, 500, 500);
             // Edit Customer Scene    
             btnEditCustomer.setOnAction(e -> {
@@ -149,27 +181,31 @@ public class MenuFX extends Application {
                 }
                 else
                 {
+                    customersCreated.add("        ID\t\t\tFull Name");
                     for (Customer cust: customerArray)
                     {
-                            customersCreated.add("        ID\t\t\tFull Name");
+                            
                             customersCreated.add(cust.toString());
                             editCustomerList.add(cust.toString());  
                     }
                 }
                     
-            });          
-            
-            btnHome.setOnAction(e -> {
+            });
+            btnMainMenu3.setOnAction(e -> {
                 cmboCustomerOptions.getItems().clear();
                 lstData.getItems().clear();
-                cmboItemOptions.getItems().clear();
-                itemData.getItems().clear();
-                MainMenu(primaryStage, menuScene, cmboSelectCustomer, cmboSelectItem);
+                MainMenu(primaryStage, menuScene);
             });
+        btnHome.setOnAction(e -> {
+            cmboCustomerOptions.getItems().clear();
+            lstData.getItems().clear();
+            cmboItemOptions.getItems().clear();
+            itemData.getItems().clear();
+            MainMenu(primaryStage, menuScene, cmboSelectCustomer, cmboSelectItem);
+        });
            
 
             // Edit Customer Screen
-            btnChooseCustomer.setOnAction(e -> primaryStage.setScene(editingCustomer));              
                 Label editCustomerPrompt = new Label("Enter all Customer Information");
                 Label editCustomerFirstName = new Label("First Name");
                 TextField txtEditCustomerFirstName = new TextField();
@@ -180,13 +216,20 @@ public class MenuFX extends Application {
                 Label editCustomerPhoneNumber = new Label("Phone Number");
                 TextField txtEditCustomerPhoneNumber = new TextField();
                 Label editCustomerEmail = new Label("Email");
-                TextField txtEditCustomerEmail = new TextField();               
+                TextField txtEditCustomerEmail = new TextField();
+                Label editCustomerNotes = new Label("Notes:");
+                int customer1 = cmboCustomerOptions.getSelectionModel().getSelectedIndex();
+               // String grabNotes = customerArray.get(customer1).notes;
+                TextArea txtEditCustomerNotes = new TextArea();
                 Button btnEditSaveCustomer = new Button("Save Customer");
                 VBox editingCustomerLayout = new VBox(10);
                 editingCustomerLayout.getChildren().addAll(editCustomerPrompt, editCustomerFirstName, txtEditCustomerFirstName, editCustomerLastName, txtEditCustomerLastName, editCustomerAddress,
-                        txtEditAddress, editCustomerPhoneNumber, txtEditCustomerPhoneNumber, editCustomerEmail, txtEditCustomerEmail, btnEditSaveCustomer, btnMainMenu);
-                editingCustomer = new Scene(editingCustomerLayout, 500, 500);
-            
+                        txtEditAddress, editCustomerPhoneNumber, txtEditCustomerPhoneNumber, editCustomerEmail, txtEditCustomerEmail, editCustomerNotes, txtEditCustomerNotes, btnEditSaveCustomer, btnMainMenu);
+                editingCustomer = new Scene(editingCustomerLayout, 500, 600);
+            btnChooseCustomer.setOnAction(e -> {
+                primaryStage.setScene(editingCustomer);
+                
+            });
             // Uses the EditCustomer() method in the Customer class to change a certain customer
             btnEditSaveCustomer.setOnAction(e -> {
                 Customer.EditCustomer(txtEditCustomerFirstName, txtEditCustomerLastName, txtEditAddress, txtEditCustomerPhoneNumber, txtEditCustomerEmail, customerArray, cmboCustomerOptions);
@@ -250,9 +293,9 @@ public class MenuFX extends Application {
                 }
                 else 
                 {
+                    itemsCreated.add("ID\t\tItem Name");
                     for(Item item: itemArray)
                     {
-                           itemsCreated.add("ID\t\t\tFullName");
                            itemsCreated.add(item.toString());
                            editItemList.add(item.toString());
                     }
@@ -334,6 +377,7 @@ public class MenuFX extends Application {
         });
             btnMainMenu2.setOnAction(e -> {
                 cmboReportSale.getItems().clear();
+                lstReportReceipt.getItems().clear();
                 MainMenu(primaryStage, menuScene);
             });
             // Calls method to create a sale and clears combobox
@@ -342,6 +386,96 @@ public class MenuFX extends Application {
                 cmboSelectCustomer.getItems().clear();
                 cmboSelectItem.getItems().clear();
                 MainMenu(primaryStage, menuScene, cmboSelectCustomer, cmboSelectItem);
+            });    
+            
+                // Action for when Vendor is Selected
+        btnVendor.setOnAction(e -> primaryStage.setScene(vendor));
+
+            // Scene for when Vendor is selected at Menu
+            Label vendorPrompt = new Label("Select Create or Edit Vendor");
+            Button btnCreateVendor = new Button("Create Vendor");
+            Button btnEditVendor = new Button("Edit Vendor");
+            VBox vendorLayout = new VBox(20);
+            vendorLayout.getChildren().addAll(vendorPrompt, btnCreateVendor, btnEditVendor);
+            vendor = new Scene(vendorLayout, 300, 250);
+       
+            // Create Customer Selected Sets Buttons, Labels and Text Boxes
+            btnCreateVendor.setOnAction(e -> primaryStage.setScene(createVendor));
+                Label createVendorPrompt = new Label("Enter all Vendor Information");
+                Label vendorBusinessName = new Label("Vendor Business Name");
+                TextField txtVendorBusinessName = new TextField();
+                Label vendorBusinessAddress = new Label("Vendor Business Address");
+                TextField txtVendorBusinessAddress = new TextField();
+                Label vendorPhoneNumber = new Label("Vendor Phone Number");
+                TextField txtVendorPhoneNumber = new TextField();
+                Button btnSaveVendor = new Button("Save Vendor");
+                VBox createVendorLayout = new VBox(10);
+                createVendorLayout.getChildren().addAll(createVendorPrompt, vendorBusinessName, txtVendorBusinessName,
+                        vendorBusinessAddress, txtVendorBusinessAddress, vendorPhoneNumber, txtVendorPhoneNumber, btnSaveVendor);
+                createVendor = new Scene(createVendorLayout, 500, 500);
+
+                // When User wants to save Vendor, stores and returns to main menu
+                btnSaveVendor.setOnAction(e -> {                                
+                    CreateVendor(txtVendorBusinessName, txtVendorBusinessAddress, txtVendorPhoneNumber, vendorArray);
+                    System.out.println("");
+                    MainMenu(primaryStage, menuScene);
+                });
+                Label EditVendor = new Label("Select a Vendor to Edit");                
+                Button btnChooseVendor = new Button("Edit Vendor");
+                Button btnMainMenu4 = new Button("Main Menu");
+                VBox editVendorLayout = new VBox(10);
+                editVendorLayout.getChildren().addAll(EditVendor, vendorData , cmboVendorOptions, btnChooseVendor, btnMainMenu4);
+                editVendor = new Scene(editVendorLayout, 500, 500);
+        
+        // Edit Vendor Scene    
+            btnEditVendor.setOnAction(e -> {
+                primaryStage.setScene(editVendor);
+                if (vendorArray.isEmpty())
+                {
+                    vendorCreated.add("Please Add a Vendor First");
+                }
+                else
+                {
+                    vendorCreated.add("        ID\t\t\tVendor Business Name");
+                    for (Vendor ven: vendorArray)
+                    {
+
+                            vendorCreated.add(ven.toString());
+                            editVendorList.add(ven.toString());  
+                    }
+                }
+            });        
+
+            // Show all Vendors Created
+            btnMainMenu4.setOnAction(e -> {
+                cmboVendorOptions.getItems().clear();
+                vendorData.getItems().clear();
+                MainMenu(primaryStage, menuScene);
+            });
+
+            // Button to display all the vendors that have been created
+
+            // Edit Vendor Screen
+            btnChooseVendor.setOnAction(e -> primaryStage.setScene(editingVendor));              
+                Label editVendorPrompt = new Label("Enter all Vendor Information");
+                Label editVendorBusinessName = new Label("Vendor Business Name");
+                TextField txtEditVendorBusinessName = new TextField();
+                Label editVendorBusinessAddress = new Label("Vendor Business Address");
+                TextField txtEditVendorBusinessAddress = new TextField();
+                Label editVendorPhoneNumber = new Label("Vendor Phone Number");
+                TextField txtEditVendorPhoneNumber = new TextField();   
+                Button btnEditSaveVendor = new Button("Save Vendor");
+                VBox editingVendorLayout = new VBox(10);
+                editingVendorLayout.getChildren().addAll(editVendorPrompt, editVendorBusinessName, txtEditVendorBusinessName, editVendorBusinessAddress,
+                        txtEditVendorBusinessAddress, editVendorPhoneNumber, txtEditVendorPhoneNumber, btnEditSaveVendor);
+                editingVendor = new Scene(editingVendorLayout, 500, 500);
+
+            // Uses the EditVendor() method in the Vendor class to change a certain vendor
+            btnEditSaveVendor.setOnAction(e -> {
+                Vendor.EditVendor(txtEditVendorBusinessName, txtEditVendorBusinessAddress, txtEditVendorPhoneNumber, vendorArray, cmboVendorOptions);
+                cmboVendorOptions.getItems().clear();
+                vendorData.getItems().clear();
+                MainMenu(primaryStage, menuScene);
             });    
         //Setting Scene for Print Report
         Label lblPrintReport = new Label("Select a Report to Print");
@@ -373,7 +507,6 @@ public class MenuFX extends Application {
             });
                 btnCreateReport.setOnAction(e -> {
                 int i = cmboReportSale.getSelectionModel().getSelectedIndex();
-                System.out.println(i);
                 reportSaleReceiptList.add(saleArray.get(i).describeSale());
                 
                 });
@@ -421,7 +554,7 @@ public class MenuFX extends Application {
         primaryStage.setScene(menuScene);
     }
     public static void CreateCustomer(TextField txtCustomerFirstName, TextField txtCustomerLastName, TextField txtAddress, 
-                          TextField txtCustomerPhoneNumber, TextField txtCustomerEmail, ArrayList<Customer> customerArray)
+                          TextField txtCustomerPhoneNumber, TextField txtCustomerEmail, TextArea txtCustomerNotes, ArrayList<Customer> customerArray)
     {       
         String firstName = txtCustomerFirstName.getText(); 
         txtCustomerFirstName.clear();
@@ -438,7 +571,10 @@ public class MenuFX extends Application {
         String email = txtCustomerEmail.getText(); 
         txtCustomerEmail.clear();
         
-        customerArray.add(new Customer(firstName, lastName, address, phoneNumber, email));       
+        String notes = txtCustomerNotes.getText();
+        txtCustomerNotes.clear();
+        
+        customerArray.add(new Customer(firstName, lastName, address, phoneNumber, email, notes));       
     }
     public static void CreateSale(TextField txtEnterQuantity, TextField txtEnterDate, 
             ComboBox cmboSelectItem, ComboBox cmboSelectCustomer, ArrayList<Sale> saleArray, ArrayList<Item> itemArray, ArrayList<Customer> customerArray)
@@ -483,4 +619,51 @@ public class MenuFX extends Application {
         
         itemArray.add(new Item(itemName, itemNumberQuantity, itemNumberWeight, description, itemNumberPricePaid, itemNumberSalePrice));
     }
+        public static void CreateVendor(TextField txtVendorBusinessName, TextField txtVendorBusinessAddress, 
+                          TextField txtVendorPhoneNumber, ArrayList<Vendor> vendorArray)
+    {       
+        String vendorBusinessName = txtVendorBusinessName.getText(); 
+        txtVendorBusinessName.clear();
+                    
+        String vendorBusinessAddress = txtVendorBusinessAddress.getText();   
+        txtVendorBusinessAddress.clear();
+                    
+        String vendorPhoneNumber = txtVendorPhoneNumber.getText();
+        txtVendorPhoneNumber.clear();
+                    
+        vendorArray.add(new Vendor(vendorBusinessName, vendorBusinessAddress, vendorPhoneNumber));       
+    }
+        public static void PrePopulate(ArrayList<Customer> customerArray, ArrayList<Contractor> contractorArray, ArrayList<Item> itemArray, ArrayList<Vendor> vendorArray, ArrayList<Sale> saleArray)
+        {
+                // CUSTOMERS
+                customerArray.add(new Customer("Adam", "Sandler", "3204 Sandy Rd", "3203458909", "ASandler@yahoo.com", ""));
+                customerArray.add(new Customer("Seth", "Rogan", "89920 Hills St", "1239905273", "SRogan@gmail.com", ""));
+                customerArray.add(new Customer("Ryan", "Renolds", "2933 Showtime Rd", "847333009", "RRynolds@yahoo.com", ""));
+                customerArray.add(new Customer("Denzel", "Washington", "2312 Equalizer BLVD", "5567893344", "DWashington@yahoo.com", ""));
+                
+                // ITEMS
+                itemArray.add(new Item("TV", 100, 25.3, "LED Flat Screen TV", 330.0, 290.0));
+                itemArray.add(new Item("Candle", 100, 5.0, "Scented Candle", 10.0, 9.0));
+                itemArray.add(new Item("Xbox", 100, 10.0, "Video Game", 220.0, 199.99));
+                itemArray.add(new Item("Computer", 100, 15.7, "Desktop Computer", 556.35, 510.00));
+                itemArray.add(new Item("Speakers", 100, 17.2, "Boze Speaker", 65.8, 59.99));
+                itemArray.add(new Item("Backpack", 100, 6.8, "Backpack to hold books", 42.56, 35.99));
+                itemArray.add(new Item("Bottle Water", 1000, 1.4, "Purified Drinking Water", 3.24, 2.99));
+                itemArray.add(new Item("Phone", 100, 3.5, "iPhone 7.0", 456.34, 399.99));
+                itemArray.add(new Item("Couch", 100, 120.3, "Tan L-Shaped Couch", 995.43, 875.99));
+                itemArray.add(new Item("Phone Charger", 100, 1.0, "6 Foot iPhone Charger", 11.45, 9.99));
+                
+                // VENDORS  
+                vendorArray.add(new Vendor("Apple Inc", "1000 Apple Rd", "4563329000"));
+                vendorArray.add(new Vendor("Samsung", "9087 Runaway Drive", "6783322141"));
+                vendorArray.add(new Vendor("Microsoft", "2342 South St", "3234518768"));
+                
+                saleArray.add(new Sale(itemArray.get(0), 5, "04/29/2010", customerArray.get(2)));
+                saleArray.add(new Sale(itemArray.get(6), 24, "11/13/2018", customerArray.get(1)));
+                saleArray.add(new Sale(itemArray.get(9), 1, "09/05/2009", customerArray.get(0)));
+                saleArray.add(new Sale(itemArray.get(3), 1, "04/12/2000", customerArray.get(3)));
+                saleArray.add(new Sale(itemArray.get(2), 5, "11/01/2015", customerArray.get(2)));
+                
+        }
 }
+
