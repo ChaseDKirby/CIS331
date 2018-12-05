@@ -54,8 +54,9 @@ public class MenuFX extends Application {
     
     ObservableList customersCreated = FXCollections.observableArrayList();
     ListView lstData = new ListView(customersCreated);
-    
    
+    ObservableList editCustomerList = FXCollections.observableArrayList();
+    ComboBox cmboCustomerOptions = new ComboBox(editCustomerList);
     
     
     
