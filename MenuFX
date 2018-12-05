@@ -19,6 +19,13 @@ import javafx.scene.control.TextField;
  * @author chase
  */
 public class MenuFX extends Application {
+ 
+
+/**
+ *
+ * @author chase
+ */
+
     //Buttons and Labels for Menu Window
     Label lblPrompt = new Label ("Please Select a Menu Option");
     Button btnCustomer = new Button("Customer");
@@ -38,31 +45,68 @@ public class MenuFX extends Application {
     ArrayList<Item> itemArray = new ArrayList<Item>();
     ArrayList<Sale> saleArray = new ArrayList<Sale>();
     
+    
     //Create List View
+    
+    // Create ComboBox for Selecting Customer
+    ObservableList selectCustomerList = FXCollections.observableArrayList();
+    ComboBox cmboSelectCustomer = new ComboBox(selectCustomerList);
+    
     ObservableList customersCreated = FXCollections.observableArrayList();
     ListView lstData = new ListView(customersCreated);
     
-    // Create ComboBox for Selecting Customer
-    ObservableList editCustomerList = FXCollections.observableArrayList();
-    ComboBox cmboCustomerOptions = new ComboBox(editCustomerList);
+   
     
+    
+    
+    //Create comboBox for selecting item
     ObservableList itemsCreated = FXCollections.observableArrayList();
     ListView itemData = new ListView(itemsCreated);
     
     ObservableList selectItemList = FXCollections.observableArrayList();
     ComboBox cmboSelectItem = new ComboBox(selectItemList);
     
-    ObservableList selectCustomerList = FXCollections.observableArrayList();
-    ComboBox cmboSelectCustomer = new ComboBox(selectCustomerList);
-    
-    //Create comboBox for selecting item
     ObservableList editItemList = FXCollections.observableArrayList();
     ComboBox cmboItemOptions = new ComboBox(editItemList);
     
+    
+    
+    
+    
+    ObservableList vendorCreated = FXCollections.observableArrayList();
+    ListView vendorData = new ListView(vendorCreated);
+    
+    ObservableList selectVendorList = FXCollections.observableArrayList();
+    ComboBox cmboSelectVendor = new ComboBox(selectVendorList);
+    
+    ObservableList editVendorList = FXCollections.observableArrayList();
+    ComboBox cmboVendorOptions = new ComboBox(editVendorList);
+    
+    
+    
+    
+    ObservableList contractorCreated = FXCollections.observableArrayList();
+    ListView contractorData = new ListView(contractorCreated);
+    
+    ObservableList selectContractorList = FXCollections.observableArrayList();
+    ComboBox cmboSelectContractor = new ComboBox(selectContractorList);
+    
+    ObservableList editContractorList = FXCollections.observableArrayList();
+    ComboBox cmboContractorOptions = new ComboBox(editContractorList);
+    
+    
+    
+    
+    
+    
+ 
     //Creates the Scenes
     Stage window;
     Scene customer, createCustomer, editCustomer, editingCustomer, enterSale;
     Scene item, createItem, editItem, editingItem;
+    Scene vendor, createVendor, editVendor, editingVendor;
+    Scene contractor, createContractor, editContractor, editingConteactor;
+    
     
     
     @Override
