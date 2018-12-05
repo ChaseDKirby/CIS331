@@ -268,6 +268,98 @@ public class MenuFX extends Application {
             });
             
             
+
+        // Action for when Vendor is Selected
+        btnVendor.setOnAction(e -> primaryStage.setScene(vendor));
+
+            // Scene for when Vendor is selected at Menu
+            Label vendorPrompt = new Label("Select Create or Edit Vendor");
+            Button btnCreateVendor = new Button("Create Vendor");
+            Button btnEditVendor = new Button("Edit Vendor");
+            VBox vendorLayout = new VBox(20);
+            vendorLayout.getChildren().addAll(vendorPrompt, btnCreateVendor, btnEditVendor);
+            vendor = new Scene(vendorLayout, 300, 250);
+       
+            // Create Customer Selected Sets Buttons, Labels and Text Boxes
+            btnCreateVendor.setOnAction(e -> primaryStage.setScene(createVendor));
+                Label createVendorPrompt = new Label("Enter all Vendor Information");
+                Label vendorBusinessName = new Label("Vendor Business Name");
+                TextField txtVendorBusinessName = new TextField();
+                Label vendorBusinessAddress = new Label("Vendor Business Address");
+                TextField txtVendorBusinessAddress = new TextField();
+                Label vendorPhoneNumber = new Label("Vendor Phone Number");
+                TextField txtVendorPhoneNumber = new TextField();
+                Button btnSaveVendor = new Button("Save Vendor");
+                VBox createVendorLayout = new VBox(10);
+                createVendorLayout.getChildren().addAll(createVendorPrompt, vendorBusinessName, txtVendorBusinessName,
+                        vendorBusinessAddress, txtVendorBusinessAddress, vendorPhoneNumber, txtVendorPhoneNumber, btnSaveVendor);
+                createVendor = new Scene(createVendorLayout, 500, 500);
+
+                // When User wants to save Vendor, stores and returns to main menu
+                btnSaveVendor.setOnAction(e -> {                                
+                    CreateVendor(txtVendorBusinessName, txtVendorBusinessAddress, txtVendorPhoneNumber, vendorArray);
+                    System.out.println("");
+                    MainMenu(primaryStage, menuScene);
+                });
+                Label EditVendor = new Label("Select a Vendor to Edit");                
+                Button btnChooseVendor = new Button("Edit Vendor");
+                VBox editVendorLayout = new VBox(10);
+                editVendorLayout.getChildren().addAll(vendorData , cmboVendorOptions, btnChooseVendor, btnHome);
+                editVendor = new Scene(editVendorLayout, 500, 500);
+        
+        // Edit Vendor Scene    
+            btnEditVendor.setOnAction(e -> {
+                primaryStage.setScene(editVendor);
+                if (vendorArray.isEmpty())
+                {
+                    vendorCreated.add("Please Add a Vendor First");
+                }
+                else
+                {
+                    for (Vendor ven: vendorArray)
+                    {
+                            vendorCreated.add("        ID\t\t\tVendor Business Name");
+                            vendorCreated.add(ven.toString());
+                            editVendorList.add(ven.toString());  
+                    }
+                }
+            });        
+
+            // Show all Vendors Created
+            btnHome.setOnAction(e -> {
+                cmboVendorOptions.getItems().clear();
+                vendorData.getItems().clear();
+                MainMenu(primaryStage, menuScene);
+            });
+
+            // Button to display all the vendors that have been created
+
+            // Edit Vendor Screen
+            btnChooseVendor.setOnAction(e -> primaryStage.setScene(editingVendor));              
+                Label editVendorPrompt = new Label("Enter all Vendor Information");
+                Label editVendorBusinessName = new Label("Vendor Business Name");
+                TextField txtEditVendorBusinessName = new TextField();
+                Label editVendorBusinessAddress = new Label("Vendor Business Address");
+                TextField txtEditVendorBusinessAddress = new TextField();
+                Label editVendorPhoneNumber = new Label("Vendor Phone Number");
+                TextField txtEditVendorPhoneNumber = new TextField();   
+                Button btnEditSaveVendor = new Button("Save Vendor");
+                VBox editingVendorLayout = new VBox(10);
+                editingVendorLayout.getChildren().addAll(editVendorPrompt, editVendorBusinessName, txtEditVendorBusinessName, editVendorBusinessAddress,
+                        txtEditVendorBusinessAddress, editVendorPhoneNumber, txtEditVendorPhoneNumber, btnEditSaveVendor);
+                editingVendor = new Scene(editingVendorLayout, 500, 500);
+
+            // Uses the EditVendor() method in the Vendor class to change a certain vendor
+            btnEditSaveVendor.setOnAction(e -> {
+                Vendor.EditVendor(txtEditVendorBusinessName, txtEditVendorBusinessAddress, txtEditVendorPhoneNumber, vendorArray, cmboVendorOptions);
+                cmboVendorOptions.getItems().clear();
+                vendorData.getItems().clear();
+                MainMenu(primaryStage, menuScene);
+            });
+        
+        
+        
+      
             
 //Action for when item is selected
         btnInventoryItem.setOnAction(e -> primaryStage.setScene(item));
@@ -421,6 +513,20 @@ public class MenuFX extends Application {
         Customer customer1 = customerArray.get(customer);
         
         saleArray.add(new Sale(item1, quantity, date, customer1));
+    }
+    public static void CreateVendor(TextField txtVendorBusinessName, TextField txtVendorBusinessAddress, 
+                          TextField txtVendorPhoneNumber, ArrayList<Vendor> vendorArray)
+    {       
+        String vendorBusinessName = txtVendorBusinessName.getText(); 
+        txtVendorBusinessName.clear();
+                    
+        String vendorBusinessAddress = txtVendorBusinessAddress.getText();   
+        txtVendorBusinessAddress.clear();
+                    
+        String vendorPhoneNumber = txtVendorPhoneNumber.getText();
+        txtVendorPhoneNumber.clear();
+                    
+        vendorArray.add(new Vendor(vendorBusinessName, vendorBusinessAddress, vendorPhoneNumber));       
     }
     public static void CreateItem(TextField txtItemName, TextField txtItemQuantity, TextField txtItemWeight,
              TextField txtItemDescription, TextField txtItemPricePaid, TextField txtItemSalePrice, ArrayList<Item> itemArray)
