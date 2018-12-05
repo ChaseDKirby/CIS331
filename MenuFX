@@ -46,15 +46,23 @@ public class MenuFX extends Application {
     ObservableList editCustomerList = FXCollections.observableArrayList();
     ComboBox cmboCustomerOptions = new ComboBox(editCustomerList);
     
+    ObservableList itemsCreated = FXCollections.observableArrayList();
+    ListView itemData = new ListView(itemsCreated);
+    
     ObservableList selectItemList = FXCollections.observableArrayList();
     ComboBox cmboSelectItem = new ComboBox(selectItemList);
     
     ObservableList selectCustomerList = FXCollections.observableArrayList();
     ComboBox cmboSelectCustomer = new ComboBox(selectCustomerList);
     
+    //Create comboBox for selecting item
+    ObservableList editItemList = FXCollections.observableArrayList();
+    ComboBox cmboItemOptions = new ComboBox(editItemList);
+    
     //Creates the Scenes
     Stage window;
     Scene customer, createCustomer, editCustomer, editingCustomer, enterSale;
+    Scene item, createItem, editItem, editingItem;
     
     
     @Override
