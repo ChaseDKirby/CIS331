@@ -55,11 +55,18 @@ public class MenuFX extends Application {
     ComboBox cmboSelectCustomer = new ComboBox(selectCustomerList);
     ObservableList selectItemList = FXCollections.observableArrayList(); // Selecting a Item for entering a sale
     ComboBox cmboSelectItem = new ComboBox(selectItemList);
+    
+    //PRINT REPORT FOR SALE COMBO BOXES
+    ObservableList reportSaleReceiptList = FXCollections.observableArrayList();
+    ListView lstReportReceipt = new ListView(reportSaleReceiptList);
+    ObservableList reportSaleReceipt = FXCollections.observableArrayList();
+    ComboBox cmboReportSale = new ComboBox(reportSaleReceipt);
   
     
     //Creates the Scenes
     Stage window;
-    Scene customer, createCustomer, editCustomer, editingCustomer, enterSale, scenePrintReport, item, createItem, editItem, editingItem;
+    Scene customer, createCustomer, editCustomer, editingCustomer, enterSale, 
+            scenePrintReport, item, createItem, editItem, editingItem, scenePrintReceipt;
     
     
     @Override
@@ -296,9 +303,10 @@ public class MenuFX extends Application {
         TextField txtEnterDate = new TextField();
         Label lblSelectCustomer = new Label("Select a Customer");
         Button btnCreateSale = new Button("Enter Sale");
+        Button btnMainMenu2 = new Button("Main Menu");
         VBox enterCustomerLayout = new VBox(10);
         enterCustomerLayout.getChildren().addAll(lblEnterSale, lblSelectItem, cmboSelectItem, lblEnterQuantity,
-                txtEnterQuantity, lblEnterDate, txtEnterDate, lblSelectCustomer, cmboSelectCustomer, btnCreateSale, btnHome);
+                txtEnterQuantity, lblEnterDate, txtEnterDate, lblSelectCustomer, cmboSelectCustomer, btnCreateSale, btnMainMenu2);
         enterSale = new Scene(enterCustomerLayout, 500, 500);
         // Action button for Enter Sale
         btnEnterSale.setOnAction(e -> {
@@ -312,7 +320,22 @@ public class MenuFX extends Application {
             {
                 selectCustomerList.add(cust.toString());  
             }
-        });    
+            // Loop to subtract invetory when sale is created
+            for (int i = 0; i < Sale.saleQuantity; i++)
+            {
+                for (int j = 0; j < Item.itemQuantity; j++)
+                {
+                    if (saleArray.get(i).itemSold == itemArray.get(j))
+                    {
+                        itemArray.get(j).quantity = itemArray.get(j).quantity - saleArray.get(i).purchaseQuantity;
+                    }
+                }
+            }
+        });
+            btnMainMenu2.setOnAction(e -> {
+                cmboReportSale.getItems().clear();
+                MainMenu(primaryStage, menuScene);
+            });
             // Calls method to create a sale and clears combobox
             btnCreateSale.setOnAction(e -> {
                 CreateSale(txtEnterQuantity, txtEnterDate, cmboSelectItem, cmboSelectCustomer, saleArray, itemArray, customerArray);
@@ -334,9 +357,26 @@ public class MenuFX extends Application {
             primaryStage.setScene(scenePrintReport);   
         });
             // Setting up Print Receipt 
+            Label lblPrintReceipt = new Label("Select a Sale to print a report");
+            Button btnCreateReport = new Button("Print Report");
+            VBox printReceipt = new VBox(10);
+            printReceipt.getChildren().addAll(lblPrintReceipt, cmboReportSale, lstReportReceipt, btnCreateReport, btnMainMenu2);
+            scenePrintReceipt = new Scene(printReceipt, 500, 500);
             btnPrintReceipt.setOnAction(e -> {
-            
+                primaryStage.setScene(scenePrintReceipt);
+                for (Sale sale1: saleArray)
+                {
+                    reportSaleReceipt.add(sale1.toString());
+                }
+                
+                
             });
+                btnCreateReport.setOnAction(e -> {
+                int i = cmboReportSale.getSelectionModel().getSelectedIndex();
+                System.out.println(i);
+                reportSaleReceiptList.add(saleArray.get(i).describeSale());
+                
+                });
             // Setting up Print Customer History
             btnPrintCustomerHistory.setOnAction(e -> {
                 
