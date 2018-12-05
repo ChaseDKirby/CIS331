@@ -1,0 +1,446 @@
+
+package Group_Project;
+
+import javafx.application.Application;
+import javafx.event.*;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.layout.*;
+import javafx.stage.Stage;
+import java.util.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.geometry.Pos;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextField;
+
+/**
+ *
+ * @author chase
+ */
+public class MenuFX extends Application {
+    //Buttons and Labels for Menu Window
+    Label lblPrompt = new Label ("Please Select a Menu Option");
+    Button btnCustomer = new Button("Customer");
+    Button btnContractor = new Button("Contractor");
+    Button btnInventoryItem = new Button("Inventory Item");
+    Button btnVendor = new Button("Vendor");
+    Button btnEnterSale = new Button("Enter a Sale");
+    Button btnPrintReport = new Button("Print a Report");
+    Button btnExit = new Button("Exit");
+    Button btnHome = new Button("Main Menu");
+    
+    
+    // Global Arrays
+    ArrayList<Customer> customerArray = new ArrayList<Customer>();
+    ArrayList<Contractor> contractorArray = new ArrayList<Contractor>();
+    ArrayList<Vendor> vendorArray = new ArrayList<Vendor>();
+    ArrayList<Item> itemArray = new ArrayList<Item>();
+    ArrayList<Sale> saleArray = new ArrayList<Sale>();
+    
+    //CUSTOMER COMBO BOXES
+    ObservableList customersCreated = FXCollections.observableArrayList(); // List view when you hit edit customer
+    ListView lstData = new ListView(customersCreated);
+    ObservableList editCustomerList = FXCollections.observableArrayList(); // Combo Box when selecting a customer to edit
+    ComboBox cmboCustomerOptions = new ComboBox(editCustomerList);
+    
+    // ITEM COMBO BOXES
+    ObservableList itemsCreated = FXCollections.observableArrayList(); // List view when you hit edit Item
+    ListView itemData = new ListView(itemsCreated);
+    ObservableList editItemList = FXCollections.observableArrayList(); // Combo Box when selecting a Item to edit
+    ComboBox cmboItemOptions = new ComboBox(editItemList);
+    
+    // SALE COMBO BOXES
+    ObservableList selectCustomerList = FXCollections.observableArrayList(); // Selecting a customer for entering a sale
+    ComboBox cmboSelectCustomer = new ComboBox(selectCustomerList);
+    ObservableList selectItemList = FXCollections.observableArrayList(); // Selecting a Item for entering a sale
+    ComboBox cmboSelectItem = new ComboBox(selectItemList);
+  
+    
+    //Creates the Scenes
+    Stage window;
+    Scene customer, createCustomer, editCustomer, editingCustomer, enterSale, scenePrintReport, item, createItem, editItem, editingItem;
+    
+    
+    @Override
+    public void start(Stage primaryStage) {
+        GridPane menuPane = new GridPane();
+        
+        menuPane.setAlignment(Pos.CENTER);
+        menuPane.setHgap(5);
+        menuPane.setVgap(10);
+        // Adds all Menu Buttons to the Pane
+        menuPane.add(lblPrompt, 0, 0);
+        menuPane.add(btnCustomer, 0, 1);
+        menuPane.add(btnContractor, 0, 2);
+        menuPane.add(btnInventoryItem, 0, 3);
+        menuPane.add(btnVendor, 0, 4);
+        menuPane.add(btnEnterSale, 0, 5);
+        menuPane.add(btnPrintReport, 0, 6);
+        menuPane.add(btnExit, 0, 7);
+        
+        Scene menuScene = new Scene(menuPane, 500, 400);
+        
+        //Set the primary Scene 
+        primaryStage.setScene(menuScene);
+        primaryStage.setTitle("Main Menu");
+        primaryStage.show();
+        
+        // Action for when Customer is Selected
+        btnCustomer.setOnAction(e -> primaryStage.setScene(customer));
+            
+            
+            // Scene for when Customer is selected at Menu
+            Label customerPrompt = new Label("Select Create or Edit Customer");
+            Button btnCreateCustomer = new Button("Create Customer");
+            Button btnEditCustomer = new Button("Edit Customer");
+            Button btnMainMenu = new Button("Main Menu");
+            VBox customerLayout = new VBox(20);
+            customerLayout.getChildren().addAll(customerPrompt, btnCreateCustomer, btnEditCustomer, btnMainMenu);
+            customer = new Scene(customerLayout, 300, 250);
+            
+            // Create Customer Selected Sets Buttons, Labels and Text Boxes
+            btnCreateCustomer.setOnAction(e -> primaryStage.setScene(createCustomer));
+                Label createCustomerPrompt = new Label("Enter all Customer Information");
+                Label customerFirstName = new Label("First Name");
+                TextField txtCustomerFirstName = new TextField();
+                Label customerLastName = new Label("Last Name");
+                TextField txtCustomerLastName = new TextField();
+                Label customerAddress = new Label("Address");
+                TextField txtAddress = new TextField();
+                Label customerPhoneNumber = new Label("Phone Number");
+                TextField txtCustomerPhoneNumber = new TextField();
+                Label customerEmail = new Label("Email");
+                TextField txtCustomerEmail = new TextField();
+                Button btnSaveCustomer = new Button("Save Customer");
+                VBox createCustomerLayout = new VBox(10);
+                createCustomerLayout.getChildren().addAll(createCustomerPrompt, customerFirstName, txtCustomerFirstName, customerLastName,
+                        txtCustomerLastName, customerAddress, txtAddress, customerPhoneNumber, txtCustomerPhoneNumber, customerEmail, txtCustomerEmail, btnSaveCustomer);
+                createCustomer = new Scene(createCustomerLayout, 500, 500);
+                
+                // When User wants to save Customer, stores and returns to main menu
+                btnSaveCustomer.setOnAction(e -> {                                
+                    CreateCustomer(txtCustomerFirstName, txtCustomerLastName, txtAddress, txtCustomerPhoneNumber, txtCustomerEmail, customerArray);
+                    System.out.println("");
+                    MainMenu(primaryStage, menuScene, cmboSelectCustomer, cmboSelectItem);
+                });
+                btnMainMenu.setOnAction(e -> {
+                    MainMenu(primaryStage, menuScene, cmboSelectCustomer, cmboSelectItem);
+                });
+                Label EditCustomer = new Label("Select a Customer to Edit");                
+                Button btnChooseCustomer = new Button("Edit Customer");
+                VBox editCustomerLayout = new VBox(10);
+                editCustomerLayout.getChildren().addAll(EditCustomer, lstData , cmboCustomerOptions, btnChooseCustomer, btnHome);
+                editCustomer = new Scene(editCustomerLayout, 500, 500);
+            // Edit Customer Scene    
+            btnEditCustomer.setOnAction(e -> {
+                primaryStage.setScene(editCustomer);
+                // Show all Customers Created
+                if (customerArray.isEmpty())
+                {
+                    customersCreated.add("Please Add a Customer First");
+                }
+                else
+                {
+                    for (Customer cust: customerArray)
+                    {
+                            customersCreated.add("        ID\t\t\tFull Name");
+                            customersCreated.add(cust.toString());
+                            editCustomerList.add(cust.toString());  
+                    }
+                }
+                    
+            });          
+            
+            btnHome.setOnAction(e -> {
+                cmboCustomerOptions.getItems().clear();
+                lstData.getItems().clear();
+                cmboItemOptions.getItems().clear();
+                itemData.getItems().clear();
+                MainMenu(primaryStage, menuScene, cmboSelectCustomer, cmboSelectItem);
+            });
+           
+
+            // Edit Customer Screen
+            btnChooseCustomer.setOnAction(e -> primaryStage.setScene(editingCustomer));              
+                Label editCustomerPrompt = new Label("Enter all Customer Information");
+                Label editCustomerFirstName = new Label("First Name");
+                TextField txtEditCustomerFirstName = new TextField();
+                Label editCustomerLastName = new Label("Last Name");
+                TextField txtEditCustomerLastName = new TextField();
+                Label editCustomerAddress = new Label("Address");
+                TextField txtEditAddress = new TextField();
+                Label editCustomerPhoneNumber = new Label("Phone Number");
+                TextField txtEditCustomerPhoneNumber = new TextField();
+                Label editCustomerEmail = new Label("Email");
+                TextField txtEditCustomerEmail = new TextField();               
+                Button btnEditSaveCustomer = new Button("Save Customer");
+                VBox editingCustomerLayout = new VBox(10);
+                editingCustomerLayout.getChildren().addAll(editCustomerPrompt, editCustomerFirstName, txtEditCustomerFirstName, editCustomerLastName, txtEditCustomerLastName, editCustomerAddress,
+                        txtEditAddress, editCustomerPhoneNumber, txtEditCustomerPhoneNumber, editCustomerEmail, txtEditCustomerEmail, btnEditSaveCustomer, btnMainMenu);
+                editingCustomer = new Scene(editingCustomerLayout, 500, 500);
+            
+            // Uses the EditCustomer() method in the Customer class to change a certain customer
+            btnEditSaveCustomer.setOnAction(e -> {
+                Customer.EditCustomer(txtEditCustomerFirstName, txtEditCustomerLastName, txtEditAddress, txtEditCustomerPhoneNumber, txtEditCustomerEmail, customerArray, cmboCustomerOptions);
+                cmboCustomerOptions.getItems().clear();
+                lstData.getItems().clear();
+                MainMenu(primaryStage, menuScene, cmboSelectCustomer, cmboSelectItem);
+            });
+        
+
+        //Action for when item is selected
+        btnInventoryItem.setOnAction(e -> primaryStage.setScene(item));
+        
+            //Scene for when Item is selected at Menu
+            Label itemPrompt = new Label("Select Create or edit Item");
+            Button btnCreateItem = new Button("Create item");
+            Button btnEditItem = new Button("Edit item");
+            Button btnMainMenu1 = new Button("Main Menu");
+            VBox itemLayout = new VBox(10);
+            itemLayout.getChildren().addAll(itemPrompt, btnCreateItem, btnEditItem, btnMainMenu1);
+            item = new Scene(itemLayout, 300, 250);
+
+            //Create Item Selected Sets Buttons, Labels and Text Boxes
+            btnCreateItem.setOnAction(e -> primaryStage.setScene(createItem));
+                Label createItemPrompt = new Label("Enter all Item information");
+                Label itemName = new Label("Item Name");
+                TextField txtItemName = new TextField();
+                Label itemQuantity = new Label("Item Quantity");
+                TextField txtItemQuantity = new TextField();
+                Label itemWeight = new Label("Item Weight");
+                TextField txtItemWeight = new TextField();
+                Label itemDescription = new Label("Item Description");
+                TextField txtItemDescription = new TextField();
+                Label itemPricePaid = new Label("Item Price Paid");
+                TextField txtItemPricePaid = new TextField();
+                Label itemForSalePrice = new Label("Item Sale Price");
+                TextField txtItemSalePrice = new TextField();
+                Button btnItemSave = new Button("Save item");
+                VBox createItemLayout = new VBox(10);
+                createItemLayout.getChildren().addAll(createItemPrompt, itemName, txtItemName, itemQuantity, txtItemQuantity, itemWeight, txtItemWeight,
+                        itemDescription, txtItemDescription, itemPricePaid, txtItemPricePaid, itemForSalePrice, txtItemSalePrice, btnItemSave);
+                createItem = new Scene(createItemLayout, 500, 500);
+
+                //When User wants to save Item, stores and returns to main menu
+                btnItemSave.setOnAction(e -> {
+                    CreateItem(txtItemName, txtItemQuantity, txtItemWeight, txtItemDescription, txtItemPricePaid, txtItemSalePrice, itemArray);
+                    MainMenu(primaryStage, menuScene, cmboItemOptions);
+                });
+                Label editItems = new Label("Select an Item to edit");
+                Button btnChooseItems = new Button("Edit Items");
+                VBox editItemLayout = new VBox(10);
+                editItemLayout.getChildren().addAll(editItems, itemData, cmboItemOptions, btnChooseItems, btnMainMenu);
+                editItem = new Scene(editItemLayout, 500, 500);
+
+                //Edit Item Scene
+            btnEditItem.setOnAction(e -> {
+                primaryStage.setScene(editItem);
+
+                if(itemArray.isEmpty())
+                {
+                   itemsCreated.add("Please Add an Item First");
+                }
+                else 
+                {
+                    for(Item item: itemArray)
+                    {
+                           itemsCreated.add("ID\t\t\tFullName");
+                           itemsCreated.add(item.toString());
+                           editItemList.add(item.toString());
+                    }
+                }
+            });             
+            btnMainMenu1.setOnAction(e -> {
+                MainMenu(primaryStage, menuScene);
+            });
+                //Edit Item Screen
+                btnChooseItems.setOnAction(e -> primaryStage.setScene(editingItem));
+                Label editItemPrompt = new Label("Enter all Item information");
+                Label editItemName = new Label("Item Name");
+                TextField edittxtItemName = new TextField();
+                Label edititemQuantity = new Label("Item Quantity");
+                TextField edittxtItemQuantity = new TextField();
+                Label editItemWeight = new Label("Item Weight");
+                TextField edittxtItemWeight = new TextField();
+                Label editItemDescription = new Label("Item Description");
+                TextField edittxtItemDescription = new TextField();
+                Label editItemPricePaid = new Label("Item Price Paid");
+                TextField edittxtItemPricePaid = new TextField();
+                Label editItemForSalePrice = new Label("Item Sale Price");
+                TextField edittxtItemSalePrice = new TextField();
+                Button btnEditItemSave = new Button("Save item");
+                VBox editingItemLayout = new VBox(10);
+                editingItemLayout.getChildren().addAll(editItemPrompt, editItemName, edittxtItemName,edititemQuantity,edittxtItemQuantity,
+                editItemWeight,edittxtItemWeight,editItemDescription, edittxtItemDescription,
+                editItemPricePaid, edittxtItemPricePaid,editItemForSalePrice ,edittxtItemSalePrice, btnEditItemSave, btnHome);
+                editingItem = new Scene(editingItemLayout, 500, 500);
+
+                //Button to display all the customers that have been created
+                btnEditItemSave.setOnAction(e -> {
+                    Item.EditItem(edittxtItemName, edittxtItemQuantity, edittxtItemWeight, edittxtItemDescription, edittxtItemPricePaid,
+                    edittxtItemSalePrice, itemArray, cmboItemOptions);
+                    itemData.getItems().clear();
+                    cmboItemOptions.getItems().clear();
+                    MainMenu(primaryStage, menuScene);
+
+                });
+            
+            
+        // Labels and Text fields for Enter Sale
+        Label lblEnterSale = new Label("Enter a Sale");
+        Label lblSelectItem = new Label("Select a Item");
+        Label lblEnterQuantity = new Label("Enter Quantity of Item Bought");
+        TextField txtEnterQuantity = new TextField();
+        Label lblEnterDate = new Label("Enter Date Purchase (XX/XX/XXX)");
+        TextField txtEnterDate = new TextField();
+        Label lblSelectCustomer = new Label("Select a Customer");
+        Button btnCreateSale = new Button("Enter Sale");
+        VBox enterCustomerLayout = new VBox(10);
+        enterCustomerLayout.getChildren().addAll(lblEnterSale, lblSelectItem, cmboSelectItem, lblEnterQuantity,
+                txtEnterQuantity, lblEnterDate, txtEnterDate, lblSelectCustomer, cmboSelectCustomer, btnCreateSale, btnHome);
+        enterSale = new Scene(enterCustomerLayout, 500, 500);
+        // Action button for Enter Sale
+        btnEnterSale.setOnAction(e -> {
+            primaryStage.setScene(enterSale);
+            
+            for (Item item: itemArray)
+            {
+                selectItemList.add(item.toString());
+            }
+            for (Customer cust: customerArray)
+            {
+                selectCustomerList.add(cust.toString());  
+            }
+        });    
+            // Calls method to create a sale and clears combobox
+            btnCreateSale.setOnAction(e -> {
+                CreateSale(txtEnterQuantity, txtEnterDate, cmboSelectItem, cmboSelectCustomer, saleArray, itemArray, customerArray);
+                cmboSelectCustomer.getItems().clear();
+                cmboSelectItem.getItems().clear();
+                MainMenu(primaryStage, menuScene, cmboSelectCustomer, cmboSelectItem);
+            });    
+        //Setting Scene for Print Report
+        Label lblPrintReport = new Label("Select a Report to Print");
+        Button btnPrintReceipt = new Button("Print Receipt for Sale");
+        Button btnPrintCustomerHistory = new Button("Print History of Customer");
+        Button btnPrintItemHistory = new Button("Print History of Item");
+        Button btnPrintInventoryLevel = new Button("Print Current Inventory Levels");
+        VBox printReport = new VBox(10);
+        printReport.getChildren().addAll(lblPrintReport, btnPrintReceipt, btnPrintCustomerHistory, btnPrintItemHistory, btnPrintInventoryLevel, btnHome);
+        scenePrintReport = new Scene(printReport, 250, 250);
+        // Button for Print Report
+        btnPrintReport.setOnAction(e -> {
+            primaryStage.setScene(scenePrintReport);   
+        });
+            // Setting up Print Receipt 
+            btnPrintReceipt.setOnAction(e -> {
+            
+            });
+            // Setting up Print Customer History
+            btnPrintCustomerHistory.setOnAction(e -> {
+                
+            });
+            // Setting up Print Item History
+            btnPrintItemHistory.setOnAction(e -> {
+                
+            });
+            // Setting up Inventory Level
+            btnPrintInventoryLevel.setOnAction(e -> {
+                
+            });
+            
+        
+        // Action for when Exit is Selected
+        btnExit.setOnAction(e -> {
+            System.exit(0);
+        });
+        
+    }
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        launch(args);
+    }
+    public static void MainMenu(Stage primaryStage, Scene menuScene)
+    {
+        primaryStage.setScene(menuScene);
+    }
+    public static void MainMenu(Stage primaryStage, Scene menuScene, ComboBox cmboSelectCustomer, ComboBox cmboSelectItem)
+    {
+        cmboSelectCustomer.getItems().clear();
+        cmboSelectItem.getItems().clear();
+        primaryStage.setScene(menuScene);
+        
+    }
+    public static void MainMenu(Stage primaryStage, Scene menuScene, ComboBox combo)
+    {
+        combo.getItems().clear();
+        primaryStage.setScene(menuScene);
+    }
+    public static void CreateCustomer(TextField txtCustomerFirstName, TextField txtCustomerLastName, TextField txtAddress, 
+                          TextField txtCustomerPhoneNumber, TextField txtCustomerEmail, ArrayList<Customer> customerArray)
+    {       
+        String firstName = txtCustomerFirstName.getText(); 
+        txtCustomerFirstName.clear();
+                    
+        String lastName = txtCustomerLastName.getText();
+        txtCustomerLastName.clear();
+                    
+        String address = txtAddress.getText();   
+        txtAddress.clear();
+                    
+        String phoneNumber = txtCustomerPhoneNumber.getText();
+        txtCustomerPhoneNumber.clear();
+                    
+        String email = txtCustomerEmail.getText(); 
+        txtCustomerEmail.clear();
+        
+        customerArray.add(new Customer(firstName, lastName, address, phoneNumber, email));       
+    }
+    public static void CreateSale(TextField txtEnterQuantity, TextField txtEnterDate, 
+            ComboBox cmboSelectItem, ComboBox cmboSelectCustomer, ArrayList<Sale> saleArray, ArrayList<Item> itemArray, ArrayList<Customer> customerArray)
+    {
+        int item = cmboSelectItem.getSelectionModel().getSelectedIndex();
+        Item item1 = itemArray.get(item);
+        
+        int quantity = Integer.valueOf(txtEnterQuantity.getText());
+        txtEnterQuantity.clear();
+        
+        String date = txtEnterDate.getText();
+        txtEnterDate.clear();
+        int customer = cmboSelectCustomer.getSelectionModel().getSelectedIndex();
+        Customer customer1 = customerArray.get(customer);
+        
+        saleArray.add(new Sale(item1, quantity, date, customer1));
+    }
+        public static void CreateItem(TextField txtItemName, TextField txtItemQuantity, TextField txtItemWeight,
+             TextField txtItemDescription, TextField txtItemPricePaid, TextField txtItemSalePrice, ArrayList<Item> itemArray)
+    {
+        String itemName = txtItemName.getText();
+        txtItemName.clear();
+        
+        String itemQuantity = txtItemQuantity.getText();
+        int itemNumberQuantity = Integer.parseInt(itemQuantity);
+        txtItemQuantity.clear();
+        
+        String weight = txtItemWeight.getText();
+        double itemNumberWeight = Double.parseDouble(weight);
+        txtItemWeight.clear();
+        
+        String description = txtItemDescription.getText();
+        txtItemDescription.clear();
+        
+        String pricePaid = txtItemPricePaid.getText();
+        double itemNumberPricePaid = Double.parseDouble(pricePaid);
+        txtItemPricePaid.clear();
+        
+        String forSalePrice = txtItemSalePrice.getText();
+        double itemNumberSalePrice = Double.parseDouble(forSalePrice);
+        txtItemSalePrice.clear();
+        
+        itemArray.add(new Item(itemName, itemNumberQuantity, itemNumberWeight, description, itemNumberPricePaid, itemNumberSalePrice));
+    }
+}
