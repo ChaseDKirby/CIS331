@@ -75,4 +75,32 @@ public String soldOut()
     String output = "\t" + ID + "\t" + this.itemName + "\t" + "Sold Out";
     return output;
 }
+public static void EditItem(TextField edittxtItemName, TextField edittxtItemQuantity,TextField edittxtItemWeight, 
+  TextField edittxtItemDescription,  TextField edittxtItemPricePaid, TextField edittxtItemSalePrice, ArrayList<Item> itemArray, ComboBox cmboItemOptions)
+{
+   int i = cmboItemOptions.getSelectionModel().getSelectedIndex();
+   String itemName1 = edittxtItemName.getText();
+   itemArray.get(i).itemName = itemName1;
+   edittxtItemName.clear();
+   
+   String itemQuantity1 = edittxtItemQuantity.getText();
+   itemArray.get(i).itemQuantity = Integer.parseInt(itemQuantity1);
+   edittxtItemQuantity.clear();
+   
+   String itemWeight1 = edittxtItemWeight.getText();
+   itemArray.get(i).weight = Double.parseDouble(itemWeight1);
+   edittxtItemWeight.clear();
+   
+   String description1 = edittxtItemDescription.getText();
+   itemArray.get(i).description = description1;
+   edittxtItemDescription.clear();
+   
+   String pricePaid1 = edittxtItemPricePaid.getText();
+   itemArray.get(i).pricePaid = Double.parseDouble(pricePaid1);
+   edittxtItemPricePaid.clear();
+   
+   String forSalePrice1 = edittxtItemSalePrice.getText();
+   itemArray.get(i).forSalePrice = Double.parseDouble(forSalePrice1);
+   edittxtItemSalePrice.clear();
+}
 }
