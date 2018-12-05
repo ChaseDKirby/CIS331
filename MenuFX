@@ -267,6 +267,8 @@ public class MenuFX extends Application {
                 MainMenu(primaryStage, menuScene);
             });
             
+            
+            
 //Action for when item is selected
         btnInventoryItem.setOnAction(e -> primaryStage.setScene(item));
         
