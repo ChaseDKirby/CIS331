@@ -214,6 +214,102 @@ public class MenuFX extends Application {
                 cmboSelectItem.getItems().clear();
                 MainMenu(primaryStage, menuScene);
             });
+            
+//Action for when item is selected
+        btnInventoryItem.setOnAction(e -> primaryStage.setScene(item));
+        
+        //Scene for when Item is selected at Menu
+        Label itemPrompt = new Label("Select Create or edit Item");
+        Button btnCreateItem = new Button("Create item");
+        Button btnEditItem = new Button("Edit item");
+        VBox itemLayout = new VBox(20);
+        itemLayout.getChildren().addAll(itemPrompt, btnCreateItem, btnEditItem);
+        item = new Scene(itemLayout, 300, 250);
+        
+        //Create Item Selected Sets Buttons, Labels and Text Boxes
+        btnCreateItem.setOnAction(e -> primaryStage.setScene(createItem));
+            Label createItemPrompt = new Label("Enter all Item information");
+            Label itemName = new Label("Item Name");
+            TextField txtItemName = new TextField();
+            Label itemQuantity = new Label("Item Quantity");
+            TextField txtItemQuantity = new TextField();
+            Label itemWeight = new Label("Item Weight");
+            TextField txtItemWeight = new TextField();
+            Label itemDescription = new Label("Item Description");
+            TextField txtItemDescription = new TextField();
+            Label itemPricePaid = new Label("Item Price Paid");
+            TextField txtItemPricePaid = new TextField();
+            Label itemForSalePrice = new Label("Item Sale Price");
+            TextField txtItemSalePrice = new TextField();
+            Button btnItemSave = new Button("Save item");
+            TextField txtItemSave = new TextField();
+            VBox createItemLayout = new VBox(10);
+            createItemLayout.getChildren().addAll(createItemPrompt, itemName, txtItemName, itemQuantity, txtItemQuantity, itemWeight, txtItemWeight,
+                    itemDescription, txtItemDescription, itemPricePaid, txtItemPricePaid, itemForSalePrice, txtItemSalePrice);
+            createItem = new Scene(createItemLayout, 500, 500);
+            
+            //When User wants to save Item, stores and returns to main menu
+            btnItemSave.setOnAction(e -> {
+                CreateItem(txtItemName, txtItemQuantity, txtItemWeight, txtItemDescription, txtItemPricePaid, txtItemSalePrice, itemArray);
+                System.out.println("");
+                MainMenu(primaryStage, menuScene);
+            });
+            Label editItems = new Label("Select an Item to edit");
+            Button btnShowItem = new Button("Show Items");
+            Button btnChooseItems = new Button("Edit Items");
+            VBox editItemLayout = new VBox(10);
+            editItemLayout.getChildren().addAll(btnShowItem, itemData, editItems, cmboItemOptions, btnChooseItems, btnHome);
+            editItem = new Scene(editItemLayout, 500, 500);
+           
+            //Edit Item Scene
+            btnEditItem.setOnAction(e -> {
+                primaryStage.setScene(editItem);
+                  
+               if(itemArray.isEmpty())
+               {
+                  itemsCreated.add("Please Add an Item First");
+               }
+               else 
+               {
+                   for(Item item: itemArray)
+                   {
+                       itemsCreated.add("       ID\t\t\tFullName");
+                       itemsCreated.add(item.toString());
+                       itemsCreated.add(item.toString());
+                   }
+               }
+    });
+              
+                       //Show all Items Created 
+            btnHome.setOnAction(e -> {
+                cmboItemOptions.getItems().clear();
+                itemData.getItems().clear();
+                MainMenu(primaryStage, menuScene);
+            });
+            //Button to display all the customers that have been created
+            
+            //Edit Item Screen
+            btnChooseItems.setOnAction(e -> primaryStage.setScene(editingItem));
+            Label editItemPrompt = new Label("Enter all Item information");
+            Label editItemName = new Label("Item Name");
+            TextField edittxtItemName = new TextField();
+            Label edititemQuantity = new Label("Item Quantity");
+            TextField edittxtItemQuantity = new TextField();
+            Label editItemWeight = new Label("Item Weight");
+            TextField edittxtItemWeight = new TextField();
+            Label editItemDescription = new Label("Item Description");
+            TextField edittxtItemDescription = new TextField();
+            Label editItemPricePaid = new Label("Item Price Paid");
+            TextField edittxtItemPricePaid = new TextField();
+            Label editItemForSalePrice = new Label("Item Sale Price");
+            TextField edittxtItemSalePrice = new TextField();
+            Button btnEditItemSave = new Button("Save item");
+            VBox editingItemLayout = new VBox(10);
+            editingItemLayout.getChildren().addAll(editItemPrompt, editItemName, edittxtItemName,edititemQuantity,edittxtItemQuantity,
+            edittxtItemQuantity,edittxtItemQuantity,editItemWeight,edittxtItemWeight,editItemDescription, edittxtItemDescription,
+            editItemPricePaid, edittxtItemPricePaid,editItemForSalePrice ,edittxtItemSalePrice, btnEditItemSave);
+            editingItem = new Scene(editingItemLayout, 500, 500);
+            
         
                 
             
@@ -271,6 +367,33 @@ public class MenuFX extends Application {
         Customer customer1 = customerArray.get(customer);
         
         saleArray.add(new Sale(item1, quantity, date, customer1));
+    }
+    public static void CreateItem(TextField txtItemName, TextField txtItemQuantity, TextField txtItemWeight,
+             TextField txtItemDescription, TextField txtItemPricePaid, TextField txtItemSalePrice, ArrayList<Item> itemArray)
+    {
+        String itemName = txtItemName.getText();
+        txtItemName.clear();
+        
+        String itemQuantity = txtItemQuantity.getText();
+        int itemNumberQuantity = Integer.parseInt(itemQuantity);
+        txtItemQuantity.clear();
+        
+        String weight = txtItemWeight.getText();
+        double itemNumberWeight = Double.parseDouble(weight);
+        txtItemWeight.clear();
+        
+        String description = txtItemDescription.getText();
+        txtItemDescription.clear();
+        
+        String pricePaid = txtItemPricePaid.getText();
+        double itemNumberPricePaid = Double.parseDouble(pricePaid);
+        txtItemPricePaid.clear();
+        
+        String forSalePrice = txtItemSalePrice.getText();
+        double itemNumberSalePrice = Double.parseDouble(forSalePrice);
+        txtItemSalePrice.clear();
+        
+        itemArray.add(new Item(itemName, itemNumberQuantity, itemNumberWeight, description, itemNumberPricePaid, itemNumberSalePrice));
     }
 }
 
