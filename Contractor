@@ -1,11 +1,8 @@
-/*
-Authors: Chase Kirby, Alexander Antezana, Elnathan Daniel, Shivali Marwaha
-Date: 11/18/2018
-Assignment: Group Project Part 1
-Purpose: Use classes and methods to create a program that will create/edit different types of users, print reports and enter sales
-*/
-package Group_Project;
+package GroupProject;
 
+import java.util.*;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextField;
 
 public class Contractor extends Customer{
     
@@ -14,15 +11,19 @@ public class Contractor extends Customer{
     public String lastName;
     public String address;
     public String phoneNumber;
+    
     private String email;
+    
     public int contractorNumber;
     public String businessName;
     public static int contractorQuantity = 0;
     public static int number;
     
+    
 public Contractor()
 {
         super();
+        
         number++;
         this.ID = "Contractor_" + this.number;
         this.contractorNumber = 0;
@@ -31,9 +32,10 @@ public Contractor()
        
                 
 }
-public Contractor(String firstName, String lastName, String address, String phoneNumber, String email, int contractorNumber, String businessName)
+public Contractor(String firstName, String lastName, String address, String phoneNumber, String email, String businessName)
 {
     super(firstName, lastName, address, phoneNumber, email);
+    
     number++;
     this.ID = "Contractor_" + this.number;
     this.contractorNumber = contractorNumber;
@@ -67,5 +69,36 @@ public String setPNumber(String newPhoneNumber)
     super.phoneNumber = newPhoneNumber;
     return super.phoneNumber;
 }
+
+
+
+
+
+public static void EditContractor(TextField txtEditContractorFirstName,TextField txtEditContractorLastName, TextField txtEditAddress,
+            TextField txtEditContractorPhoneNumber,TextField txtEditContractorEmail, ArrayList<Contractor> contractorArray, ComboBox cmboContractorOptions)
+    {    
+                int i = cmboContractorOptions.getSelectionModel().getSelectedIndex();           
+                String firstName1 = txtEditContractorFirstName.getText(); 
+                contractorArray.get(i).firstName = firstName1;
+                txtEditContractorFirstName.clear();
+                
+                String lastName1 = txtEditContractorLastName.getText();
+                contractorArray.get(i).lastName = lastName1;
+                txtEditContractorLastName.getText();
+                
+                String address1 = txtEditAddress.getText();
+                contractorArray.get(i).address = address1;
+                txtEditAddress.clear();
+                
+                String phoneNumber1 = txtEditContractorPhoneNumber.getText();
+                contractorArray.get(i).phoneNumber = phoneNumber1;
+                txtEditContractorPhoneNumber.clear();
+                
+                String email1 = txtEditContractorEmail.getText();
+                contractorArray.get(i).email = email1;
+                txtEditContractorEmail.clear();
+    }
+
+
 }
 
