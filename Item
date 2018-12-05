@@ -6,6 +6,10 @@ Purpose: Use classes and methods to create a program that will create/edit diffe
 */
 package Group_Project;
 
+import java.util.*;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextField;
+
 public class Item {
     
     public String ID;
