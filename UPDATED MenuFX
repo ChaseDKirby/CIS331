@@ -46,11 +46,9 @@ public class MenuFX extends Application {
     
     //VENDOR LISTS & COMBOBOXES
     ObservableList vendorCreated = FXCollections.observableArrayList();
-    ListView vendorData = new ListView(vendorCreated);
-    
+    ListView vendorData = new ListView(vendorCreated);   
     ObservableList selectVendorList = FXCollections.observableArrayList();
     ComboBox cmboSelectVendor = new ComboBox(selectVendorList);
-    
     ObservableList editVendorList = FXCollections.observableArrayList();
     ComboBox cmboVendorOptions = new ComboBox(editVendorList);
     
@@ -59,10 +57,8 @@ public class MenuFX extends Application {
     //CONTRACTOR LISTS & COMBO BOXES
     ObservableList contractorCreated = FXCollections.observableArrayList();
     ListView contractorData = new ListView(contractorCreated);
-    
     ObservableList selectContractorList = FXCollections.observableArrayList();
     ComboBox cmboSelectContractor = new ComboBox(selectContractorList);
-    
     ObservableList editContractorList = FXCollections.observableArrayList();
     ComboBox cmboContractorOptions = new ComboBox(editContractorList);
     
@@ -85,12 +81,29 @@ public class MenuFX extends Application {
     ObservableList reportSaleReceipt = FXCollections.observableArrayList();
     ComboBox cmboReportSale = new ComboBox(reportSaleReceipt);
     
+    //PRINT CUSTOMER HISTORY REPORT LISTS & COMBO BOXES
+    ObservableList reportCustomerHistoryList = FXCollections.observableArrayList();
+    ListView lstCustomerHistory = new ListView(reportCustomerHistoryList);
+    ObservableList reportCustomerHistory = FXCollections.observableArrayList();
+    ComboBox cmboCustomerHistory = new ComboBox(reportCustomerHistory);
+    
+    //PRINT ITEM HISTORY REPORT LISTS & COMBO BOXES
+    ObservableList reportItemHistoryList = FXCollections.observableArrayList();
+    ListView lstItemHistory = new ListView(reportItemHistoryList);
+    ObservableList reportItemHistory = FXCollections.observableArrayList();
+    ComboBox cmboItemHistory = new ComboBox(reportItemHistory);
+    
+    //PRINT INVENTORY LEVELS RPEORT LIST
+    ObservableList reportInventoryList = FXCollections.observableArrayList();
+    ListView lstInventoryLevels = new ListView(reportInventoryList);
+    
+    
   
     
     //Creates the Scenes
     Stage window;
     Scene customer, createCustomer, editCustomer, editingCustomer; 
-    Scene enterSale, scenePrintReport, scenePrintReceipt;
+    Scene enterSale, scenePrintReport, scenePrintReceipt, sceneCustomerHistory, sceneItemHistory, sceneInventoryLevels;
     Scene item, createItem, editItem, editingItem;
     Scene vendor, createVendor, editVendor, editingVendor;
     Scene contractor, createContractor, editContractor, editingContractor;
@@ -158,10 +171,10 @@ public class MenuFX extends Application {
                 createCustomer = new Scene(createCustomerLayout, 500, 600);
                 
                 // When User wants to save Customer, stores and returns to main menu
-                btnSaveCustomer.setOnAction(e -> {                                
+                btnSaveCustomer.setOnAction(e -> {   
                     CreateCustomer(txtCustomerFirstName, txtCustomerLastName, txtAddress, txtCustomerPhoneNumber, txtCustomerEmail, txtCustomerNotes, customerArray);
-                    System.out.println("");
                     MainMenu(primaryStage, menuScene, cmboSelectCustomer, cmboSelectItem);
+                    
                 });
                 btnMainMenu.setOnAction(e -> {
                     MainMenu(primaryStage, menuScene, cmboSelectCustomer, cmboSelectItem);
@@ -476,16 +489,6 @@ public class MenuFX extends Application {
                 selectCustomerList.add(cust.toString());  
             }
             // Loop to subtract invetory when sale is created
-            for (int i = 0; i < Sale.saleQuantity; i++)
-            {
-                for (int j = 0; j < Item.itemQuantity; j++)
-                {
-                    if (saleArray.get(i).itemSold == itemArray.get(j))
-                    {
-                        itemArray.get(j).quantity = itemArray.get(j).quantity - saleArray.get(i).purchaseQuantity;
-                    }
-                }
-            }
         });
 
             btnMainMenu6.setOnAction(e -> {
@@ -622,21 +625,98 @@ public class MenuFX extends Application {
                 reportSaleReceiptList.add(saleArray.get(i).describeSale());
                 
                 });
-            // Setting up Print Customer History
-            btnPrintCustomerHistory.setOnAction(e -> {
-                
-            });
-            // Setting up Print Item History
-            btnPrintItemHistory.setOnAction(e -> {
-                
-            });
-            // Setting up Inventory Level
-            btnPrintInventoryLevel.setOnAction(e -> {
-                
-            });
             btnMainMenu2.setOnAction(e -> {
                 cmboReportSale.getItems().clear();
                 lstReportReceipt.getItems().clear();
+                MainMenu(primaryStage, menuScene);
+            });    
+            // Setting up Print Customer History
+            Label lblPrintCustomerHistory = new Label("Select a Customer to Print History");
+            Button btnCustomerHistory = new Button("Print Report");
+            Button btnMainMenu7 = new Button("Main Menu");
+            VBox customerHistory = new VBox(10);
+            customerHistory.getChildren().addAll(lblPrintCustomerHistory, cmboCustomerHistory, lstCustomerHistory, btnCustomerHistory, btnMainMenu7);
+            sceneCustomerHistory = new Scene(customerHistory, 700, 500);
+            btnPrintCustomerHistory.setOnAction(e -> {
+                primaryStage.setScene(sceneCustomerHistory);
+                for (Customer cust: customerArray)
+                {
+                    reportCustomerHistory.add(cust.toString());
+                }
+            });
+                btnCustomerHistory.setOnAction(e -> {
+                    int i = cmboCustomerHistory.getSelectionModel().getSelectedIndex();
+                    reportCustomerHistoryList.add("\n" + customerArray.get(i).firstName + " " + customerArray.get(i).lastName);
+                    for (int j = 0; j < Sale.saleQuantity; j++)
+                    {
+                      
+                        if (saleArray.get(j).customer == customerArray.get(i))
+                        {
+                            
+                            reportCustomerHistoryList.add(saleArray.get(j).CustomerPurchaseHistory(customerArray.get(i)));
+                        }
+                    }
+                });
+            btnMainMenu7.setOnAction(e -> {
+                cmboCustomerHistory.getItems().clear();
+                lstCustomerHistory.getItems().clear();
+                MainMenu(primaryStage, menuScene);
+            });
+            // Setting up Print Item History
+            Label lblPrintItemHistory = new Label("Select a Item to Print History");
+            Button btnItemHistory = new Button("Print Report");
+            Button btnMainMenu8 = new Button("Main Menu");
+            VBox itemHistory = new VBox(10);
+            itemHistory.getChildren().addAll(lblPrintItemHistory, cmboItemHistory, lstItemHistory, btnItemHistory, btnMainMenu8);
+            sceneItemHistory = new Scene(itemHistory, 600, 600);
+            btnPrintItemHistory.setOnAction(e -> {
+                primaryStage.setScene(sceneItemHistory);
+                for (Item item1: itemArray)
+                {
+                    reportItemHistory.add(item1.toString());
+                }    
+            });
+                btnItemHistory.setOnAction(e -> {
+                    int i = cmboItemHistory.getSelectionModel().getSelectedIndex();
+                    reportItemHistoryList.add(itemArray.get(i).toString());
+                    for (int j = 0; j < Sale.saleQuantity; j++)
+                    {
+                        if (saleArray.get(j).itemSold == itemArray.get(i))
+                        {
+                            reportItemHistoryList.add(saleArray.get(j).printPurchaseHistoryItem(itemArray.get(i)));
+                        }
+                    }
+                });
+                btnMainMenu8.setOnAction(e -> {
+                cmboItemHistory.getItems().clear();
+                lstItemHistory.getItems().clear();
+                MainMenu(primaryStage, menuScene);
+            });
+            Label lblPrintInventoryLevels = new Label("Current Inventory Levels");
+            Button btnInventoryLevels = new Button("Display Inventoy Levels");
+            Button btnMainMenu9 = new Button("Main Menu");
+            VBox inventoryLevels = new VBox(10);
+            inventoryLevels.getChildren().addAll(lblPrintInventoryLevels, btnInventoryLevels, lstInventoryLevels, btnMainMenu9);
+            sceneInventoryLevels = new Scene(inventoryLevels, 600, 600);
+            // Setting up Inventory Level
+            btnPrintInventoryLevel.setOnAction(e -> {
+                primaryStage.setScene(sceneInventoryLevels);
+            });
+            btnInventoryLevels.setOnAction(e -> {
+                for (int i = 0; i < Item.itemQuantity; i++)
+                {
+                    if (itemArray.get(i).quantity <= 0)
+                    {
+                        reportInventoryList.add(itemArray.get(i).soldOut());
+                    }
+                    else
+                    {
+                        reportInventoryList.add(itemArray.get(i).inventoryLevels());
+                    }
+                } 
+            });
+            btnMainMenu9.setOnAction(e -> { 
+                reportInventoryList.clear();
                 MainMenu(primaryStage, menuScene);
             });
             
@@ -673,13 +753,13 @@ public class MenuFX extends Application {
     public static void CreateCustomer(TextField txtCustomerFirstName, TextField txtCustomerLastName, TextField txtAddress, 
                           TextField txtCustomerPhoneNumber, TextField txtCustomerEmail, TextArea txtCustomerNotes, ArrayList<Customer> customerArray)
     {       
-        String firstName = txtCustomerFirstName.getText(); 
+        String firstName = txtCustomerFirstName.getText();
         txtCustomerFirstName.clear();
                     
         String lastName = txtCustomerLastName.getText();
         txtCustomerLastName.clear();
                     
-        String address = txtAddress.getText();   
+        String address = txtAddress.getText();
         txtAddress.clear();
                     
         String phoneNumber = txtCustomerPhoneNumber.getText();
@@ -691,7 +771,9 @@ public class MenuFX extends Application {
         String notes = txtCustomerNotes.getText();
         txtCustomerNotes.clear();
         
-        customerArray.add(new Customer(firstName, lastName, address, phoneNumber, email));       
+        customerArray.add(new Customer(firstName, lastName, address, phoneNumber, email));
+        
+       
     }
     public static void CreateSale(TextField txtEnterQuantity, TextField txtEnterDate, 
             ComboBox cmboSelectItem, ComboBox cmboSelectCustomer, ArrayList<Sale> saleArray, ArrayList<Item> itemArray, ArrayList<Customer> customerArray)
