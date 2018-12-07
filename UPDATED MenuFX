@@ -269,6 +269,7 @@ public class Test_MenuFX extends Application {
             });
             btnSaveNotes.setOnAction(e -> {
                 Customer.SaveNotes(showNotes, cmboCustomerOptions, customerArray);
+                primaryStage.setScene(editingCustomer);
             });
             btnBack.setOnAction(e -> {
                 primaryStage.setScene(editingCustomer);
@@ -321,7 +322,6 @@ public class Test_MenuFX extends Application {
              // When User wants to save Contractor, stores and returns to main menu
                 btnSaveContractor.setOnAction(e -> {                                
                     CreateContractor(txtContractorFirstName, txtContractorLastName, txtAddress, txtContractorPhoneNumber, txtContractorEmail, txtContractorBusinessName, txtContractorBusinessNumber, contractorArray, txtContractorNotes);
-                    System.out.println("");
                     MainMenu(primaryStage, menuScene);
                 });
                 Label EditContractor = new Label("Select a Contractor to Edit");                
@@ -410,6 +410,7 @@ public class Test_MenuFX extends Application {
             });
             btnSaveNotes2.setOnAction(e -> {
                 Contractor.SaveContractorNotes(contractorNotes1, cmboContractorOptions, contractorArray);
+                primaryStage.setScene(editingContractor);
             });
             btnBack2.setOnAction(e -> {
                 primaryStage.setScene(editingContractor);
