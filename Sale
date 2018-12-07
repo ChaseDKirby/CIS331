@@ -7,94 +7,53 @@ Purpose: Use classes and methods to create a program that will create/edit diffe
 package Group_Project;
 
 import java.util.*;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
-
-public class Vendor {
+public class Sale {
+    
     public String ID;
-    public String vendorBusinessName;
-    public String vendorBusinessAddress;
-    public String vendorPhoneNumber;
-    public static int vendorQuantity = 0;
+    public Item itemSold;
+    public int purchaseQuantity;
+    public String date;
+    public Customer customer;
+    public static int saleQuantity = 0;
     public static int number;
-   
-public Vendor()
-{
-    this.number++;
-    this.ID = "Vendor_" + this.number; 
-    this.vendorBusinessName = "noBussinessName";
-    this.vendorBusinessAddress = "noAddress";
-    this.vendorPhoneNumber = "noNumber";
-    vendorQuantity++;
-}
+    
+    
 
-public Vendor(String name, String address, String phone)
+
+public Sale(Item userItem, int userQuantity, String userDate, Customer userCustomer)
 {
-        this.number++;
-        this.ID = "Vendor_" + this.number;
-        this.vendorBusinessName = name;
-        this.vendorBusinessAddress = address;
-        this.vendorPhoneNumber = phone;
-        vendorQuantity++;
+    number++;
+    this.ID = "Sale_" + this.number; 
+    this.itemSold = userItem;
+    this.purchaseQuantity = userQuantity;
+    this.date = userDate;
+    this.customer = userCustomer;
+    saleQuantity++;
+    itemSold.quantity = itemSold.quantity - this.purchaseQuantity;
+    
+}
+public String describeSale()
+{
+    String output;
+    output = "Item Sold: " + itemSold.itemName + ", Price: $" + itemSold.getPrice() + ", Quantity: " + purchaseQuantity + ", Sale Total: $" + (purchaseQuantity * itemSold.getPrice());
+    return output;
 }
 public String toString()
 {
-    String output = ID + "\t\t" + this.vendorBusinessName;
+    String output;
+    output = ID + "\t" + itemSold.itemName + " \t" + customer.firstName + " " + customer.lastName;
     return output;
 }
-
-public boolean setVendorBusinessName(String newVendorBusinessName)
-{
-    if (newVendorBusinessName.length() > 0)
-    {
-        vendorBusinessName = newVendorBusinessName;
-        return true;
-    }
-    else
-        return false;
+public String printPurchaseHistoryItem(Item itemSold){
+    String output;
+    output = "Name: " + customer.firstName + " " + customer.lastName + "\tDate: "
+            + date + "\tQuantity: " + purchaseQuantity;
+    return output;
 }
-
-public String setVendorBusinessAddress(String newVendorBusinessAddress)
+public String CustomerPurchaseHistory(Customer customer)
 {
-    this.vendorBusinessAddress = newVendorBusinessAddress;
-    return vendorBusinessAddress;
+    String output;
+    output = "Name: " + itemSold.itemName + "\t\tQuantity: " + purchaseQuantity + "\t\tPurchase Cost: $" + (purchaseQuantity * itemSold.getPrice()) + "\t\tDate: " + date;
+    return output;
 }
-
-public String setVendorPhoneNumber(String newVendorPhoneNumber)
-{
-    if (newVendorPhoneNumber.length() == 10)
-    {
-        vendorPhoneNumber = newVendorPhoneNumber;
-        return vendorPhoneNumber;
-    }
-    else
-        return "Please Enter a Valid Phone Number";
-}
-
-public String getID()
-{
-    return ID;
-}
-
-public static void EditVendor(TextField txtEditVendorBusinessName,TextField txtEditVendorBusinessAddress, TextField txtEditVendorPhoneNumber,
-            ArrayList<Vendor> vendorArray, ComboBox cmboVendorOptions)
-
-    {    
-                int i = cmboVendorOptions.getSelectionModel().getSelectedIndex();           
-
-                String vendorBusinessName1 = txtEditVendorBusinessName.getText(); 
-                vendorArray.get(i).vendorBusinessName = vendorBusinessName1;
-                txtEditVendorBusinessName.clear();
-
-                
-                String vendorBusinessAddress1 = txtEditVendorBusinessAddress.getText();
-                vendorArray.get(i).vendorBusinessAddress = vendorBusinessAddress1;
-                txtEditVendorBusinessAddress.clear();
-                
-               
-                String vendorPhoneNumber1 = txtEditVendorPhoneNumber.getText();
-                vendorArray.get(i).vendorPhoneNumber = vendorPhoneNumber1;
-                txtEditVendorPhoneNumber.clear();
-
-    }
 }
