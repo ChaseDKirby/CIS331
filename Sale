@@ -6,13 +6,12 @@ Purpose: Use classes and methods to create a program that will create/edit diffe
 */
 package Group_Project;
 
-
+import java.util.*;
 public class Sale {
     
     public String ID;
     public Item itemSold;
     public int purchaseQuantity;
-    public Item quantity;
     public String date;
     public Customer customer;
     public static int saleQuantity = 0;
@@ -30,7 +29,8 @@ public Sale(Item userItem, int userQuantity, String userDate, Customer userCusto
     this.date = userDate;
     this.customer = userCustomer;
     saleQuantity++;
-
+    itemSold.quantity = itemSold.quantity - this.purchaseQuantity;
+    
 }
 public String describeSale()
 {
@@ -53,7 +53,7 @@ public String printPurchaseHistoryItem(Item itemSold){
 public String CustomerPurchaseHistory(Customer customer)
 {
     String output;
-    output = "Name: " + itemSold.itemName + "\tQuantity: " + purchaseQuantity + "\t\tPurchase Cost: $" + (purchaseQuantity * itemSold.getPrice()) + "\tDate: " + date;
+    output = "Name: " + itemSold.itemName + "\t\tQuantity: " + purchaseQuantity + "\t\tPurchase Cost: $" + (purchaseQuantity * itemSold.getPrice()) + "\t\tDate: " + date;
     return output;
 }
 }
