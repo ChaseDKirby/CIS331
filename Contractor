@@ -1,6 +1,5 @@
-package Group_Project_Test;
+package Group_Project;
 
-import Group_Project.*;
 import java.util.*;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
