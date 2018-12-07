@@ -1,5 +1,5 @@
 
-package Group_Project;
+package Group_Project_Test;
 
 import javafx.application.Application;
 import javafx.event.*;
@@ -8,17 +8,15 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import java.util.*;
+import static javafx.application.Application.launch;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 
-/**
- *
- * @author chase
- */
-public class MenuFX extends Application {
+
+public class Test_MenuFX extends Application {
     //Buttons and Labels for Menu Window
     Label lblPrompt = new Label ("Please Select a Menu Option");
     Button btnCustomer = new Button("Customer");
@@ -163,13 +161,13 @@ public class MenuFX extends Application {
                 Label customerEmail = new Label("Email");
                 TextField txtCustomerEmail = new TextField();
                 Label customerNotes = new Label("Notes");
-                TextArea txtCustomerNotes = new TextArea();
+                TextField txtCustomerNotes = new TextField();
                 Button btnSaveCustomer = new Button("Save Customer");
                 VBox createCustomerLayout = new VBox(10);
                 createCustomerLayout.getChildren().addAll(createCustomerPrompt, customerFirstName, txtCustomerFirstName, customerLastName,
-                        txtCustomerLastName, customerAddress, txtAddress, customerPhoneNumber, txtCustomerPhoneNumber, customerEmail, txtCustomerEmail, customerNotes, txtCustomerNotes, btnSaveCustomer);
+                        txtCustomerLastName, customerAddress, txtAddress, customerPhoneNumber, txtCustomerPhoneNumber, customerEmail, 
+                        txtCustomerEmail, customerNotes, txtCustomerNotes, btnSaveCustomer);
                 createCustomer = new Scene(createCustomerLayout, 500, 600);
-                
                 // When User wants to save Customer, stores and returns to main menu
                 btnSaveCustomer.setOnAction(e -> {   
                     CreateCustomer(txtCustomerFirstName, txtCustomerLastName, txtAddress, txtCustomerPhoneNumber, txtCustomerEmail, txtCustomerNotes, customerArray);
@@ -231,14 +229,11 @@ public class MenuFX extends Application {
                 TextField txtEditCustomerPhoneNumber = new TextField();
                 Label editCustomerEmail = new Label("Email");
                 TextField txtEditCustomerEmail = new TextField();
-                Label editCustomerNotes = new Label("Notes:");
-                //int customer1 = cmboCustomerOptions.getSelectionModel().getSelectedIndex();
-                //String grabNotes = customerArray.get(customer1).notes;
-                TextArea txtEditCustomerNotes = new TextArea();
+                Button btnShowNotes = new Button("Show Notes");
                 Button btnEditSaveCustomer = new Button("Save Customer");
                 VBox editingCustomerLayout = new VBox(10);
                 editingCustomerLayout.getChildren().addAll(editCustomerPrompt, editCustomerFirstName, txtEditCustomerFirstName, editCustomerLastName, txtEditCustomerLastName, editCustomerAddress,
-                        txtEditAddress, editCustomerPhoneNumber, txtEditCustomerPhoneNumber, editCustomerEmail, txtEditCustomerEmail, editCustomerNotes, txtEditCustomerNotes, btnEditSaveCustomer, btnMainMenu);
+                        txtEditAddress, editCustomerPhoneNumber, txtEditCustomerPhoneNumber, editCustomerEmail, txtEditCustomerEmail, btnShowNotes, btnEditSaveCustomer, btnMainMenu);
                 editingCustomer = new Scene(editingCustomerLayout, 500, 600);
             btnChooseCustomer.setOnAction(e -> {
                 primaryStage.setScene(editingCustomer);
@@ -250,6 +245,33 @@ public class MenuFX extends Application {
                 cmboCustomerOptions.getItems().clear();
                 lstData.getItems().clear();
                 MainMenu(primaryStage, menuScene, cmboSelectCustomer, cmboSelectItem);
+            });
+            TextArea showNotes = new TextArea();
+            Button btnBack = new Button("Back");
+            Button btnSaveNotes = new Button("Save Notes");
+            btnShowNotes.setOnAction(e -> {
+                GridPane notesPane = new GridPane();
+                
+                notesPane.setAlignment(Pos.CENTER);
+                notesPane.setHgap(5);
+                notesPane.setVgap(10);
+                notesPane.add(showNotes, 0, 0);
+                notesPane.add(btnBack, 0, 10);
+                notesPane.add(btnSaveNotes, 0, 9);
+                
+                
+                Scene notesScene = new Scene(notesPane, 500, 500);
+                
+                primaryStage.setScene(notesScene);
+                primaryStage.setTitle("Notes");
+                primaryStage.show();
+                Customer.EditNotes(showNotes, cmboCustomerOptions, notesPane, customerArray);
+            });
+            btnSaveNotes.setOnAction(e -> {
+                Customer.SaveNotes(showNotes, cmboCustomerOptions, customerArray);
+            });
+            btnBack.setOnAction(e -> {
+                primaryStage.setScene(editingCustomer);
             });
         
 
@@ -281,6 +303,8 @@ public class MenuFX extends Application {
                 TextField txtContractorPhoneNumber = new TextField();
                 Label contractorEmail = new Label("Email");
                 TextField txtContractorEmail = new TextField();
+                Label contractorNotes = new Label("Notes");
+                TextField txtContractorNotes = new TextField();
                 Label contractorBusinessName = new Label("Business Name");
                 TextField txtContractorBusinessName = new TextField();
                 Label contractorBusinessNumber = new Label("Business Number");
@@ -289,14 +313,14 @@ public class MenuFX extends Application {
                 VBox createContractorLayout = new VBox(10);
                 createContractorLayout.getChildren().addAll(createContractorPrompt, contractorFirstName, txtContractorFirstName, contractorLastName,
                         txtContractorLastName, contractorAddress, txtContractorAddress, contractorPhoneNumber, txtContractorPhoneNumber, contractorEmail, 
-                        txtContractorEmail, contractorBusinessName, txtContractorBusinessName, contractorBusinessNumber, txtContractorBusinessNumber, btnSaveContractor);
-                createContractor = new Scene(createContractorLayout, 500, 600);
+                        txtContractorEmail, contractorNotes, txtContractorNotes, contractorBusinessName, txtContractorBusinessName, contractorBusinessNumber, txtContractorBusinessNumber, btnSaveContractor);
+                createContractor = new Scene(createContractorLayout, 500, 700);
             
             
        
              // When User wants to save Contractor, stores and returns to main menu
                 btnSaveContractor.setOnAction(e -> {                                
-                    CreateContractor(txtContractorFirstName, txtContractorLastName, txtAddress, txtContractorPhoneNumber, txtContractorEmail, txtContractorBusinessName, txtContractorBusinessNumber, contractorArray);
+                    CreateContractor(txtContractorFirstName, txtContractorLastName, txtAddress, txtContractorPhoneNumber, txtContractorEmail, txtContractorBusinessName, txtContractorBusinessNumber, contractorArray, txtContractorNotes);
                     System.out.println("");
                     MainMenu(primaryStage, menuScene);
                 });
@@ -348,12 +372,14 @@ public class MenuFX extends Application {
                 Label editContractorPhoneNumber = new Label("Phone Number");
                 TextField txtEditContractorPhoneNumber = new TextField();
                 Label editContractorEmail = new Label("Email");
-                TextField txtEditContractorEmail = new TextField();               
-                Button btnEditSaveContractor = new Button("Save Customer");
+                TextField txtEditContractorEmail = new TextField();
+                
+                Button btnContractorNotes = new Button("Edit Notes");
+                Button btnEditSaveContractor = new Button("Save Contractor");
                 VBox editingContractorLayout = new VBox(10);
                 editingContractorLayout.getChildren().addAll(editContractorPrompt, editContractorFirstName, txtEditContractorFirstName, editContractorLastName, txtEditContractorLastName, editContractorAddress,
-                        txtEditContractorAddress, editContractorPhoneNumber, txtEditContractorPhoneNumber, editContractorEmail, txtEditContractorEmail, btnEditSaveContractor);
-                editingContractor = new Scene(editingContractorLayout, 500, 500);
+                        txtEditContractorAddress, editContractorPhoneNumber, txtEditContractorPhoneNumber, editContractorEmail, txtEditContractorEmail, btnContractorNotes, btnEditSaveContractor);
+                editingContractor = new Scene(editingContractorLayout, 700, 700);
             
             // Uses the EditContractor() method in the Contractor class to change a certain customer
             btnEditSaveContractor.setOnAction(e -> {
@@ -363,6 +389,31 @@ public class MenuFX extends Application {
                 MainMenu(primaryStage, menuScene);
             });
             
+            TextArea contractorNotes1 = new TextArea();
+            Button btnBack2 = new Button("Back");
+            Button btnSaveNotes2 = new Button("Save Notes");
+            btnContractorNotes.setOnAction(e -> {
+                GridPane notesPane2 = new GridPane();
+                notesPane2.setAlignment(Pos.CENTER);
+                notesPane2.setHgap(5);
+                notesPane2.setVgap(10);
+                notesPane2.add(contractorNotes1, 0, 0);
+                notesPane2.add(btnBack2, 0, 10);
+                notesPane2.add(btnSaveNotes2, 0, 9);
+                
+                Scene notesScene2 = new Scene(notesPane2, 500, 500);
+                
+                primaryStage.setScene(notesScene2);
+                primaryStage.setTitle("Notes");
+                primaryStage.show();
+                Contractor.EditContractorNotes(contractorNotes1, cmboContractorOptions, notesPane2, contractorArray);
+            });
+            btnSaveNotes2.setOnAction(e -> {
+                Contractor.SaveContractorNotes(contractorNotes1, cmboContractorOptions, contractorArray);
+            });
+            btnBack2.setOnAction(e -> {
+                primaryStage.setScene(editingContractor);
+            });
         //Action for when item is selected
         btnInventoryItem.setOnAction(e -> primaryStage.setScene(item));
         
@@ -751,7 +802,7 @@ public class MenuFX extends Application {
         primaryStage.setScene(menuScene);
     }
     public static void CreateCustomer(TextField txtCustomerFirstName, TextField txtCustomerLastName, TextField txtAddress, 
-                          TextField txtCustomerPhoneNumber, TextField txtCustomerEmail, TextArea txtCustomerNotes, ArrayList<Customer> customerArray)
+                          TextField txtCustomerPhoneNumber, TextField txtCustomerEmail, TextField txtCustomerNotes, ArrayList<Customer> customerArray)
     {       
         String firstName = txtCustomerFirstName.getText();
         txtCustomerFirstName.clear();
@@ -769,9 +820,9 @@ public class MenuFX extends Application {
         txtCustomerEmail.clear();
         
         String notes = txtCustomerNotes.getText();
-        txtCustomerNotes.clear();
         
-        customerArray.add(new Customer(firstName, lastName, address, phoneNumber, email));
+        
+        customerArray.add(new Customer(firstName, lastName, address, phoneNumber, email, notes));
         
        
     }
@@ -835,10 +886,10 @@ public class MenuFX extends Application {
         public static void PrePopulate(ArrayList<Customer> customerArray, ArrayList<Contractor> contractorArray, ArrayList<Item> itemArray, ArrayList<Vendor> vendorArray, ArrayList<Sale> saleArray)
         {
                 // CUSTOMERS
-                customerArray.add(new Customer("Adam", "Sandler", "3204 Sandy Rd", "3203458909", "ASandler@yahoo.com"));
-                customerArray.add(new Customer("Seth", "Rogan", "89920 Hills St", "1239905273", "SRogan@gmail.com"));
-                customerArray.add(new Customer("Ryan", "Renolds", "2933 Showtime Rd", "847333009", "RRynolds@yahoo.com"));
-                customerArray.add(new Customer("Denzel", "Washington", "2312 Equalizer BLVD", "5567893344", "DWashington@yahoo.com"));
+                customerArray.add(new Customer("Adam", "Sandler", "3204 Sandy Rd", "3203458909", "ASandler@yahoo.com", "Likes to buy IPhone Accessories"));
+                customerArray.add(new Customer("Seth", "Rogan", "89920 Hills St", "1239905273", "SRogan@gmail.com", "Likes to buy bottled Water"));
+                customerArray.add(new Customer("Ryan", "Renolds", "2933 Showtime Rd", "847333009", "RRynolds@yahoo.com", "Like to buy Electronics"));
+                customerArray.add(new Customer("Denzel", "Washington", "2312 Equalizer BLVD", "5567893344", "DWashington@yahoo.com", "Like to Buy Computers"));
                 
                 // ITEMS
                 itemArray.add(new Item("TV", 100, 25.3, "LED Flat Screen TV", 330.0, 290.0));
@@ -866,7 +917,7 @@ public class MenuFX extends Application {
         }
         public static void CreateContractor(TextField txtContractorFirstName, TextField txtContractorLastName, TextField txtContractorAddress, 
                           TextField txtContractorPhoneNumber, TextField txtContractorEmail, TextField txtContractorBusinessName, TextField txtContractorBusinessNumber, 
-                          ArrayList<Contractor> contractorArray)
+                          ArrayList<Contractor> contractorArray, TextField txtContractorNotes)
     {       
         String firstName = txtContractorFirstName.getText(); 
         txtContractorFirstName.clear();
@@ -890,13 +941,11 @@ public class MenuFX extends Application {
         int businessNumber = Integer.valueOf(txtContractorBusinessNumber.getText());
         txtContractorBusinessNumber.clear();
         
+        String notes = txtContractorNotes.getText();
+        txtContractorNotes.clear();
         
         
-        contractorArray.add(new Contractor( firstName, lastName, address, phoneNumber, email, businessName, businessNumber));       
+        
+        contractorArray.add(new Contractor( firstName, lastName, address, phoneNumber, email, notes, businessName, businessNumber));       
     }
-        public static void EditNotes(ComboBox cmboCustomerOptions)
-        {
-            
-            
-        }
 }
