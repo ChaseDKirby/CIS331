@@ -504,9 +504,11 @@ public class MenuFX extends Application {
                 createItem = new Scene(createItemLayout, 500, 500);
 
                 //When User wants to save Item, stores and returns to main menu
+
                 btnItemSave.setOnAction(e -> {
                     CreateItem(txtItemName, txtItemQuantity, txtItemWeight, txtItemDescription, txtItemPricePaid, txtItemSalePrice, itemArray);
                     MainMenu(primaryStage, menuScene, cmboItemOptions);
+                    
                 });
                 Label editItems = new Label("Select an Item to edit");
                 Button btnChooseItems = new Button("Edit Items");
