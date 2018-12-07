@@ -799,6 +799,8 @@ public class MenuFX extends Application {
                 lstItemHistory.getItems().clear();
                 MainMenu(primaryStage, menuScene);
             });
+                
+            // Beginning of Inventory Levels Method          
             Label lblPrintInventoryLevels = new Label("Current Inventory Levels");
             Button btnInventoryLevels = new Button("Display Inventoy Levels");
             Button btnMainMenu9 = new Button("Main Menu");
@@ -841,10 +843,12 @@ public class MenuFX extends Application {
     public static void main(String[] args) {
         launch(args);
     }
+    // Main Menu Method overloaded
     public static void MainMenu(Stage primaryStage, Scene menuScene)
     {
         primaryStage.setScene(menuScene);
     }
+    // Main Menu Method overloaded
     public static void MainMenu(Stage primaryStage, Scene menuScene, ComboBox cmboSelectCustomer, ComboBox cmboSelectItem)
     {
         cmboSelectCustomer.getItems().clear();
@@ -852,11 +856,13 @@ public class MenuFX extends Application {
         primaryStage.setScene(menuScene);
         
     }
+    // Main Menu Method overloaded
     public static void MainMenu(Stage primaryStage, Scene menuScene, ComboBox combo)
     {
         combo.getItems().clear();
         primaryStage.setScene(menuScene);
     }
+    //Create Customer Method
     public static void CreateCustomer(TextField txtCustomerFirstName, TextField txtCustomerLastName, TextField txtAddress, 
                           TextField txtCustomerPhoneNumber, TextField txtCustomerEmail, TextField txtCustomerNotes, ArrayList<Customer> customerArray)
     {       
@@ -882,6 +888,7 @@ public class MenuFX extends Application {
         
        
     }
+    // Create Sale Method
     public static void CreateSale(TextField txtEnterQuantity, TextField txtEnterDate, 
             ComboBox cmboSelectItem, ComboBox cmboSelectCustomer, ArrayList<Sale> saleArray, ArrayList<Item> itemArray, ArrayList<Customer> customerArray)
     {
@@ -898,6 +905,7 @@ public class MenuFX extends Application {
         
         saleArray.add(new Sale(item1, quantity, date, customer1));
     }
+        // Create Item Method
         public static void CreateItem(TextField txtItemName, TextField txtItemQuantity, TextField txtItemWeight,
              TextField txtItemDescription, TextField txtItemPricePaid, TextField txtItemSalePrice, ArrayList<Item> itemArray)
     {
@@ -925,6 +933,7 @@ public class MenuFX extends Application {
         
         itemArray.add(new Item(itemName, itemNumberQuantity, itemNumberWeight, description, itemNumberPricePaid, itemNumberSalePrice));
     }
+        //Create Vendor Method
         public static void CreateVendor(TextField txtVendorBusinessName, TextField txtVendorBusinessAddress, 
                           TextField txtVendorPhoneNumber, ArrayList<Vendor> vendorArray)
     {       
@@ -939,6 +948,7 @@ public class MenuFX extends Application {
                     
         vendorArray.add(new Vendor(vendorBusinessName, vendorBusinessAddress, vendorPhoneNumber));       
     }
+        //PrePopulate Method
         public static void PrePopulate(ArrayList<Customer> customerArray, ArrayList<Contractor> contractorArray, ArrayList<Item> itemArray, ArrayList<Vendor> vendorArray, ArrayList<Sale> saleArray)
         {
                 // CUSTOMERS
@@ -971,6 +981,7 @@ public class MenuFX extends Application {
                 saleArray.add(new Sale(itemArray.get(2), 5, "11/01/2015", customerArray.get(2)));
                 
         }
+        // Create Contractor Method
         public static void CreateContractor(TextField txtContractorFirstName, TextField txtContractorLastName, TextField txtContractorAddress, 
                           TextField txtContractorPhoneNumber, TextField txtContractorEmail, TextField txtContractorBusinessName, TextField txtContractorBusinessNumber, 
                           ArrayList<Contractor> contractorArray, TextField txtContractorNotes)
@@ -999,8 +1010,6 @@ public class MenuFX extends Application {
         
         String notes = txtContractorNotes.getText();
         txtContractorNotes.clear();
-        
-        
         
         contractorArray.add(new Contractor( firstName, lastName, address, phoneNumber, email, notes, businessName, businessNumber));       
     }
