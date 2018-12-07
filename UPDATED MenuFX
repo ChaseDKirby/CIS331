@@ -641,16 +641,37 @@ public class MenuFX extends Application {
 
                 // When User wants to save Vendor, stores and returns to main menu
                 btnSaveVendor.setOnAction(e -> {                                
+                    if (txtVendorBusinessName.getText().trim().length() == 0 || txtVendorBusinessAddress.getText().trim().length() == 0 || txtVendorPhoneNumber.getText().trim().length() == 0)
+                    {
+                        Alert alert = new Alert(AlertType.INFORMATION);
+                        alert.setTitle("Input Error");
+                        alert.setHeaderText("Opps! Error!");
+                        alert.setContentText("Please Fill Out all Data Fields");
+                        alert.showAndWait();
+                    }
+                    else if (txtVendorPhoneNumber.getText().trim().length() != 10)
+                    {  
+                        Alert alert = new Alert(AlertType.INFORMATION);
+                        alert.setTitle("Input Error");
+                        alert.setHeaderText("Opps! Error!");
+                        alert.setContentText("Phone Number must be 10 Digits");
+                        alert.showAndWait();
+                    }
+                    else
+                    {
                     CreateVendor(txtVendorBusinessName, txtVendorBusinessAddress, txtVendorPhoneNumber, vendorArray);
-                    System.out.println("");
-                    MainMenu(primaryStage, menuScene);
+                    MainMenu(primaryStage, menuScene, cmboSelectVendor);
+                    }
+                });
+                btnMainMenu.setOnAction(e -> {
+                    MainMenu(primaryStage, menuScene, cmboSelectVendor);         
                 });
                 Label EditVendor = new Label("Select a Vendor to Edit");                
                 Button btnChooseVendor = new Button("Edit Vendor");
                 VBox editVendorLayout = new VBox(10);
                 editVendorLayout.getChildren().addAll(EditVendor, vendorData , cmboVendorOptions, btnChooseVendor, btnMainMenu1);
                 editVendor = new Scene(editVendorLayout, 500, 500);
-        
+                
         // Edit Vendor Scene    
             btnEditVendor.setOnAction(e -> {
                 primaryStage.setScene(editVendor);
@@ -694,13 +715,33 @@ public class MenuFX extends Application {
                         txtEditVendorBusinessAddress, editVendorPhoneNumber, txtEditVendorPhoneNumber, btnEditSaveVendor);
                 editingVendor = new Scene(editingVendorLayout, 500, 500);
 
+           
             // Uses the EditVendor() method in the Vendor class to change a certain vendor
             btnEditSaveVendor.setOnAction(e -> {
+                if (txtEditVendorBusinessName.getText().trim().length() == 0 || txtVendorBusinessAddress.getText().trim().length() == 0 || txtEditVendorPhoneNumber.getText().trim().length() == 0)
+                {
+                    Alert alert = new Alert(AlertType.INFORMATION);
+                    alert.setTitle("Input Error");
+                    alert.setHeaderText("Opps! Error!");
+                    alert.setContentText("Please Fill Out all Data Fields");
+                    alert.showAndWait();
+                }
+                else if (txtEditVendorPhoneNumber.getText().trim().length() != 10)
+                {
+                    Alert alert = new Alert(AlertType.INFORMATION);
+                    alert.setTitle("Input Error");
+                    alert.setHeaderText("Opps! Error!");
+                    alert.setContentText("Phone Number must be 10 Digits");
+                    alert.showAndWait();                    
+                }
+                else
+                {
                 Vendor.EditVendor(txtEditVendorBusinessName, txtEditVendorBusinessAddress, txtEditVendorPhoneNumber, vendorArray, cmboVendorOptions);
                 cmboVendorOptions.getItems().clear();
-                vendorData.getItems().clear();
-                MainMenu(primaryStage, menuScene);
-            });    
+                MainMenu(primaryStage, menuScene, cmboSelectVendor);
+                }
+            });
+           
         //Setting Scene for Print Report
         Label lblPrintReport = new Label("Select a Report to Print");
         Button btnPrintReceipt = new Button("Print Receipt for Sale");
