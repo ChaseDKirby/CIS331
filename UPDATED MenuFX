@@ -2,7 +2,6 @@
 package Group_Project;
 
 import javafx.application.Application;
-import javafx.event.*;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
@@ -12,9 +11,10 @@ import static javafx.application.Application.launch;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
-import javax.swing.JOptionPane;
+
 
 
 public class MenuFX extends Application {
@@ -173,15 +173,27 @@ public class MenuFX extends Application {
                 btnSaveCustomer.setOnAction(e -> {
                     if (txtCustomerFirstName.getText().trim().length() == 0 || txtCustomerLastName.getText().trim().length() == 0 || txtAddress.getText().trim().length() == 0 || txtCustomerPhoneNumber.getText().trim().length() == 0)
                     {
-                        JOptionPane.showMessageDialog(null, "Please Fill Out All Fields");
+                        Alert alert = new Alert(AlertType.INFORMATION);
+                        alert.setTitle("Input Error");
+                        alert.setHeaderText("Opps! Error!");
+                        alert.setContentText("Please Fill Out all Data Fields");
+                        alert.showAndWait();
                     }
                     else if (txtCustomerPhoneNumber.getText().trim().length() != 10)
-                    {
-                        JOptionPane.showMessageDialog(null, "Phone Number must be 10 Digits");   
+                    {  
+                        Alert alert = new Alert(AlertType.INFORMATION);
+                        alert.setTitle("Input Error");
+                        alert.setHeaderText("Opps! Error!");
+                        alert.setContentText("Phone Number must be 10 Digits");
+                        alert.showAndWait();
                     }
                     else if (!txtCustomerEmail.getText().trim().contains("@"))
                     {
-                        JOptionPane.showMessageDialog(null, "Please Enter Valid Email, Make Sure to Use @ and .");
+                        Alert alert = new Alert(AlertType.INFORMATION);
+                        alert.setTitle("Input Error");
+                        alert.setHeaderText("Opps! Error!");
+                        alert.setContentText("Please Enter a Valid Email");
+                        alert.showAndWait();
                     }
                     else
                     {
@@ -259,15 +271,27 @@ public class MenuFX extends Application {
             btnEditSaveCustomer.setOnAction(e -> {
                 if (txtEditCustomerFirstName.getText().trim().length() == 0 || txtEditCustomerLastName.getText().trim().length() == 0 || txtEditAddress.getText().trim().length() == 0 || txtEditCustomerPhoneNumber.getText().trim().length() == 0)
                 {
-                    JOptionPane.showMessageDialog(null, "Please Fill Out All Fields");
+                    Alert alert = new Alert(AlertType.INFORMATION);
+                    alert.setTitle("Input Error");
+                    alert.setHeaderText("Opps! Error!");
+                    alert.setContentText("Please Fill Out all Data Fields");
+                    alert.showAndWait();
                 }
                 else if (txtEditCustomerPhoneNumber.getText().trim().length() != 10)
                 {
-                    JOptionPane.showMessageDialog(null, "Phone Number must be 10 Digits");   
+                    Alert alert = new Alert(AlertType.INFORMATION);
+                    alert.setTitle("Input Error");
+                    alert.setHeaderText("Opps! Error!");
+                    alert.setContentText("Phone Number must be 10 Digits");
+                    alert.showAndWait();                    
                 }
                 else if (!txtEditCustomerEmail.getText().trim().contains("@") && !txtEditCustomerEmail.getText().trim().contains("."))
                 {
-                    JOptionPane.showMessageDialog(null, "Please Enter Valid Email, Make Sure to Use @ and .");
+                    Alert alert = new Alert(AlertType.INFORMATION);
+                    alert.setTitle("Input Error");
+                    alert.setHeaderText("Opps! Error!");
+                    alert.setContentText("Please Enter a Valid Email");
+                    alert.showAndWait();
                 }
                 else
                 {
