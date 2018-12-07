@@ -1,5 +1,5 @@
 
-package Group_Project_Test;
+package Group_Project;
 
 import javafx.application.Application;
 import javafx.event.*;
@@ -14,9 +14,10 @@ import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javax.swing.JOptionPane;
 
 
-public class Test_MenuFX extends Application {
+public class MenuFX extends Application {
     //Buttons and Labels for Menu Window
     Label lblPrompt = new Label ("Please Select a Menu Option");
     Button btnCustomer = new Button("Customer");
@@ -156,7 +157,7 @@ public class Test_MenuFX extends Application {
                 TextField txtCustomerLastName = new TextField();
                 Label customerAddress = new Label("Address");
                 TextField txtAddress = new TextField();
-                Label customerPhoneNumber = new Label("Phone Number");
+                Label customerPhoneNumber = new Label("Phone Number:  Example: (8023462288)");
                 TextField txtCustomerPhoneNumber = new TextField();
                 Label customerEmail = new Label("Email");
                 TextField txtCustomerEmail = new TextField();
@@ -169,9 +170,24 @@ public class Test_MenuFX extends Application {
                         txtCustomerEmail, customerNotes, txtCustomerNotes, btnSaveCustomer);
                 createCustomer = new Scene(createCustomerLayout, 500, 600);
                 // When User wants to save Customer, stores and returns to main menu
-                btnSaveCustomer.setOnAction(e -> {   
+                btnSaveCustomer.setOnAction(e -> {
+                    if (txtCustomerFirstName.getText().trim().length() == 0 || txtCustomerLastName.getText().trim().length() == 0 || txtAddress.getText().trim().length() == 0 || txtCustomerPhoneNumber.getText().trim().length() == 0)
+                    {
+                        JOptionPane.showMessageDialog(null, "Please Fill Out All Fields");
+                    }
+                    else if (txtCustomerPhoneNumber.getText().trim().length() != 10)
+                    {
+                        JOptionPane.showMessageDialog(null, "Phone Number must be 10 Digits");   
+                    }
+                    else if (!txtCustomerEmail.getText().trim().contains("@"))
+                    {
+                        JOptionPane.showMessageDialog(null, "Please Enter Valid Email, Make Sure to Use @ and .");
+                    }
+                    else
+                    {
                     CreateCustomer(txtCustomerFirstName, txtCustomerLastName, txtAddress, txtCustomerPhoneNumber, txtCustomerEmail, txtCustomerNotes, customerArray);
                     MainMenu(primaryStage, menuScene, cmboSelectCustomer, cmboSelectItem);
+                    }
                     
                 });
                 btnMainMenu.setOnAction(e -> {
@@ -241,10 +257,25 @@ public class Test_MenuFX extends Application {
             });
             // Uses the EditCustomer() method in the Customer class to change a certain customer
             btnEditSaveCustomer.setOnAction(e -> {
+                if (txtEditCustomerFirstName.getText().trim().length() == 0 || txtEditCustomerLastName.getText().trim().length() == 0 || txtEditAddress.getText().trim().length() == 0 || txtEditCustomerPhoneNumber.getText().trim().length() == 0)
+                {
+                    JOptionPane.showMessageDialog(null, "Please Fill Out All Fields");
+                }
+                else if (txtEditCustomerPhoneNumber.getText().trim().length() != 10)
+                {
+                    JOptionPane.showMessageDialog(null, "Phone Number must be 10 Digits");   
+                }
+                else if (!txtEditCustomerEmail.getText().trim().contains("@") && !txtEditCustomerEmail.getText().trim().contains("."))
+                {
+                    JOptionPane.showMessageDialog(null, "Please Enter Valid Email, Make Sure to Use @ and .");
+                }
+                else
+                {
                 Customer.EditCustomer(txtEditCustomerFirstName, txtEditCustomerLastName, txtEditAddress, txtEditCustomerPhoneNumber, txtEditCustomerEmail, customerArray, cmboCustomerOptions);
                 cmboCustomerOptions.getItems().clear();
                 lstData.getItems().clear();
                 MainMenu(primaryStage, menuScene, cmboSelectCustomer, cmboSelectItem);
+                }
             });
             TextArea showNotes = new TextArea();
             Button btnBack = new Button("Back");
