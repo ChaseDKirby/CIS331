@@ -5,7 +5,6 @@ Assignment: Group Project Part 1
 Purpose: Use classes and methods to create a program that will create/edit different types of users, print reports and enter sales
 */
 package Group_Project;
-
 import java.util.*;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
@@ -71,7 +70,7 @@ public String toString()
 }
 public String inventoryLevels()
 {
-    String output = "\t" + ID + "\t" + this.itemName + "\t" + this.quantity;
+    String output = "\t" + ID + "\t" + this.itemName + "\t\t" + this.quantity;
     return output;
 }
 public String soldOut()
