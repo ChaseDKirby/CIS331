@@ -39,7 +39,7 @@ public Vendor(String name, String address, String phone)
 }
 public String toString()
 {
-    String output = ID + "\t" + this.vendorBusinessName;
+    String output = ID + "\t\t" + this.vendorBusinessName;
     return output;
 }
 
@@ -83,23 +83,17 @@ public static void EditVendor(TextField txtEditVendorBusinessName,TextField txtE
                 int i = cmboVendorOptions.getSelectionModel().getSelectedIndex();           
 
                 String vendorBusinessName1 = txtEditVendorBusinessName.getText(); 
-
                 vendorArray.get(i).vendorBusinessName = vendorBusinessName1;
-
                 txtEditVendorBusinessName.clear();
 
                 
                 String vendorBusinessAddress1 = txtEditVendorBusinessAddress.getText();
-
                 vendorArray.get(i).vendorBusinessAddress = vendorBusinessAddress1;
-
                 txtEditVendorBusinessAddress.clear();
                 
-                
+               
                 String vendorPhoneNumber1 = txtEditVendorPhoneNumber.getText();
-
                 vendorArray.get(i).vendorPhoneNumber = vendorPhoneNumber1;
-
                 txtEditVendorPhoneNumber.clear();
 
     }
