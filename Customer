@@ -4,7 +4,7 @@ Date: 11/18/2018
 Assignment: Group Project Part 1
 Purpose: Use classes and methods to create a program that will create/edit different types of users, print reports and enter sales
 */
-package Group_Project_Test;
+package Group_Project;
 
 import javafx.application.Application;
 import javafx.event.*;
