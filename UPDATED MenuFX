@@ -372,9 +372,11 @@ public class MenuFX extends Application {
                         txtContractorEmail, contractorNotes, txtContractorNotes, contractorBusinessName, txtContractorBusinessName, contractorBusinessNumber, txtContractorBusinessNumber, btnSaveContractor);
                 createContractor = new Scene(createContractorLayout, 500, 700);
             
+            
+       
              // When User wants to save Contractor, stores and returns to main menu
-                btnSaveContractor.setOnAction(e -> {  
-                   if (txtContractorFirstName.getText().trim().length() == 0 || txtContractorLastName.getText().trim().length() == 0 || txtContractorAddress.getText().trim().length() == 0 || txtContractorPhoneNumber.getText().trim().length() == 0 
+                btnSaveContractor.setOnAction(e -> {   
+                                       if (txtContractorFirstName.getText().trim().length() == 0 || txtContractorLastName.getText().trim().length() == 0 || txtContractorAddress.getText().trim().length() == 0 || txtContractorPhoneNumber.getText().trim().length() == 0 
                           || txtContractorBusinessName.getText().trim().length() == 0 || txtContractorBusinessNumber.getText().trim().length() == 0)
                     {
                         Alert alert = new Alert(AlertType.INFORMATION);
@@ -409,7 +411,7 @@ public class MenuFX extends Application {
                     }
                     else
                     {
-                    CreateContractor(txtContractorFirstName, txtContractorLastName, txtContractorAddress, txtContractorPhoneNumber, txtContractorEmail, txtContractorNotes, txtContractorBusinessNumber, txtContractorBusinessName, contractorArray);
+                    CreateContractor(txtContractorFirstName, txtContractorLastName, txtContractorAddress, txtContractorPhoneNumber, txtContractorEmail, txtContractorBusinessNumber, txtContractorBusinessName, contractorArray, txtContractorNotes);
                     MainMenu(primaryStage, menuScene, cmboSelectCustomer, cmboSelectItem);
                     }
                 });
@@ -420,47 +422,23 @@ public class MenuFX extends Application {
                 editContractorLayout.getChildren().addAll(EditContractor, contractorData , cmboContractorOptions, btnChooseContractor, btnMainMenu4);
                 editContractor = new Scene(editContractorLayout, 500, 500);
             // Edit Contractor Scene    
-            btnEditSaveContractor.setOnAction(e -> {
-                
-                 if (txtContractorFirstName.getText().trim().length() == 0 || txtContractorLastName.getText().trim().length() == 0 || txtContractorAddress.getText().trim().length() == 0 || txtContractorPhoneNumber.getText().trim().length() == 0 
-                          || txtContractorBusinessName.getText().trim().length() == 0 || txtContractorBusinessNumber.getText().trim().length() == 0)
+            btnEditContractor.setOnAction(e -> {
+                primaryStage.setScene(editContractor);
+                if (contractorArray.isEmpty())
+                {
+                    contractorCreated.add("Please Add a Contractor First");
+                }
+                else
+                {
+                    for (Contractor cust: contractorArray)
                     {
-                        Alert alert = new Alert(AlertType.INFORMATION);
-                        alert.setTitle("Input Error");
-                        alert.setHeaderText("Opps! Error!");
-                        alert.setContentText("Please Fill Out all Data Fields");
-                        alert.showAndWait();
+                            contractorCreated.add("        ID\t\t\tFull Name");
+                            contractorCreated.add(cust.toString());
+                            editContractorList.add(cust.toString());  
                     }
-                    else if (txtContractorPhoneNumber.getText().trim().length() != 10)
-                    {  
-                        Alert alert = new Alert(AlertType.INFORMATION);
-                        alert.setTitle("Input Error");
-                        alert.setHeaderText("Opps! Error!");
-                        alert.setContentText("Contractor Number must be 10 Digits");
-                        alert.showAndWait();
-                    }
-                    else if (txtContractorBusinessNumber.getText().trim().length() != 10)
-                    {  
-                        Alert alert = new Alert(AlertType.INFORMATION);
-                        alert.setTitle("Input Error");
-                        alert.setHeaderText("Opps! Error!");
-                        alert.setContentText("Business Number must be 10 Digits");
-                        alert.showAndWait();
-                    }
-                    else if (!txtContractorEmail.getText().trim().contains("@"))
-                    {
-                        Alert alert = new Alert(AlertType.INFORMATION);
-                        alert.setTitle("Input Error");
-                        alert.setHeaderText("Opps! Error!");
-                        alert.setContentText("Please Enter a Valid Email");
-                        alert.showAndWait();
-                    }
-                    else
-                    {
-                    CreateContractor(txtContractorFirstName, txtContractorLastName, txtContractorAddress, txtContractorPhoneNumber, txtContractorEmail, txtContractorNotes, txtContractorBusinessNumber, txtContractorBusinessName, contractorArray);
-                    MainMenu(primaryStage, menuScene, cmboSelectCustomer, cmboSelectItem);
-                    }
-                }); 
+                }
+                    
+            });    
             btnMainMenu4.setOnAction(e -> {
                 
             });
@@ -496,10 +474,46 @@ public class MenuFX extends Application {
             
             // Uses the EditContractor() method in the Contractor class to change a certain customer
             btnEditSaveContractor.setOnAction(e -> {
-                Contractor.EditContractor(txtEditContractorFirstName, txtEditContractorLastName, txtEditContractorAddress, txtEditContractorPhoneNumber, txtEditContractorEmail, contractorArray, cmboContractorOptions);
-                cmboContractorOptions.getItems().clear();
-                contractorData.getItems().clear();
-                MainMenu(primaryStage, menuScene);
+                                 if (txtContractorFirstName.getText().trim().length() == 0 || txtContractorLastName.getText().trim().length() == 0 || txtContractorAddress.getText().trim().length() == 0 || txtContractorPhoneNumber.getText().trim().length() == 0 
+                          || txtContractorBusinessName.getText().trim().length() == 0 || txtContractorBusinessNumber.getText().trim().length() == 0)
+                    {
+                        Alert alert = new Alert(AlertType.INFORMATION);
+                        alert.setTitle("Input Error");
+                        alert.setHeaderText("Opps! Error!");
+                        alert.setContentText("Please Fill Out all Data Fields");
+                        alert.showAndWait();
+                    }
+                    else if (txtContractorPhoneNumber.getText().trim().length() != 10)
+                    {  
+                        Alert alert = new Alert(AlertType.INFORMATION);
+                        alert.setTitle("Input Error");
+                        alert.setHeaderText("Opps! Error!");
+                        alert.setContentText("Contractor Number must be 10 Digits");
+                        alert.showAndWait();
+                    }
+                    else if (txtContractorBusinessNumber.getText().trim().length() != 10)
+                    {  
+                        Alert alert = new Alert(AlertType.INFORMATION);
+                        alert.setTitle("Input Error");
+                        alert.setHeaderText("Opps! Error!");
+                        alert.setContentText("Business Number must be 10 Digits");
+                        alert.showAndWait();
+                    }
+                    else if (!txtContractorEmail.getText().trim().contains("@"))
+                    {
+                        Alert alert = new Alert(AlertType.INFORMATION);
+                        alert.setTitle("Input Error");
+                        alert.setHeaderText("Opps! Error!");
+                        alert.setContentText("Please Enter a Valid Email");
+                        alert.showAndWait();
+                    }
+                    else
+                    {
+                    CreateContractor(txtContractorFirstName, txtContractorLastName, txtContractorAddress, txtContractorPhoneNumber, txtContractorEmail, txtContractorBusinessNumber, txtContractorBusinessName, contractorArray, txtContractorNotes);
+                    cmboContractorOptions.getItems().clear();
+                    contractorData.getItems().clear();
+                    MainMenu(primaryStage, menuScene, cmboSelectCustomer, cmboSelectItem);
+                    }
             });
             
             TextArea contractorNotes1 = new TextArea();
@@ -561,12 +575,22 @@ public class MenuFX extends Application {
                         itemDescription, txtItemDescription, itemPricePaid, txtItemPricePaid, itemForSalePrice, txtItemSalePrice, btnItemSave);
                 createItem = new Scene(createItemLayout, 500, 500);
 
-                //When User wants to save Item, stores and returns to main menu
 
+                //When User wants to save Item, stores and returns to main menu
                 btnItemSave.setOnAction(e -> {
+                    if(txtItemName.getText().trim().length() == 0 || txtItemQuantity.getText().trim().length() == 0 || txtItemDescription.getText().trim().length() == 0 || txtItemWeight.getText().trim().length() == 0 || txtItemPricePaid.getText().trim().length() == 0 || txtItemSalePrice.getText().trim().length() == 0)
+                    {
+                        Alert alert = new Alert(AlertType.INFORMATION);
+                        alert.setTitle("Input Error");
+                        alert.setHeaderText("Oops! Error!");
+                        alert.setContentText("Please fill out all data field");
+                        alert.showAndWait();
+                    }
+                    else
+                    {                  
                     CreateItem(txtItemName, txtItemQuantity, txtItemWeight, txtItemDescription, txtItemPricePaid, txtItemSalePrice, itemArray);
                     MainMenu(primaryStage, menuScene, cmboItemOptions);
-                    
+                    }
                 });
                 Label editItems = new Label("Select an Item to edit");
                 Button btnChooseItems = new Button("Edit Items");
@@ -619,11 +643,23 @@ public class MenuFX extends Application {
 
                 //Button to display all the customers that have been created
                 btnEditItemSave.setOnAction(e -> {
+                     if(edittxtItemName.getText().trim().length() == 0 || edittxtItemDescription.getText().trim().length() == 0 || edittxtItemQuantity.getText().trim().length() == 0 || edittxtItemWeight.getText().trim().length() == 0 || edittxtItemPricePaid.getText().trim().length() == 0
+                             || edittxtItemSalePrice.getText().trim().length() == 0)
+                    {
+                        Alert alert = new Alert(AlertType.INFORMATION);
+                        alert.setTitle("Input Error");
+                        alert.setHeaderText("Oops! Error!");
+                        alert.setContentText("Please fill out all data field");
+                        alert.showAndWait();
+                    }         
+                    else   
+                    {
                     Item.EditItem(edittxtItemName, edittxtItemQuantity, edittxtItemWeight, edittxtItemDescription, edittxtItemPricePaid,
                     edittxtItemSalePrice, itemArray, cmboItemOptions);
                     itemData.getItems().clear();
                     cmboItemOptions.getItems().clear();
                     MainMenu(primaryStage, menuScene);
+                    }
 
                 });
             
@@ -665,10 +701,23 @@ public class MenuFX extends Application {
             });
             // Calls method to create a sale and clears combobox
             btnCreateSale.setOnAction(e -> {
+                int num = Integer.parseInt(txtEnterQuantity.getText());
+                int item3 = cmboSelectItem.getSelectionModel().getSelectedIndex();
+                if (num > itemArray.get(item3).quantity)
+                {
+                        Alert alert = new Alert(AlertType.INFORMATION);
+                        alert.setTitle("Input Error");
+                        alert.setHeaderText("Oops! Error!");
+                        alert.setContentText("There is only " + itemArray.get(item3).quantity + " "+ itemArray.get(item3).itemName + "'s");
+                        alert.showAndWait();
+                }
+                else
+                {
                 CreateSale(txtEnterQuantity, txtEnterDate, cmboSelectItem, cmboSelectCustomer, saleArray, itemArray, customerArray);
                 cmboSelectCustomer.getItems().clear();
                 cmboSelectItem.getItems().clear();
                 MainMenu(primaryStage, menuScene, cmboSelectCustomer, cmboSelectItem);
+                }
             });    
             
                 // Action for when Vendor is Selected
@@ -698,7 +747,7 @@ public class MenuFX extends Application {
                 createVendor = new Scene(createVendorLayout, 500, 500);
 
                 // When User wants to save Vendor, stores and returns to main menu
-                btnSaveVendor.setOnAction(e -> {                                
+                btnSaveVendor.setOnAction(e -> {  
                     if (txtVendorBusinessName.getText().trim().length() == 0 || txtVendorBusinessAddress.getText().trim().length() == 0 || txtVendorPhoneNumber.getText().trim().length() == 0)
                     {
                         Alert alert = new Alert(AlertType.INFORMATION);
@@ -721,15 +770,12 @@ public class MenuFX extends Application {
                     MainMenu(primaryStage, menuScene, cmboSelectVendor);
                     }
                 });
-                btnMainMenu.setOnAction(e -> {
-                    MainMenu(primaryStage, menuScene, cmboSelectVendor);         
-                });
                 Label EditVendor = new Label("Select a Vendor to Edit");                
                 Button btnChooseVendor = new Button("Edit Vendor");
                 VBox editVendorLayout = new VBox(10);
                 editVendorLayout.getChildren().addAll(EditVendor, vendorData , cmboVendorOptions, btnChooseVendor, btnMainMenu1);
                 editVendor = new Scene(editVendorLayout, 500, 500);
-                
+        
         // Edit Vendor Scene    
             btnEditVendor.setOnAction(e -> {
                 primaryStage.setScene(editVendor);
@@ -773,10 +819,9 @@ public class MenuFX extends Application {
                         txtEditVendorBusinessAddress, editVendorPhoneNumber, txtEditVendorPhoneNumber, btnEditSaveVendor);
                 editingVendor = new Scene(editingVendorLayout, 500, 500);
 
-           
             // Uses the EditVendor() method in the Vendor class to change a certain vendor
             btnEditSaveVendor.setOnAction(e -> {
-                if (txtEditVendorBusinessName.getText().trim().length() == 0 || txtVendorBusinessAddress.getText().trim().length() == 0 || txtEditVendorPhoneNumber.getText().trim().length() == 0)
+                if (txtEditVendorBusinessName.getText().trim().length() == 0 || txtEditVendorBusinessAddress.getText().trim().length() == 0 || txtEditVendorPhoneNumber.getText().trim().length() == 0)
                 {
                     Alert alert = new Alert(AlertType.INFORMATION);
                     alert.setTitle("Input Error");
@@ -796,10 +841,10 @@ public class MenuFX extends Application {
                 {
                 Vendor.EditVendor(txtEditVendorBusinessName, txtEditVendorBusinessAddress, txtEditVendorPhoneNumber, vendorArray, cmboVendorOptions);
                 cmboVendorOptions.getItems().clear();
+                vendorData.getItems().clear();
                 MainMenu(primaryStage, menuScene, cmboSelectVendor);
                 }
-            });
-           
+            });    
         //Setting Scene for Print Report
         Label lblPrintReport = new Label("Select a Report to Print");
         Button btnPrintReceipt = new Button("Print Receipt for Sale");
