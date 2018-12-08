@@ -409,7 +409,7 @@ public class MenuFX extends Application {
                     }
                     else
                     {
-                    CreateContractor(txtContractorFirstName, txtContractorLastName, txtContractorAddress, txtContractorPhoneNumber, txtContractorEmail, txtContractorNotes, contractorArray);
+                    CreateContractor(txtContractorFirstName, txtContractorLastName, txtContractorAddress, txtContractorPhoneNumber, txtContractorEmail, txtContractorNotes, txtContractorBusinessNumber, txtContractorBusinessName, contractorArray);
                     MainMenu(primaryStage, menuScene, cmboSelectCustomer, cmboSelectItem);
                     }
                 });
@@ -457,7 +457,7 @@ public class MenuFX extends Application {
                     }
                     else
                     {
-                    CreateContractor(txtContractorFirstName, txtContractorLastName, txtContractorAddress, txtContractorPhoneNumber, txtContractorEmail, txtContractorNotes, contractorArray);
+                    CreateContractor(txtContractorFirstName, txtContractorLastName, txtContractorAddress, txtContractorPhoneNumber, txtContractorEmail, txtContractorNotes, txtContractorBusinessNumber, txtContractorBusinessName, contractorArray);
                     MainMenu(primaryStage, menuScene, cmboSelectCustomer, cmboSelectItem);
                     }
                 }); 
