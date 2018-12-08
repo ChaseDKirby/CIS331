@@ -372,12 +372,46 @@ public class MenuFX extends Application {
                         txtContractorEmail, contractorNotes, txtContractorNotes, contractorBusinessName, txtContractorBusinessName, contractorBusinessNumber, txtContractorBusinessNumber, btnSaveContractor);
                 createContractor = new Scene(createContractorLayout, 500, 700);
             
-            
-       
              // When User wants to save Contractor, stores and returns to main menu
-                btnSaveContractor.setOnAction(e -> {                                
-                    CreateContractor(txtContractorFirstName, txtContractorLastName, txtAddress, txtContractorPhoneNumber, txtContractorEmail, txtContractorBusinessName, txtContractorBusinessNumber, contractorArray, txtContractorNotes);
-                    MainMenu(primaryStage, menuScene);
+                btnSaveContractor.setOnAction(e -> {  
+                   if (txtContractorFirstName.getText().trim().length() == 0 || txtContractorLastName.getText().trim().length() == 0 || txtContractorAddress.getText().trim().length() == 0 || txtContractorPhoneNumber.getText().trim().length() == 0 
+                          || txtContractorBusinessName.getText().trim().length() == 0 || txtContractorBusinessNumber.getText().trim().length() == 0)
+                    {
+                        Alert alert = new Alert(AlertType.INFORMATION);
+                        alert.setTitle("Input Error");
+                        alert.setHeaderText("Opps! Error!");
+                        alert.setContentText("Please Fill Out all Data Fields");
+                        alert.showAndWait();
+                    }
+                    else if (txtContractorPhoneNumber.getText().trim().length() != 10)
+                    {  
+                        Alert alert = new Alert(AlertType.INFORMATION);
+                        alert.setTitle("Input Error");
+                        alert.setHeaderText("Opps! Error!");
+                        alert.setContentText("Contractor Number must be 10 Digits");
+                        alert.showAndWait();
+                    }
+                    else if (txtContractorBusinessNumber.getText().trim().length() != 10)
+                    {  
+                        Alert alert = new Alert(AlertType.INFORMATION);
+                        alert.setTitle("Input Error");
+                        alert.setHeaderText("Opps! Error!");
+                        alert.setContentText("Business Number must be 10 Digits");
+                        alert.showAndWait();
+                    }
+                    else if (!txtContractorEmail.getText().trim().contains("@"))
+                    {
+                        Alert alert = new Alert(AlertType.INFORMATION);
+                        alert.setTitle("Input Error");
+                        alert.setHeaderText("Opps! Error!");
+                        alert.setContentText("Please Enter a Valid Email");
+                        alert.showAndWait();
+                    }
+                    else
+                    {
+                    CreateContractor(txtContractorFirstName, txtContractorLastName, txtContractorAddress, txtContractorPhoneNumber, txtContractorEmail, txtContractorNotes, contractorArray);
+                    MainMenu(primaryStage, menuScene, cmboSelectCustomer, cmboSelectItem);
+                    }
                 });
                 Label EditContractor = new Label("Select a Contractor to Edit");                
                 Button btnChooseContractor = new Button("Edit Contractor");
@@ -386,23 +420,47 @@ public class MenuFX extends Application {
                 editContractorLayout.getChildren().addAll(EditContractor, contractorData , cmboContractorOptions, btnChooseContractor, btnMainMenu4);
                 editContractor = new Scene(editContractorLayout, 500, 500);
             // Edit Contractor Scene    
-            btnEditContractor.setOnAction(e -> {
-                primaryStage.setScene(editContractor);
-                if (contractorArray.isEmpty())
-                {
-                    contractorCreated.add("Please Add a Contractor First");
-                }
-                else
-                {
-                    for (Contractor cust: contractorArray)
+            btnEditSaveContractor.setOnAction(e -> {
+                
+                 if (txtContractorFirstName.getText().trim().length() == 0 || txtContractorLastName.getText().trim().length() == 0 || txtContractorAddress.getText().trim().length() == 0 || txtContractorPhoneNumber.getText().trim().length() == 0 
+                          || txtContractorBusinessName.getText().trim().length() == 0 || txtContractorBusinessNumber.getText().trim().length() == 0)
                     {
-                            contractorCreated.add("        ID\t\t\tFull Name");
-                            contractorCreated.add(cust.toString());
-                            editContractorList.add(cust.toString());  
+                        Alert alert = new Alert(AlertType.INFORMATION);
+                        alert.setTitle("Input Error");
+                        alert.setHeaderText("Opps! Error!");
+                        alert.setContentText("Please Fill Out all Data Fields");
+                        alert.showAndWait();
                     }
-                }
-                    
-            });    
+                    else if (txtContractorPhoneNumber.getText().trim().length() != 10)
+                    {  
+                        Alert alert = new Alert(AlertType.INFORMATION);
+                        alert.setTitle("Input Error");
+                        alert.setHeaderText("Opps! Error!");
+                        alert.setContentText("Contractor Number must be 10 Digits");
+                        alert.showAndWait();
+                    }
+                    else if (txtContractorBusinessNumber.getText().trim().length() != 10)
+                    {  
+                        Alert alert = new Alert(AlertType.INFORMATION);
+                        alert.setTitle("Input Error");
+                        alert.setHeaderText("Opps! Error!");
+                        alert.setContentText("Business Number must be 10 Digits");
+                        alert.showAndWait();
+                    }
+                    else if (!txtContractorEmail.getText().trim().contains("@"))
+                    {
+                        Alert alert = new Alert(AlertType.INFORMATION);
+                        alert.setTitle("Input Error");
+                        alert.setHeaderText("Opps! Error!");
+                        alert.setContentText("Please Enter a Valid Email");
+                        alert.showAndWait();
+                    }
+                    else
+                    {
+                    CreateContractor(txtContractorFirstName, txtContractorLastName, txtContractorAddress, txtContractorPhoneNumber, txtContractorEmail, txtContractorNotes, contractorArray);
+                    MainMenu(primaryStage, menuScene, cmboSelectCustomer, cmboSelectItem);
+                    }
+                }); 
             btnMainMenu4.setOnAction(e -> {
                 
             });
